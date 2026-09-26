@@ -732,5 +732,347 @@
 
   <script src="app.js"></script>
 
-</body>
+<!-- =========================
+     TMSJEANS CUSTOMER SUPPORT
+========================= -->
+
+<style>
+  #tmsSupportButton {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 58px;
+    height: 58px;
+    border: none;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 99999;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+  }
+
+  #tmsSupportBox {
+    position: fixed;
+    right: 22px;
+    bottom: 92px;
+    width: 340px;
+    max-width: calc(100vw - 30px);
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0,0,0,.25);
+    z-index: 99999;
+    display: none;
+    border: 1px solid #e5e5e5;
+  }
+
+  #tmsSupportBox.open {
+    display: block;
+  }
+
+  .tms-support-header {
+    background: #111;
+    color: #fff;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tms-support-header strong {
+    display: block;
+    font-size: 16px;
+  }
+
+  .tms-support-header span {
+    font-size: 12px;
+    opacity: .75;
+  }
+
+  #tmsSupportClose {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  #tmsSupportMessages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f7f7f7;
+  }
+
+  .tms-msg {
+    max-width: 85%;
+    padding: 10px 13px;
+    border-radius: 14px;
+    margin-bottom: 9px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .tms-msg.bot {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+  }
+
+  .tms-msg.user {
+    margin-left: auto;
+    background: #111;
+    color: #fff;
+  }
+
+  .tms-support-options {
+    padding: 10px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    border-top: 1px solid #eee;
+    background: #fff;
+  }
+
+  .tms-support-options button {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 7px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .tms-support-form {
+    display: flex;
+    border-top: 1px solid #eee;
+    background: #fff;
+  }
+
+  #tmsSupportInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  #tmsSupportSend {
+    border: none;
+    background: #111;
+    color: #fff;
+    padding: 0 17px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    #tmsSupportBox {
+      right: 12px;
+      bottom: 82px;
+      width: calc(100vw - 24px);
+    }
+
+    #tmsSupportButton {
+      right: 15px;
+      bottom: 15px;
+    }
+  }
+</style>
+
+<button id="tmsSupportButton" aria-label="Customer Support">
+  💬
+</button>
+
+<div id="tmsSupportBox">
+
+  <div class="tms-support-header">
+    <div>
+      <strong>TMSJEANS Customer Support</strong>
+      <span>How can we help you?</span>
+    </div>
+
+    <button id="tmsSupportClose">×</button>
+  </div>
+
+  <div id="tmsSupportMessages">
+    <div class="tms-msg bot">
+      👋 Welcome to TMSJEANS Customer Support!
+      <br><br>
+      Choose an option below or type your question.
+    </div>
+  </div>
+
+  <div class="tms-support-options">
+
+    <button data-support="order">
+      📦 Order Help
+    </button>
+
+    <button data-support="delivery">
+      🚚 Delivery
+    </button>
+
+    <button data-support="return">
+      ↩️ Return
+    </button>
+
+    <button data-support="payment">
+      💳 Payment
+    </button>
+
+    <button data-support="size">
+      👕 Size Help
+    </button>
+
+    <button data-support="human">
+      👨‍💼 Support Team
+    </button>
+
+  </div>
+
+  <form class="tms-support-form" id="tmsSupportForm">
+
+    <input
+      id="tmsSupportInput"
+      type="text"
+      placeholder="Type your message..."
+      autocomplete="off"
+    >
+
+    <button id="tmsSupportSend" type="submit">
+      ➤
+    </button>
+
+  </form>
+
+</div>
+
+<script>
+(function(){
+
+  const button =
+    document.getElementById("tmsSupportButton");
+
+  const box =
+    document.getElementById("tmsSupportBox");
+
+  const close =
+    document.getElementById("tmsSupportClose");
+
+  const messages =
+    document.getElementById("tmsSupportMessages");
+
+  const form =
+    document.getElementById("tmsSupportForm");
+
+  const input =
+    document.getElementById("tmsSupportInput");
+
+  const replies = {
+
+    order:
+      "📦 Please send your TMSJEANS order ID and we will guide you with your order.",
+
+    delivery:
+      "🚚 Standard delivery usually takes 3–7 business days depending on your PIN code.",
+
+    return:
+      "↩️ For return or size exchange, please keep your order ID ready and follow the store's return policy.",
+
+    payment:
+      "💳 For payment problems, tell us whether the payment failed, is pending, or you need help with a refund.",
+
+    size:
+      "👕 Tell us your usual size, height and weight and we can guide you regarding the fit.",
+
+    human:
+      "👨‍💼 Please type your name, order ID (if any), phone/email and your question for Customer Support."
+  };
+
+  function addMessage(text, type){
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "tms-msg " + type;
+
+    div.textContent =
+      text;
+
+    messages.appendChild(div);
+
+    messages.scrollTop =
+      messages.scrollHeight;
+  }
+
+  button.addEventListener("click", function(){
+    box.classList.toggle("open");
+
+    if(box.classList.contains("open")){
+      input.focus();
+    }
+  });
+
+  close.addEventListener("click", function(){
+    box.classList.remove("open");
+  });
+
+  document
+    .querySelectorAll("[data-support]")
+    .forEach(function(btn){
+
+      btn.addEventListener("click", function(){
+
+        const type =
+          btn.getAttribute("data-support");
+
+        addMessage(
+          btn.textContent.trim(),
+          "user"
+        );
+
+        setTimeout(function(){
+
+          addMessage(
+            replies[type],
+            "bot"
+          );
+
+        }, 250);
+
+      });
+
+    });
+
+  form.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    const text =
+      input.value.trim();
+
+    if(!text) return;
+
+    addMessage(
+      text,
+      "user"
+    );
+
+    input.value = "";
+
+    setTimeout(function(){
+
+      addMessage(
+        "Thanks for contacting TMSJEANS Customer Support. Our support team can help with orders, delivery, returns, payments and sizing.",
+        "bot"
+      );
+
+    }, 300);
+
+  });
+
+})();
+</script></body>
 </html>
