@@ -2531,3 +2531,739 @@ $("#tmsLogout")
 renderProducts();
 
 renderCart();
+/* =====================================================
+   TMSJEANS EMAIL LOGIN
+   REPLACES PHONE OTP LOGIN UI
+===================================================== */
+
+setTimeout(() => {
+
+  const accountModal =
+    document.querySelector("#tmsAccountModal");
+
+  const accountButton =
+    document.querySelector("#tmsAccountButton");
+
+  if (!accountModal || !accountButton) {
+    return;
+  }
+
+  /* Replace old phone-login box */
+
+  const card =
+    accountModal.querySelector(
+      ".tms-account-card"
+    );
+
+  if (!card) return;
+
+  card.innerHTML = `
+
+    <div class="tms-account-head">
+
+      <h3>TMSJEANS Account</h3>
+
+      <button
+        id="emailAccountClose"
+        type="button"
+        style="
+          border:0;
+          background:transparent;
+          font-size:26px;
+          cursor:pointer;
+        "
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <div id="emailLoginView">
+
+      <p style="
+        margin-top:0;
+        color:#666;
+        font-size:14px;
+      ">
+        Login to your TMSJEANS account.
+      </p>
+
+      <input
+        id="customerEmail"
+        type="email"
+        placeholder="Email address"
+        autocomplete="email"
+        style="
+          width:100%;
+          box-sizing:border-box;
+          padding:13px;
+          border:1px solid #ddd;
+          border-radius:10px;
+          margin:7px 0;
+        "
+      >
+
+      <input
+        id="customerPassword"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        style="
+          width:100%;
+          box-sizing:border-box;
+          padding:13px;
+          border:1px solid #ddd;
+          border-radius:10px;
+          margin:7px 0;
+        "
+      >
+
+      <button
+        id="customerLogin"
+        type="button"
+        style="
+          width:100%;
+          border:0;
+          border-radius:10px;
+          padding:13px;
+          margin-top:10px;
+          background:#111;
+          color:#fff;
+          font-weight:700;
+          cursor:pointer;
+        "
+      >
+        Login
+      </button>
+
+      <button
+        id="customerCreate"
+        type="button"
+        style="
+          width:100%;
+          border:1px solid #ddd;
+          border-radius:10px;
+          padding:12px;
+          margin-top:8px;
+          background:#fff;
+          color:#111;
+          font-weight:700;
+          cursor:pointer;
+        "
+      >
+        Create Account
+      </button>
+
+      <button
+        id="customerForgot"
+        type="button"
+        style="
+          width:100%;
+          border:0;
+          background:transparent;
+          padding:10px;
+          margin-top:5px;
+          color:#555;
+          cursor:pointer;
+        "
+      >
+        Forgot Password?
+      </button>
+
+      <div
+        id="emailAuthMessage"
+        style="
+          margin-top:10px;
+          font-size:13px;
+        "
+      ></div>
+
+    </div>
+
+
+    <!-- LOGGED IN -->
+
+    <div
+      id="emailLoggedInView"
+      style="display:none;"
+    >
+
+      <p
+        id="emailLoggedUser"
+        style="
+          margin-top:0;
+          color:#555;
+        "
+      ></p>
+
+      <button
+        id="emailMyOrders"
+        type="button"
+        style="
+          width:100%;
+          border:0;
+          border-radius:10px;
+          padding:13px;
+          background:#111;
+          color:#fff;
+          font-weight:700;
+          cursor:pointer;
+        "
+      >
+        📦 My Orders
+      </button>
+
+      <div id="emailOrders"></div>
+
+      <button
+        id="emailLogout"
+        type="button"
+        style="
+          width:100%;
+          border:1px solid #ddd;
+          border-radius:10px;
+          padding:12px;
+          margin-top:12px;
+          background:#fff;
+          cursor:pointer;
+        "
+      >
+        Logout
+      </button>
+
+    </div>
+
+  `;
+
+
+  /* CLOSE */
+
+  document
+    .querySelector("#emailAccountClose")
+    .onclick = () => {
+
+      accountModal
+        .classList
+        .remove("show");
+
+    };
+
+
+  /* ACCOUNT OPEN */
+
+  accountButton.onclick = () => {
+
+    accountModal
+      .classList
+      .add("show");
+
+    updateEmailAccountUI();
+
+  };
+
+
+  /* LOGIN */
+
+  document
+    .querySelector("#customerLogin")
+    .onclick = async () => {
+
+      const email =
+        document
+          .querySelector(
+            "#customerEmail"
+          )
+          .value
+          .trim();
+
+      const password =
+        document
+          .querySelector(
+            "#customerPassword"
+          )
+          .value;
+
+      const message =
+        document
+          .querySelector(
+            "#emailAuthMessage"
+          );
+
+
+      if (!email || !password) {
+
+        message.textContent =
+          "Please enter email and password.";
+
+        message.style.color =
+          "#b00020";
+
+        return;
+
+      }
+
+
+      try {
+
+        await firebaseReady;
+
+        await auth
+          .signInWithEmailAndPassword(
+            email,
+            password
+          );
+
+
+        message.textContent =
+          "Login successful.";
+
+        message.style.color =
+          "#16803c";
+
+
+        updateEmailAccountUI();
+
+
+        loadEmailOrders();
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          "Login failed. Check your email and password.";
+
+        message.style.color =
+          "#b00020";
+
+      }
+
+    };
+
+
+  /* CREATE ACCOUNT */
+
+  document
+    .querySelector("#customerCreate")
+    .onclick = async () => {
+
+      const email =
+        document
+          .querySelector(
+            "#customerEmail"
+          )
+          .value
+          .trim();
+
+      const password =
+        document
+          .querySelector(
+            "#customerPassword"
+          )
+          .value;
+
+      const message =
+        document
+          .querySelector(
+            "#emailAuthMessage"
+          );
+
+
+      if (!email || !password) {
+
+        message.textContent =
+          "Enter email and password first.";
+
+        message.style.color =
+          "#b00020";
+
+        return;
+
+      }
+
+
+      if (password.length < 6) {
+
+        message.textContent =
+          "Password must contain at least 6 characters.";
+
+        message.style.color =
+          "#b00020";
+
+        return;
+
+      }
+
+
+      try {
+
+        await firebaseReady;
+
+
+        const result =
+          await auth
+            .createUserWithEmailAndPassword(
+              email,
+              password
+            );
+
+
+        await db
+          .ref(
+            "users/" +
+            result.user.uid
+          )
+          .set({
+
+            email:
+              email,
+
+            createdAt:
+              new Date()
+                .toISOString()
+
+          });
+
+
+        message.textContent =
+          "✅ Account created successfully.";
+
+        message.style.color =
+          "#16803c";
+
+
+        updateEmailAccountUI();
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        if (
+          error.code ===
+          "auth/email-already-in-use"
+        ) {
+
+          message.textContent =
+            "This email is already registered. Please login.";
+
+        }
+
+        else {
+
+          message.textContent =
+            error.message ||
+            "Could not create account.";
+
+        }
+
+        message.style.color =
+          "#b00020";
+
+      }
+
+    };
+
+
+  /* FORGOT PASSWORD */
+
+  document
+    .querySelector("#customerForgot")
+    .onclick = async () => {
+
+      const email =
+        document
+          .querySelector(
+            "#customerEmail"
+          )
+          .value
+          .trim();
+
+      const message =
+        document
+          .querySelector(
+            "#emailAuthMessage"
+          );
+
+
+      if (!email) {
+
+        message.textContent =
+          "Enter your email address first.";
+
+        message.style.color =
+          "#b00020";
+
+        return;
+
+      }
+
+
+      try {
+
+        await firebaseReady;
+
+        await auth
+          .sendPasswordResetEmail(
+            email
+          );
+
+
+        message.textContent =
+          "Password reset email sent.";
+
+        message.style.color =
+          "#16803c";
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          "Could not send reset email.";
+
+        message.style.color =
+          "#b00020";
+
+      }
+
+    };
+
+
+  /* LOGOUT */
+
+  document
+    .querySelector("#emailLogout")
+    .onclick = async () => {
+
+      await auth.signOut();
+
+      updateEmailAccountUI();
+
+    };
+
+
+  /* MY ORDERS */
+
+  document
+    .querySelector("#emailMyOrders")
+    .onclick =
+    loadEmailOrders;
+
+
+  /* UPDATE UI */
+
+  function updateEmailAccountUI() {
+
+    const user =
+      auth &&
+      auth.currentUser;
+
+
+    const loginView =
+      document.querySelector(
+        "#emailLoginView"
+      );
+
+    const loggedView =
+      document.querySelector(
+        "#emailLoggedInView"
+      );
+
+
+    if (!user) {
+
+      loginView.style.display =
+        "block";
+
+      loggedView.style.display =
+        "none";
+
+      accountButton.textContent =
+        "👤 Login";
+
+      return;
+
+    }
+
+
+    loginView.style.display =
+      "none";
+
+    loggedView.style.display =
+      "block";
+
+
+    accountButton.textContent =
+      "👤 My Account";
+
+
+    document
+      .querySelector(
+        "#emailLoggedUser"
+      )
+      .textContent =
+      "Logged in as " +
+      user.email;
+
+  }
+
+
+  /* LOAD ORDERS */
+
+  async function loadEmailOrders() {
+
+    const user =
+      auth &&
+      auth.currentUser;
+
+
+    if (!user) return;
+
+
+    const box =
+      document.querySelector(
+        "#emailOrders"
+      );
+
+
+    box.innerHTML =
+      "<p style='color:#777'>Loading orders...</p>";
+
+
+    try {
+
+      const snapshot =
+        await db
+          .ref(
+            "orders/" +
+            user.uid
+          )
+          .once("value");
+
+
+      const data =
+        snapshot.val() ||
+        {};
+
+
+      const orders =
+        Object.values(data);
+
+
+      if (!orders.length) {
+
+        box.innerHTML =
+          "<p style='color:#777'>No orders yet.</p>";
+
+        return;
+
+      }
+
+
+      orders.sort(
+        (a, b) =>
+          new Date(
+            b.createdAt
+          ) -
+          new Date(
+            a.createdAt
+          )
+      );
+
+
+      box.innerHTML =
+        orders
+          .map(
+            order =>
+              `
+
+              <div
+                style="
+                  border:1px solid #e5e5e5;
+                  border-radius:12px;
+                  padding:12px;
+                  margin-top:10px;
+                "
+              >
+
+                <strong>
+                  📦 ${order.id}
+                </strong>
+
+                <div
+                  style="
+                    font-size:13px;
+                    margin-top:5px;
+                  "
+                >
+                  Total:
+                  ₹${Number(
+                    order.total || 0
+                  ).toLocaleString("en-IN")}
+                </div>
+
+                <div
+                  style="
+                    font-size:12px;
+                    color:#777;
+                    margin-top:4px;
+                  "
+                >
+                  Status:
+                  ${order.status || "New"}
+                </div>
+
+              </div>
+
+              `
+          )
+          .join("");
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      box.innerHTML =
+        "<p style='color:#b00020'>Could not load orders.</p>";
+
+    }
+
+  }
+
+
+  /* CHECK LOGIN STATE */
+
+  if (auth) {
+
+    auth.onAuthStateChanged(
+      user => {
+
+        updateEmailAccountUI();
+
+      }
+    );
+
+  }
+
+  else {
+
+    setTimeout(
+      () =>
+        updateEmailAccountUI(),
+      1000
+    );
+
+  }
+
+}, 1000);
