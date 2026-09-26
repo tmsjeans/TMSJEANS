@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMSJEANS Admin</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f5f5f5;
+      color:#111;
+    }
+
+    header{
+      background:#111;
+      color:#fff;
+      padding:18px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    header h1{
+      margin:0;
+      font-size:20px;
+    }
+
+    header button{
+      background:#222;
+      color:#fff;
+      border:1px solid #555;
+      padding:9px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      display:none;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:25px auto;
+      padding:0 15px;
+    }
+
+    .login{
+      max-width:400px;
+      margin:70px auto;
+      background:#fff;
+      padding:25px;
+      border-radius:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.1);
+    }
+
+    input,select{
+      width:100%;
+      padding:12px;
+      margin:7px 0 10px;
+      border:1px solid #ddd;
+      border-radius:9px;
+      font-size:14px;
+    }
+
+    .btn{
+      width:100%;
+      border:0;
+      border-radius:9px;
+      padding:12px;
+      background:#111;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    #dashboard{
+      display:none;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    .stat{
+      background:#fff;
+      padding:18px;
+      border-radius:14px;
+      box-shadow:0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .stat small{
+      color:#777;
+    }
+
+    .stat strong{
+      display:block;
+      margin-top:7px;
+      font-size:25px;
+    }
+
+    .order{
+      background:#fff;
+      padding:18px;
+      border-radius:14px;
+      margin-bottom:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+    }
+
+    .orderId{
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .customer{
+      border-top:1px solid #eee;
+      border-bottom:1px solid #eee;
+      padding:13px 0;
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px 20px;
+      font-size:14px;
+    }
+
+    .items{
+      margin-top:12px;
+    }
+
+    .item{
+      display:flex;
+      justify-content:space-between;
+      padding:5px 0;
+      font-size:14px;
+    }
+
+    .total{
+      margin-top:12px;
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .empty{
+      background:#fff;
+      padding:30px;
+      text-align:center;
+      border-radius:14px;
+      color:#777;
+    }
+
+    @media(max-width:700px){
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .customer{
+        grid-template-columns:1fr;
+      }
+
+      .top{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>TMSJEANS Admin Dashboard</h1>
+  <button id="logoutBtn">Logout</button>
+</header>
+
+
+<div id="loginBox" class="login">
+
+  <h2>Admin Login</h2>
+
+  <p style="color:#666;font-size:14px;">
+    Login with your TMSJEANS admin account.
+  </p>
+
+  <input
+    id="email"
+    type="email"
+    placeholder="Admin Email"
+  >
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Password"
+  >
+
+  <button id="loginBtn" class="btn">
+    Login
+  </button>
+
+  <p id="message" style="font-size:13px;"></p>
+
+</div>
+
+
+<div id="dashboard" class="wrap">
+
+  <div class="stats">
+
+    <div class="stat">
+      <small>Total Orders</small>
+      <strong id="totalOrders">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>New Orders</small>
+      <strong id="newOrders">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>Total Sales</small>
+      <strong id="sales">₹0</strong>
+    </div>
+
+  </div>
+
+
+  <input
+    id="search"
+    type="search"
+    placeholder="Search order, customer or phone..."
+  >
+
+
+  <div id="orders"></div>
+
+</div>
+
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
+  authDomain: "tmsjeans.firebaseapp.com",
+  projectId: "tmsjeans",
+  storageBucket: "tmsjeans.firebasestorage.app",
+  messagingSenderId: "155013489437",
+  appId: "1:155013489437:web:d1f91792dd8ebba29cf7f4",
+  databaseURL: "https://tmsjeans-default-rtdb.firebaseio.com"
+};
+
+
+/* ADMIN EMAIL */
+
+const ADMIN_EMAIL =
+  "Pandeyji120ji@gmail.com";
+
+
+let auth;
+let db;
+let allOrders = [];
+
+
+/* LOAD FIREBASE */
+
+function load(src){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const s =
+        document.createElement("script");
+
+      s.src = src;
+
+      s.onload = resolve;
+      s.onerror = reject;
+
+      document.head.appendChild(s);
+
+    }
+  );
+
+}
+
+
+async function start(){
+
+  await load(
+    "https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"
+  );
+
+  await load(
+    "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"
+  );
+
+  await load(
+    "https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"
+  );
+
+
+  if(!firebase.apps.length){
+
+    firebase.initializeApp(
+      firebaseConfig
+    );
+
+  }
+
+
+  auth =
+    firebase.auth();
+
+  db =
+    firebase.database();
+
+
+  auth.onAuthStateChanged(
+    user => {
+
+      if(!user){
+
+        showLogin();
+
+        return;
+
+      }
+
+
+      if(
+        (user.email || "").toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+      ){
+
+        auth.signOut();
+
+        showMessage(
+          "This account is not authorized.",
+          true
+        );
+
+        return;
+
+      }
+
+
+      showDashboard();
+
+    }
+  );
+
+}
+
+
+/* LOGIN */
+
+async function login(){
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+
+  if(
+    email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    showMessage(
+      "Unauthorized admin email.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  if(!password){
+
+    showMessage(
+      "Enter your password.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    await auth
+      .signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "Login failed. Check email and password.",
+      true
+    );
+
+  }
+
+}
+
+
+/* SHOW LOGIN */
+
+function showLogin(){
+
+  document
+    .getElementById("loginBox")
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById("dashboard")
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById("logoutBtn")
+    .style.display =
+    "none";
+
+}
+
+
+/* SHOW DASHBOARD */
+
+function showDashboard(){
+
+  document
+    .getElementById("loginBox")
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById("dashboard")
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById("logoutBtn")
+    .style.display =
+    "block";
+
+
+  loadOrders();
+
+}
+
+
+/* MESSAGE */
+
+function showMessage(
+  text,
+  error=false
+){
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+
+  box.textContent =
+    text;
+
+
+  box.style.color =
+    error
+      ? "#b00020"
+      : "#16803c";
+
+}
+
+
+/* LOAD ORDERS */
+
+function loadOrders(){
+
+  db.ref("orders")
+    .on(
+      "value",
+      snapshot => {
+
+        const data =
+          snapshot.val() || {};
+
+
+        allOrders = [];
+
+
+        Object.keys(data)
+          .forEach(
+            uid => {
+
+              const userOrders =
+                data[uid] || {};
+
+
+              Object.keys(userOrders)
+                .forEach(
+                  orderId => {
+
+                    allOrders.push(
+                      userOrders[orderId]
+                    );
+
+                  }
+                );
+
+            }
+          );
+
+
+        allOrders.sort(
+          (a,b) =>
+            new Date(
+              b.createdAt || 0
+            ) -
+            new Date(
+              a.createdAt || 0
+            )
+        );
+
+
+        updateStats();
+
+        renderOrders(
+          allOrders
+        );
+
+      }
+    );
+
+}
+
+
+/* STATS */
+
+function updateStats(){
+
+  const total =
+    allOrders.length;
+
+
+  const newOrders =
+    allOrders.filter(
+      order =>
+        (order.status || "New")
+          .toLowerCase() ===
+        "new"
+    ).length;
+
+
+  const sales =
+    allOrders.reduce(
+      (sum,order) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
+
+
+  document
+    .getElementById("totalOrders")
+    .textContent =
+    total;
+
+
+  document
+    .getElementById("newOrders")
+    .textContent =
+    newOrders;
+
+
+  document
+    .getElementById("sales")
+    .textContent =
+    "₹" +
+    sales.toLocaleString(
+      "en-IN"
+    );
+
+}
+
+
+/* RENDER */
+
+function renderOrders(
+  orders
+){
+
+  const box =
+    document.getElementById(
+      "orders"
+    );
+
+
+  if(!orders.length){
+
+    box.innerHTML =
+      `
+      <div class="empty">
+        No orders found.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    orders
+      .map(
+        order =>
+          `
+
+          <div class="order">
+
+            <div class="top">
+
+              <div>
+
+                <div class="orderId">
+                  📦 ${safe(order.id)}
+                </div>
+
+                <div
+                  style="
+                  color:#777;
+                  font-size:12px;
+                  margin-top:4px;
+                  "
+                >
+                  ${formatDate(
+                    order.createdAt
+                  )}
+                </div>
+
+              </div>
+
+
+              <select
+                onchange="
+                  updateStatus(
+                    '${attr(order.uid)}',
+                    '${attr(order.id)}',
+                    this.value
+                  )
+                "
+              >
+
+                ${statusOptions(
+                  order.status
+                )}
+
+              </select>
+
+            </div>
+
+
+            <div class="customer">
+
+              <div>
+                <strong>Name:</strong>
+                ${safe(
+                  order.customer?.name
+                )}
+              </div>
+
+              <div>
+                <strong>Phone:</strong>
+                ${safe(
+                  order.customer?.phone
+                )}
+              </div>
+
+              <div>
+                <strong>Email:</strong>
+                ${safe(
+                  order.customer?.email
+                )}
+              </div>
+
+              <div>
+                <strong>Payment:</strong>
+                ${safe(
+                  order.payment
+                )}
+              </div>
+
+              <div>
+                <strong>City:</strong>
+                ${safe(
+                  order.customer?.city
+                )}
+              </div>
+
+              <div>
+                <strong>PIN:</strong>
+                ${safe(
+                  order.customer?.pin
+                )}
+              </div>
+
+              <div
+                style="grid-column:1/-1"
+              >
+                <strong>Address:</strong>
+                ${safe(
+                  order.customer?.address
+                )}
+              </div>
+
+            </div>
+
+
+            <div class="items">
+
+              ${
+                (order.items || [])
+                  .map(
+                    item =>
+                      `
+
+                      <div class="item">
+
+                        <span>
+                          ${safe(item.name)}
+                          ×
+                          ${Number(
+                            item.qty || 0
+                          )}
+                        </span>
+
+                        <strong>
+                          ₹${(
+                            Number(
+                              item.price || 0
+                            ) *
+                            Number(
+                              item.qty || 0
+                            )
+                          ).toLocaleString(
+                            "en-IN"
+                          )}
+                        </strong>
+
+                      </div>
+
+                      `
+                  )
+                  .join("")
+              }
+
+            </div>
+
+
+            <div class="total">
+
+              Total:
+              ₹${Number(
+                order.total || 0
+              ).toLocaleString(
+                "en-IN"
+              )}
+
+            </div>
+
+          </div>
+
+          `
+      )
+      .join("");
+
+}
+
+
+/* STATUS OPTIONS */
+
+function statusOptions(
+  current
+){
+
+  const statuses = [
+    "New",
+    "Confirmed",
+    "Packed",
+    "Shipped",
+    "Delivered",
+    "Cancelled"
+  ];
+
+
+  return statuses
+    .map(
+      status =>
+        `
+        <option
+          value="${status}"
+          ${
+            (current || "New") ===
+            status
+              ? "selected"
+              : ""
+          }
+        >
+          ${status}
+        </option>
+        `
+    )
+    .join("");
+
+}
+
+
+/* UPDATE STATUS */
+
+async function updateStatus(
+  uid,
+  orderId,
+  status
+){
+
+  if(!uid || !orderId)
+    return;
+
+
+  try{
+
+    await db
+      .ref(
+        "orders/" +
+        uid +
+        "/" +
+        orderId +
+        "/status"
+      )
+      .set(status);
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Unable to update order status."
+    );
+
+  }
+
+}
+
+
+/* SEARCH */
+
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    function(){
+
+      const q =
+        this.value
+          .toLowerCase()
+          .trim();
+
+
+      if(!q){
+
+        renderOrders(
+          allOrders
+        );
+
+        return;
+
+      }
+
+
+      const filtered =
+        allOrders.filter(
+          order => {
+
+            const text =
+
+              String(
+                order.id || ""
+              ) +
+
+              " " +
+
+              String(
+                order.customer?.name ||
+                ""
+              ) +
+
+              " " +
+
+              String(
+                order.customer?.phone ||
+                ""
+              ) +
+
+              " " +
+
+              String(
+                order.customer?.email ||
+                ""
+              );
+
+
+            return text
+              .toLowerCase()
+              .includes(q);
+
+          }
+        );
+
+
+      renderOrders(
+        filtered
+      );
+
+    }
+  );
+
+
+/* LOGOUT */
+
+document
+  .getElementById("loginBtn")
+  .onclick =
+  login;
+
+
+document
+  .getElementById("logoutBtn")
+  .onclick =
+  () =>
+    auth.signOut();
+
+
+/* HELPERS */
+
+function safe(value){
+
+  return String(
+    value ?? "-"
+  )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function attr(value){
+
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "'",
+      "\\'"
+    );
+
+}
+
+
+function formatDate(
+  value
+){
+
+  if(!value)
+    return "-";
+
+
+  const d =
+    new Date(value);
+
+
+  if(
+    Number.isNaN(
+      d.getTime()
+    )
+  )
+    return "-";
+
+
+  return d.toLocaleString(
+    "en-IN"
+  );
+
+}
+
+
+/* START */
+
+start();
+
+</script>
+
+</body>
+</html>
