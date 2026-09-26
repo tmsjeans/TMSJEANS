@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>TMSJEANS Admin</title>
 
   <style>
+
     *{
       box-sizing:border-box;
     }
 
     body{
       margin:0;
-      font-family:Arial,sans-serif;
-      background:#f5f5f5;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#f4f4f4;
       color:#111;
     }
 
@@ -28,310 +36,623 @@
 
     header h1{
       margin:0;
-      font-size:20px;
+      font-size:21px;
     }
 
     header button{
-      background:#222;
-      color:#fff;
-      border:1px solid #555;
-      padding:9px 14px;
-      border-radius:8px;
+      border:0;
+      background:#fff;
+      color:#111;
+      padding:10px 15px;
+      border-radius:9px;
       cursor:pointer;
-      display:none;
+      font-weight:700;
     }
 
-    .wrap{
-      max-width:1100px;
+    .container{
+      max-width:1150px;
       margin:25px auto;
       padding:0 15px;
     }
 
-    .login{
-      max-width:400px;
+    /* LOGIN */
+
+    #loginSection{
+      max-width:420px;
       margin:70px auto;
       background:#fff;
-      padding:25px;
+      padding:28px;
       border-radius:18px;
-      box-shadow:0 10px 30px rgba(0,0,0,.1);
+      box-shadow:0 12px 40px rgba(0,0,0,.10);
     }
 
-    input,select{
-      width:100%;
-      padding:12px;
-      margin:7px 0 10px;
-      border:1px solid #ddd;
-      border-radius:9px;
+    #loginSection h2{
+      margin-top:0;
+      margin-bottom:8px;
+    }
+
+    #loginSection p{
+      color:#666;
       font-size:14px;
+      line-height:1.5;
     }
 
-    .btn{
+    input,
+    select{
+
+      width:100%;
+
+      padding:13px;
+
+      border:1px solid #ddd;
+
+      border-radius:10px;
+
+      outline:none;
+
+      font-size:14px;
+
+      margin-top:8px;
+
+    }
+
+    .primary{
       width:100%;
       border:0;
-      border-radius:9px;
-      padding:12px;
       background:#111;
       color:#fff;
+      padding:13px;
+      border-radius:10px;
       font-weight:700;
       cursor:pointer;
+      margin-top:12px;
     }
+
+    #loginMessage{
+      font-size:13px;
+      margin-top:10px;
+    }
+
+    /* DASHBOARD */
 
     #dashboard{
       display:none;
     }
 
     .stats{
+
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+
+      grid-template-columns:
+        repeat(3,1fr);
+
       gap:15px;
+
       margin-bottom:20px;
+
     }
 
     .stat{
+
       background:#fff;
-      padding:18px;
-      border-radius:14px;
-      box-shadow:0 5px 20px rgba(0,0,0,.06);
+
+      padding:20px;
+
+      border-radius:15px;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.06);
+
     }
 
     .stat small{
+
       color:#777;
+
+      display:block;
+
     }
 
     .stat strong{
+
+      font-size:28px;
+
       display:block;
-      margin-top:7px;
-      font-size:25px;
+
+      margin-top:8px;
+
+    }
+
+    .search{
+
+      margin-bottom:20px;
+
     }
 
     .order{
+
       background:#fff;
-      padding:18px;
-      border-radius:14px;
-      margin-bottom:15px;
-      box-shadow:0 5px 20px rgba(0,0,0,.06);
+
+      padding:20px;
+
+      border-radius:15px;
+
+      margin-bottom:16px;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.06);
+
     }
 
-    .top{
+    .order-header{
+
       display:flex;
+
       justify-content:space-between;
-      align-items:center;
+
+      align-items:flex-start;
+
       gap:15px;
+
+      margin-bottom:15px;
+
     }
 
-    .orderId{
+    .order-id{
+
       font-size:18px;
+
       font-weight:800;
+
+    }
+
+    .order-date{
+
+      font-size:12px;
+
+      color:#777;
+
+      margin-top:4px;
+
+    }
+
+    .status{
+
+      min-width:160px;
+
+      margin:0;
+
     }
 
     .customer{
-      border-top:1px solid #eee;
-      border-bottom:1px solid #eee;
-      padding:13px 0;
-      margin-top:12px;
+
       display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:8px 20px;
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+      gap:10px 20px;
+
+      padding:15px 0;
+
+      border-top:1px solid #eee;
+
+      border-bottom:1px solid #eee;
+
       font-size:14px;
+
+    }
+
+    .customer div{
+
+      line-height:1.5;
+
+    }
+
+    .customer-full{
+
+      grid-column:1/-1;
+
     }
 
     .items{
-      margin-top:12px;
+
+      padding-top:15px;
+
     }
 
     .item{
+
       display:flex;
+
       justify-content:space-between;
-      padding:5px 0;
+
+      padding:7px 0;
+
       font-size:14px;
+
+      border-bottom:1px solid #f3f3f3;
+
     }
 
     .total{
-      margin-top:12px;
-      font-size:18px;
+
+      font-size:19px;
+
       font-weight:800;
+
+      margin-top:15px;
+
     }
 
     .empty{
+
       background:#fff;
-      padding:30px;
+
+      padding:35px;
+
       text-align:center;
-      border-radius:14px;
+
+      border-radius:15px;
+
       color:#777;
+
+    }
+
+    .error-box{
+
+      background:#fff1f1;
+
+      color:#a40000;
+
+      padding:14px;
+
+      border-radius:10px;
+
+      margin-bottom:15px;
+
+      font-size:13px;
+
+      display:none;
+
     }
 
     @media(max-width:700px){
+
       .stats{
+
         grid-template-columns:1fr;
+
       }
 
       .customer{
+
         grid-template-columns:1fr;
+
       }
 
-      .top{
-        flex-direction:column;
-        align-items:flex-start;
+      .customer-full{
+
+        grid-column:auto;
+
       }
+
+      .order-header{
+
+        flex-direction:column;
+
+      }
+
+      .status{
+
+        width:100%;
+
+      }
+
+      header h1{
+
+        font-size:17px;
+
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
 <header>
-  <h1>TMSJEANS Admin Dashboard</h1>
-  <button id="logoutBtn">Logout</button>
+
+  <h1>
+    TMSJEANS Admin Dashboard
+  </h1>
+
+  <button
+    id="logoutBtn"
+    style="display:none;"
+  >
+    Logout
+  </button>
+
 </header>
 
 
-<div id="loginBox" class="login">
+<!-- =========================
+     LOGIN
+========================= -->
 
-  <h2>Admin Login</h2>
+<section
+  id="loginSection"
+>
 
-  <p style="color:#666;font-size:14px;">
-    Login with your TMSJEANS admin account.
+  <h2>
+    Admin Login
+  </h2>
+
+  <p>
+    Login using the TMSJEANS admin account.
   </p>
 
+
   <input
-    id="email"
+    id="adminEmail"
     type="email"
     placeholder="Admin Email"
+    autocomplete="email"
   >
+
 
   <input
-    id="password"
+    id="adminPassword"
     type="password"
     placeholder="Password"
+    autocomplete="current-password"
   >
 
-  <button id="loginBtn" class="btn">
+
+  <button
+    id="loginBtn"
+    class="primary"
+  >
     Login
   </button>
 
-  <p id="message" style="font-size:13px;"></p>
 
-</div>
+  <div
+    id="loginMessage"
+  ></div>
+
+</section>
 
 
-<div id="dashboard" class="wrap">
+<!-- =========================
+     DASHBOARD
+========================= -->
 
-  <div class="stats">
+<section
+  id="dashboard"
+  class="container"
+>
+
+  <div
+    id="databaseError"
+    class="error-box"
+  ></div>
+
+
+  <div
+    class="stats"
+  >
 
     <div class="stat">
-      <small>Total Orders</small>
-      <strong id="totalOrders">0</strong>
+
+      <small>
+        Total Orders
+      </small>
+
+      <strong
+        id="totalOrders"
+      >
+        0
+      </strong>
+
     </div>
 
-    <div class="stat">
-      <small>New Orders</small>
-      <strong id="newOrders">0</strong>
-    </div>
 
     <div class="stat">
-      <small>Total Sales</small>
-      <strong id="sales">₹0</strong>
+
+      <small>
+        New Orders
+      </small>
+
+      <strong
+        id="newOrders"
+      >
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+      <small>
+        Total Sales
+      </small>
+
+      <strong
+        id="totalSales"
+      >
+        ₹0
+      </strong>
+
     </div>
 
   </div>
 
 
-  <input
-    id="search"
-    type="search"
-    placeholder="Search order, customer or phone..."
-  >
+  <div class="search">
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search order ID, name, phone or email..."
+    >
+
+  </div>
 
 
-  <div id="orders"></div>
+  <div
+    id="ordersList"
+  ></div>
 
-</div>
+</section>
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script
+  src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"
+></script>
+
+<script
+  src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"
+></script>
+
+<script
+  src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"
+></script>
 
 
 <script>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
-  authDomain: "tmsjeans.firebaseapp.com",
-  projectId: "tmsjeans",
-  storageBucket: "tmsjeans.firebasestorage.app",
-  messagingSenderId: "155013489437",
-  appId: "1:155013489437:web:d1f91792dd8ebba29cf7f4",
-  databaseURL: "https://tmsjeans-default-rtdb.firebaseio.com"
-};
+  /* =====================================================
+     FIREBASE CONFIG
+  ===================================================== */
+
+  const firebaseConfig = {
+
+    apiKey:
+      "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
+
+    authDomain:
+      "tmsjeans.firebaseapp.com",
+
+    projectId:
+      "tmsjeans",
+
+    storageBucket:
+      "tmsjeans.firebasestorage.app",
+
+    messagingSenderId:
+      "155013489437",
+
+    appId:
+      "1:155013489437:web:d1f91792dd8ebba29cf7f4",
+
+    databaseURL:
+      "https://tmsjeans-default-rtdb.firebaseio.com"
+
+  };
 
 
-/* ADMIN EMAIL */
+  /* =====================================================
+     ADMIN EMAIL
+  ===================================================== */
 
-const ADMIN_EMAIL =
-  "Pandeyji120ji@gmail.com";
-
-
-let auth;
-let db;
-let allOrders = [];
+  const ADMIN_EMAIL =
+    "Pandeyji120ji@gmail.com";
 
 
-/* LOAD FIREBASE */
+  /* =====================================================
+     INITIALIZE
+  ===================================================== */
 
-function load(src){
-
-  return new Promise(
-    (resolve,reject)=>{
-
-      const s =
-        document.createElement("script");
-
-      s.src = src;
-
-      s.onload = resolve;
-      s.onerror = reject;
-
-      document.head.appendChild(s);
-
-    }
-  );
-
-}
-
-
-async function start(){
-
-  await load(
-    "https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"
-  );
-
-  await load(
-    "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"
-  );
-
-  await load(
-    "https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"
+  firebase.initializeApp(
+    firebaseConfig
   );
 
 
-  if(!firebase.apps.length){
+  const auth =
+    firebase.auth();
 
-    firebase.initializeApp(
-      firebaseConfig
+
+  const db =
+    firebase.database();
+
+
+  let allOrders = [];
+
+
+  /* =====================================================
+     ELEMENTS
+  ===================================================== */
+
+  const loginSection =
+    document.getElementById(
+      "loginSection"
     );
+
+
+  const dashboard =
+    document.getElementById(
+      "dashboard"
+    );
+
+
+  const logoutBtn =
+    document.getElementById(
+      "logoutBtn"
+    );
+
+
+  const loginBtn =
+    document.getElementById(
+      "loginBtn"
+    );
+
+
+  const loginMessage =
+    document.getElementById(
+      "loginMessage"
+    );
+
+
+  /* =====================================================
+     SHOW MESSAGE
+  ===================================================== */
+
+  function showLoginMessage(
+    message,
+    error = false
+  ){
+
+    loginMessage.textContent =
+      message;
+
+    loginMessage.style.color =
+      error
+        ? "#b00020"
+        : "#16803c";
 
   }
 
 
-  auth =
-    firebase.auth();
-
-  db =
-    firebase.database();
-
+  /* =====================================================
+     AUTH STATE
+  ===================================================== */
 
   auth.onAuthStateChanged(
     user => {
 
       if(!user){
 
-        showLogin();
+        showLoginScreen();
 
         return;
 
@@ -339,16 +660,18 @@ async function start(){
 
 
       if(
-        (user.email || "").toLowerCase() !==
+        (
+          user.email || ""
+        ).toLowerCase() !==
         ADMIN_EMAIL.toLowerCase()
       ){
 
-        auth.signOut();
-
-        showMessage(
-          "This account is not authorized.",
+        showLoginMessage(
+          "This account is not authorized for admin access.",
           true
         );
+
+        auth.signOut();
 
         return;
 
@@ -360,553 +683,75 @@ async function start(){
     }
   );
 
-}
 
+  /* =====================================================
+     SHOW LOGIN
+  ===================================================== */
 
-/* LOGIN */
+  function showLoginScreen(){
 
-async function login(){
+    loginSection.style.display =
+      "block";
 
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
+    dashboard.style.display =
+      "none";
 
-  const password =
-    document
-      .getElementById("password")
-      .value;
-
-
-  if(
-    email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
-  ){
-
-    showMessage(
-      "Unauthorized admin email.",
-      true
-    );
-
-    return;
+    logoutBtn.style.display =
+      "none";
 
   }
 
 
-  if(!password){
+  /* =====================================================
+     SHOW DASHBOARD
+  ===================================================== */
 
-    showMessage(
-      "Enter your password.",
-      true
-    );
+  function showDashboard(){
 
-    return;
+    loginSection.style.display =
+      "none";
 
-  }
+    dashboard.style.display =
+      "block";
 
+    logoutBtn.style.display =
+      "block";
 
-  try{
-
-    await auth
-      .signInWithEmailAndPassword(
-        email,
-        password
-      );
+    loadOrders();
 
   }
 
-  catch(error){
 
-    console.error(error);
-
-    showMessage(
-      "Login failed. Check email and password.",
-      true
-    );
-
-  }
-
-}
-
-
-/* SHOW LOGIN */
-
-function showLogin(){
-
-  document
-    .getElementById("loginBox")
-    .style.display =
-    "block";
-
-
-  document
-    .getElementById("dashboard")
-    .style.display =
-    "none";
-
-
-  document
-    .getElementById("logoutBtn")
-    .style.display =
-    "none";
-
-}
-
-
-/* SHOW DASHBOARD */
-
-function showDashboard(){
-
-  document
-    .getElementById("loginBox")
-    .style.display =
-    "none";
-
-
-  document
-    .getElementById("dashboard")
-    .style.display =
-    "block";
-
-
-  document
-    .getElementById("logoutBtn")
-    .style.display =
-    "block";
-
-
-  loadOrders();
-
-}
-
-
-/* MESSAGE */
-
-function showMessage(
-  text,
-  error=false
-){
-
-  const box =
-    document.getElementById(
-      "message"
-    );
-
-
-  box.textContent =
-    text;
-
-
-  box.style.color =
-    error
-      ? "#b00020"
-      : "#16803c";
-
-}
-
-
-/* LOAD ORDERS */
-
-function loadOrders(){
-
-  db.ref("orders")
-    .on(
-      "value",
-      snapshot => {
-
-        const data =
-          snapshot.val() || {};
-
-
-        allOrders = [];
-
-
-        Object.keys(data)
-          .forEach(
-            uid => {
-
-              const userOrders =
-                data[uid] || {};
-
-
-              Object.keys(userOrders)
-                .forEach(
-                  orderId => {
-
-                    allOrders.push(
-                      userOrders[orderId]
-                    );
-
-                  }
-                );
-
-            }
-          );
-
-
-        allOrders.sort(
-          (a,b) =>
-            new Date(
-              b.createdAt || 0
-            ) -
-            new Date(
-              a.createdAt || 0
-            )
-        );
-
-
-        updateStats();
-
-        renderOrders(
-          allOrders
-        );
-
-      }
-    );
-
-}
-
-
-/* STATS */
-
-function updateStats(){
-
-  const total =
-    allOrders.length;
-
-
-  const newOrders =
-    allOrders.filter(
-      order =>
-        (order.status || "New")
-          .toLowerCase() ===
-        "new"
-    ).length;
-
-
-  const sales =
-    allOrders.reduce(
-      (sum,order) =>
-        sum +
-        Number(
-          order.total || 0
-        ),
-      0
-    );
-
-
-  document
-    .getElementById("totalOrders")
-    .textContent =
-    total;
-
-
-  document
-    .getElementById("newOrders")
-    .textContent =
-    newOrders;
-
-
-  document
-    .getElementById("sales")
-    .textContent =
-    "₹" +
-    sales.toLocaleString(
-      "en-IN"
-    );
-
-}
-
-
-/* RENDER */
-
-function renderOrders(
-  orders
-){
-
-  const box =
-    document.getElementById(
-      "orders"
-    );
-
-
-  if(!orders.length){
-
-    box.innerHTML =
-      `
-      <div class="empty">
-        No orders found.
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  box.innerHTML =
-    orders
-      .map(
-        order =>
-          `
-
-          <div class="order">
-
-            <div class="top">
-
-              <div>
-
-                <div class="orderId">
-                  📦 ${safe(order.id)}
-                </div>
-
-                <div
-                  style="
-                  color:#777;
-                  font-size:12px;
-                  margin-top:4px;
-                  "
-                >
-                  ${formatDate(
-                    order.createdAt
-                  )}
-                </div>
-
-              </div>
-
-
-              <select
-                onchange="
-                  updateStatus(
-                    '${attr(order.uid)}',
-                    '${attr(order.id)}',
-                    this.value
-                  )
-                "
-              >
-
-                ${statusOptions(
-                  order.status
-                )}
-
-              </select>
-
-            </div>
-
-
-            <div class="customer">
-
-              <div>
-                <strong>Name:</strong>
-                ${safe(
-                  order.customer?.name
-                )}
-              </div>
-
-              <div>
-                <strong>Phone:</strong>
-                ${safe(
-                  order.customer?.phone
-                )}
-              </div>
-
-              <div>
-                <strong>Email:</strong>
-                ${safe(
-                  order.customer?.email
-                )}
-              </div>
-
-              <div>
-                <strong>Payment:</strong>
-                ${safe(
-                  order.payment
-                )}
-              </div>
-
-              <div>
-                <strong>City:</strong>
-                ${safe(
-                  order.customer?.city
-                )}
-              </div>
-
-              <div>
-                <strong>PIN:</strong>
-                ${safe(
-                  order.customer?.pin
-                )}
-              </div>
-
-              <div
-                style="grid-column:1/-1"
-              >
-                <strong>Address:</strong>
-                ${safe(
-                  order.customer?.address
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="items">
-
-              ${
-                (order.items || [])
-                  .map(
-                    item =>
-                      `
-
-                      <div class="item">
-
-                        <span>
-                          ${safe(item.name)}
-                          ×
-                          ${Number(
-                            item.qty || 0
-                          )}
-                        </span>
-
-                        <strong>
-                          ₹${(
-                            Number(
-                              item.price || 0
-                            ) *
-                            Number(
-                              item.qty || 0
-                            )
-                          ).toLocaleString(
-                            "en-IN"
-                          )}
-                        </strong>
-
-                      </div>
-
-                      `
-                  )
-                  .join("")
-              }
-
-            </div>
-
-
-            <div class="total">
-
-              Total:
-              ₹${Number(
-                order.total || 0
-              ).toLocaleString(
-                "en-IN"
-              )}
-
-            </div>
-
-          </div>
-
-          `
-      )
-      .join("");
-
-}
-
-
-/* STATUS OPTIONS */
-
-function statusOptions(
-  current
-){
-
-  const statuses = [
-    "New",
-    "Confirmed",
-    "Packed",
-    "Shipped",
-    "Delivered",
-    "Cancelled"
-  ];
-
-
-  return statuses
-    .map(
-      status =>
-        `
-        <option
-          value="${status}"
-          ${
-            (current || "New") ===
-            status
-              ? "selected"
-              : ""
-          }
-        >
-          ${status}
-        </option>
-        `
-    )
-    .join("");
-
-}
-
-
-/* UPDATE STATUS */
-
-async function updateStatus(
-  uid,
-  orderId,
-  status
-){
-
-  if(!uid || !orderId)
-    return;
-
-
-  try{
-
-    await db
-      .ref(
-        "orders/" +
-        uid +
-        "/" +
-        orderId +
-        "/status"
-      )
-      .set(status);
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Unable to update order status."
-    );
-
-  }
-
-}
-
-
-/* SEARCH */
-
-document
-  .getElementById("search")
-  .addEventListener(
-    "input",
-    function(){
-
-      const q =
-        this.value
-          .toLowerCase()
+  /* =====================================================
+     LOGIN
+  ===================================================== */
+
+  loginBtn.onclick =
+    async () => {
+
+      const email =
+        document
+          .getElementById(
+            "adminEmail"
+          )
+          .value
           .trim();
 
 
-      if(!q){
+      const password =
+        document
+          .getElementById(
+            "adminPassword"
+          )
+          .value;
 
-        renderOrders(
-          allOrders
+
+      if(!email ||
+         !password){
+
+        showLoginMessage(
+          "Please enter email and password.",
+          true
         );
 
         return;
@@ -914,128 +759,745 @@ document
       }
 
 
-      const filtered =
-        allOrders.filter(
-          order => {
+      if(
+        email.toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+      ){
 
-            const text =
-
-              String(
-                order.id || ""
-              ) +
-
-              " " +
-
-              String(
-                order.customer?.name ||
-                ""
-              ) +
-
-              " " +
-
-              String(
-                order.customer?.phone ||
-                ""
-              ) +
-
-              " " +
-
-              String(
-                order.customer?.email ||
-                ""
-              );
-
-
-            return text
-              .toLowerCase()
-              .includes(q);
-
-          }
+        showLoginMessage(
+          "Unauthorized admin email.",
+          true
         );
 
+        return;
 
-      renderOrders(
-        filtered
+      }
+
+
+      showLoginMessage(
+        "Logging in..."
+      );
+
+
+      try{
+
+        await auth
+          .signInWithEmailAndPassword(
+            email,
+            password
+          );
+
+      }
+
+      catch(error){
+
+        console.error(
+          error
+        );
+
+        showLoginMessage(
+          "Login failed. Please check your email and password.",
+          true
+        );
+
+      }
+
+    };
+
+
+  /* =====================================================
+     LOGOUT
+  ===================================================== */
+
+  logoutBtn.onclick =
+    async () => {
+
+      try{
+
+        await auth.signOut();
+
+      }
+
+      catch(error){
+
+        console.error(
+          error
+        );
+
+      }
+
+    };
+
+
+  /* =====================================================
+     LOAD ORDERS
+  ===================================================== */
+
+  function loadOrders(){
+
+    db.ref("orders")
+      .on(
+        "value",
+
+        snapshot => {
+
+          const data =
+            snapshot.val() ||
+            {};
+
+
+          allOrders = [];
+
+
+          Object.keys(data)
+            .forEach(
+              uid => {
+
+                const customerOrders =
+                  data[uid] ||
+                  {};
+
+
+                Object.keys(
+                  customerOrders
+                )
+                .forEach(
+                  orderId => {
+
+                    allOrders.push(
+                      customerOrders[
+                        orderId
+                      ]
+                    );
+
+                  }
+                );
+
+              }
+            );
+
+
+          allOrders.sort(
+            (a,b) =>
+
+              new Date(
+                b.createdAt || 0
+              ) -
+
+              new Date(
+                a.createdAt || 0
+              )
+
+          );
+
+
+          updateStats();
+
+          renderOrders(
+            allOrders
+          );
+
+        },
+
+        error => {
+
+          console.error(
+            error
+          );
+
+
+          const errorBox =
+            document.getElementById(
+              "databaseError"
+            );
+
+
+          errorBox.style.display =
+            "block";
+
+
+          errorBox.textContent =
+            "Orders could not be loaded. Firebase Database Rules are probably blocking admin access.";
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     STATS
+  ===================================================== */
+
+  function updateStats(){
+
+    const total =
+      allOrders.length;
+
+
+    const newCount =
+      allOrders.filter(
+        order =>
+          (
+            order.status ||
+            "New"
+          ).toLowerCase() ===
+          "new"
+      ).length;
+
+
+    const sales =
+      allOrders.reduce(
+        (sum,order) =>
+
+          sum +
+          Number(
+            order.total || 0
+          ),
+
+        0
+      );
+
+
+    document
+      .getElementById(
+        "totalOrders"
+      )
+      .textContent =
+      total;
+
+
+    document
+      .getElementById(
+        "newOrders"
+      )
+      .textContent =
+      newCount;
+
+
+    document
+      .getElementById(
+        "totalSales"
+      )
+      .textContent =
+
+      "₹" +
+
+      sales.toLocaleString(
+        "en-IN"
+      );
+
+  }
+
+
+  /* =====================================================
+     RENDER ORDERS
+  ===================================================== */
+
+  function renderOrders(
+    orders
+  ){
+
+    const list =
+      document.getElementById(
+        "ordersList"
+      );
+
+
+    if(!orders.length){
+
+      list.innerHTML =
+        `
+
+        <div class="empty">
+
+          No orders found.
+
+        </div>
+
+        `;
+
+      return;
+
+    }
+
+
+    list.innerHTML =
+
+      orders
+        .map(
+          order =>
+            `
+
+            <div
+              class="order"
+            >
+
+              <div
+                class="order-header"
+              >
+
+                <div>
+
+                  <div
+                    class="order-id"
+                  >
+                    📦 ${escapeHtml(
+                      order.id
+                    )}
+                  </div>
+
+                  <div
+                    class="order-date"
+                  >
+                    ${formatDate(
+                      order.createdAt
+                    )}
+                  </div>
+
+                </div>
+
+
+                <select
+                  class="status"
+                  onchange="
+                    updateOrderStatus(
+                      '${escapeAttr(
+                        order.uid
+                      )}',
+                      '${escapeAttr(
+                        order.id
+                      )}',
+                      this.value
+                    )
+                  "
+                >
+
+                  ${getStatusOptions(
+                    order.status
+                  )}
+
+                </select>
+
+              </div>
+
+
+              <div
+                class="customer"
+              >
+
+                <div>
+                  <strong>Name:</strong><br>
+                  ${escapeHtml(
+                    order.customer?.name
+                  )}
+                </div>
+
+
+                <div>
+                  <strong>Phone:</strong><br>
+                  ${escapeHtml(
+                    order.customer?.phone
+                  )}
+                </div>
+
+
+                <div>
+                  <strong>Email:</strong><br>
+                  ${escapeHtml(
+                    order.customer?.email
+                  )}
+                </div>
+
+
+                <div>
+                  <strong>Payment:</strong><br>
+                  ${escapeHtml(
+                    order.payment
+                  )}
+                </div>
+
+
+                <div>
+                  <strong>City:</strong><br>
+                  ${escapeHtml(
+                    order.customer?.city
+                  )}
+                </div>
+
+
+                <div>
+                  <strong>PIN:</strong><br>
+                  ${escapeHtml(
+                    order.customer?.pin
+                  )}
+                </div>
+
+
+                <div
+                  class="customer-full"
+                >
+                  <strong>Address:</strong><br>
+                  ${escapeHtml(
+                    order.customer?.address
+                  )}
+                </div>
+
+              </div>
+
+
+              <div
+                class="items"
+              >
+
+                ${
+                  (
+                    order.items ||
+                    []
+                  )
+                  .map(
+                    item =>
+                      `
+
+                      <div
+                        class="item"
+                      >
+
+                        <span>
+
+                          ${escapeHtml(
+                            item.name
+                          )}
+
+                          ×
+
+                          ${Number(
+                            item.qty || 0
+                          )}
+
+                        </span>
+
+
+                        <strong>
+
+                          ₹${(
+                            Number(
+                              item.price || 0
+                            ) *
+
+                            Number(
+                              item.qty || 0
+                            )
+                          ).toLocaleString(
+                            "en-IN"
+                          )}
+
+                        </strong>
+
+                      </div>
+
+                      `
+                  )
+                  .join("")
+                }
+
+              </div>
+
+
+              <div
+                class="total"
+              >
+
+                Total:
+                ₹${Number(
+                  order.total || 0
+                ).toLocaleString(
+                  "en-IN"
+                )}
+
+              </div>
+
+            </div>
+
+            `
+        )
+        .join("");
+
+  }
+
+
+  /* =====================================================
+     STATUS OPTIONS
+  ===================================================== */
+
+  function getStatusOptions(
+    current
+  ){
+
+    const statuses = [
+
+      "New",
+
+      "Confirmed",
+
+      "Packed",
+
+      "Shipped",
+
+      "Delivered",
+
+      "Cancelled"
+
+    ];
+
+
+    return statuses
+      .map(
+        status =>
+          `
+
+          <option
+            value="${status}"
+
+            ${
+              (
+                current ||
+                "New"
+              ) === status
+                ? "selected"
+                : ""
+            }
+
+          >
+
+            ${status}
+
+          </option>
+
+          `
+      )
+      .join("");
+
+  }
+
+
+  /* =====================================================
+     UPDATE STATUS
+  ===================================================== */
+
+  async function updateOrderStatus(
+    uid,
+    orderId,
+    status
+  ){
+
+    if(
+      !uid ||
+      !orderId
+    ){
+
+      return;
+
+    }
+
+
+    try{
+
+      await db
+        .ref(
+          "orders/" +
+          uid +
+          "/" +
+          orderId +
+          "/status"
+        )
+        .set(
+          status
+        );
+
+    }
+
+    catch(error){
+
+      console.error(
+        error
+      );
+
+      alert(
+        "Status update failed. Check Firebase Database Rules."
       );
 
     }
-  );
+
+  }
 
 
-/* LOGOUT */
+  /* =====================================================
+     SEARCH
+  ===================================================== */
 
-document
-  .getElementById("loginBtn")
-  .onclick =
-  login;
+  document
+    .getElementById(
+      "searchInput"
+    )
+    .addEventListener(
+      "input",
 
+      event => {
 
-document
-  .getElementById("logoutBtn")
-  .onclick =
-  () =>
-    auth.signOut();
-
-
-/* HELPERS */
-
-function safe(value){
-
-  return String(
-    value ?? "-"
-  )
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
+        const query =
+          event.target.value
+            .toLowerCase()
+            .trim();
 
 
-function attr(value){
+        if(!query){
 
-  return String(
-    value ?? ""
-  )
-    .replaceAll(
-      "'",
-      "\\'"
+          renderOrders(
+            allOrders
+          );
+
+          return;
+
+        }
+
+
+        const filtered =
+          allOrders.filter(
+            order => {
+
+              const text =
+
+                String(
+                  order.id ||
+                  ""
+                )
+
+                + " " +
+
+                String(
+                  order.customer?.name ||
+                  ""
+                )
+
+                + " " +
+
+                String(
+                  order.customer?.phone ||
+                  ""
+                )
+
+                + " " +
+
+                String(
+                  order.customer?.email ||
+                  ""
+                );
+
+
+              return text
+                .toLowerCase()
+                .includes(
+                  query
+                );
+
+            }
+          );
+
+
+        renderOrders(
+          filtered
+        );
+
+      }
     );
 
-}
 
+  /* =====================================================
+     HELPERS
+  ===================================================== */
 
-function formatDate(
-  value
-){
+  function escapeHtml(
+    value
+  ){
 
-  if(!value)
-    return "-";
-
-
-  const d =
-    new Date(value);
-
-
-  if(
-    Number.isNaN(
-      d.getTime()
+    return String(
+      value ?? "-"
     )
-  )
-    return "-";
+
+      .replaceAll(
+        "&",
+        "&amp;"
+      )
+
+      .replaceAll(
+        "<",
+        "&lt;"
+      )
+
+      .replaceAll(
+        ">",
+        "&gt;"
+      )
+
+      .replaceAll(
+        '"',
+        "&quot;"
+      )
+
+      .replaceAll(
+        "'",
+        "&#039;"
+      );
+
+  }
 
 
-  return d.toLocaleString(
-    "en-IN"
-  );
+  function escapeAttr(
+    value
+  ){
 
-}
+    return String(
+      value ?? ""
+    )
+      .replaceAll(
+        "'",
+        "\\'"
+      );
+
+  }
 
 
-/* START */
+  function formatDate(
+    value
+  ){
 
-start();
+    if(!value)
+      return "-";
+
+
+    const date =
+      new Date(
+        value
+      );
+
+
+    if(
+      Number.isNaN(
+        date.getTime()
+      )
+    ){
+
+      return "-";
+
+    }
+
+
+    return date.toLocaleString(
+      "en-IN"
+    );
+
+  }
 
 </script>
 
