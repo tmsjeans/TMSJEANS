@@ -47,6 +47,7 @@
       border-radius:9px;
       cursor:pointer;
       font-weight:700;
+      display:none;
     }
 
     .container{
@@ -55,20 +56,18 @@
       padding:0 15px;
     }
 
-    /* LOGIN */
-
     #loginSection{
       max-width:420px;
-      margin:70px auto;
+      margin:80px auto;
       background:#fff;
-      padding:28px;
+      padding:30px;
       border-radius:18px;
       box-shadow:0 12px 40px rgba(0,0,0,.10);
+      text-align:center;
     }
 
     #loginSection h2{
       margin-top:0;
-      margin-bottom:8px;
     }
 
     #loginSection p{
@@ -77,282 +76,171 @@
       line-height:1.5;
     }
 
-    input,
-    select{
-
+    #googleLoginBtn{
       width:100%;
-
-      padding:13px;
-
       border:1px solid #ddd;
-
-      border-radius:10px;
-
-      outline:none;
-
-      font-size:14px;
-
-      margin-top:8px;
-
-    }
-
-    .primary{
-      width:100%;
-      border:0;
-      background:#111;
-      color:#fff;
+      background:#fff;
+      color:#111;
       padding:13px;
       border-radius:10px;
+      font-size:15px;
       font-weight:700;
       cursor:pointer;
-      margin-top:12px;
+      margin-top:15px;
     }
 
     #loginMessage{
+      margin-top:12px;
       font-size:13px;
-      margin-top:10px;
     }
-
-    /* DASHBOARD */
 
     #dashboard{
       display:none;
     }
 
     .stats{
-
       display:grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
+      grid-template-columns:repeat(3,1fr);
       gap:15px;
-
       margin-bottom:20px;
-
     }
 
     .stat{
-
       background:#fff;
-
       padding:20px;
-
       border-radius:15px;
-
-      box-shadow:
-        0 5px 20px rgba(0,0,0,.06);
-
+      box-shadow:0 5px 20px rgba(0,0,0,.06);
     }
 
     .stat small{
-
       color:#777;
-
-      display:block;
-
     }
 
     .stat strong{
-
-      font-size:28px;
-
       display:block;
-
       margin-top:8px;
-
+      font-size:28px;
     }
 
-    .search{
-
+    #searchInput{
+      width:100%;
+      padding:13px;
+      border:1px solid #ddd;
+      border-radius:10px;
+      font-size:14px;
+      outline:none;
       margin-bottom:20px;
-
     }
 
     .order{
-
       background:#fff;
-
       padding:20px;
-
       border-radius:15px;
-
       margin-bottom:16px;
-
-      box-shadow:
-        0 5px 20px rgba(0,0,0,.06);
-
+      box-shadow:0 5px 20px rgba(0,0,0,.06);
     }
 
     .order-header{
-
       display:flex;
-
       justify-content:space-between;
-
       align-items:flex-start;
-
       gap:15px;
-
       margin-bottom:15px;
-
     }
 
     .order-id{
-
       font-size:18px;
-
       font-weight:800;
-
     }
 
     .order-date{
-
       font-size:12px;
-
       color:#777;
-
       margin-top:4px;
-
     }
 
     .status{
-
       min-width:160px;
-
-      margin:0;
-
+      padding:10px;
+      border:1px solid #ddd;
+      border-radius:9px;
+      background:#fff;
     }
 
     .customer{
-
       display:grid;
-
-      grid-template-columns:
-        repeat(2,1fr);
-
+      grid-template-columns:repeat(2,1fr);
       gap:10px 20px;
-
       padding:15px 0;
-
       border-top:1px solid #eee;
-
       border-bottom:1px solid #eee;
-
       font-size:14px;
-
-    }
-
-    .customer div{
-
-      line-height:1.5;
-
     }
 
     .customer-full{
-
       grid-column:1/-1;
-
     }
 
     .items{
-
       padding-top:15px;
-
     }
 
     .item{
-
       display:flex;
-
       justify-content:space-between;
-
       padding:7px 0;
-
       font-size:14px;
-
-      border-bottom:1px solid #f3f3f3;
-
+      border-bottom:1px solid #f2f2f2;
     }
 
     .total{
-
       font-size:19px;
-
       font-weight:800;
-
       margin-top:15px;
-
     }
 
     .empty{
-
       background:#fff;
-
       padding:35px;
-
       text-align:center;
-
       border-radius:15px;
-
       color:#777;
-
     }
 
     .error-box{
-
       background:#fff1f1;
-
       color:#a40000;
-
       padding:14px;
-
       border-radius:10px;
-
       margin-bottom:15px;
-
       font-size:13px;
-
       display:none;
-
     }
 
     @media(max-width:700px){
 
       .stats{
-
         grid-template-columns:1fr;
-
       }
 
       .customer{
-
         grid-template-columns:1fr;
-
       }
 
       .customer-full{
-
         grid-column:auto;
-
       }
 
       .order-header{
-
         flex-direction:column;
-
       }
 
       .status{
-
         width:100%;
-
       }
 
       header h1{
-
         font-size:17px;
-
       }
 
     }
@@ -364,73 +252,44 @@
 
 <body>
 
+
 <header>
 
   <h1>
     TMSJEANS Admin Dashboard
   </h1>
 
-  <button
-    id="logoutBtn"
-    style="display:none;"
-  >
+  <button id="logoutBtn">
     Logout
   </button>
 
 </header>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
-<section
-  id="loginSection"
->
+<section id="loginSection">
 
   <h2>
-    Admin Login
+    TMSJEANS Admin
   </h2>
 
   <p>
-    Login using the TMSJEANS admin account.
+    Admin access is restricted to the authorized Google account.
   </p>
 
-
-  <input
-    id="adminEmail"
-    type="email"
-    placeholder="Admin Email"
-    autocomplete="email"
-  >
-
-
-  <input
-    id="adminPassword"
-    type="password"
-    placeholder="Password"
-    autocomplete="current-password"
-  >
-
-
   <button
-    id="loginBtn"
-    class="primary"
+    id="googleLoginBtn"
   >
-    Login
+    🔐 Continue with Google
   </button>
 
-
-  <div
-    id="loginMessage"
-  ></div>
+  <div id="loginMessage"></div>
 
 </section>
 
 
-<!-- =========================
-     DASHBOARD
-========================= -->
+<!-- DASHBOARD -->
 
 <section
   id="dashboard"
@@ -443,9 +302,7 @@
   ></div>
 
 
-  <div
-    class="stats"
-  >
+  <div class="stats">
 
     <div class="stat">
 
@@ -453,9 +310,7 @@
         Total Orders
       </small>
 
-      <strong
-        id="totalOrders"
-      >
+      <strong id="totalOrders">
         0
       </strong>
 
@@ -468,9 +323,7 @@
         New Orders
       </small>
 
-      <strong
-        id="newOrders"
-      >
+      <strong id="newOrders">
         0
       </strong>
 
@@ -483,9 +336,7 @@
         Total Sales
       </small>
 
-      <strong
-        id="totalSales"
-      >
+      <strong id="totalSales">
         ₹0
       </strong>
 
@@ -494,46 +345,32 @@
   </div>
 
 
-  <div class="search">
-
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search order ID, name, phone or email..."
-    >
-
-  </div>
+  <input
+    id="searchInput"
+    type="search"
+    placeholder="Search order ID, name, phone or email..."
+  >
 
 
-  <div
-    id="ordersList"
-  ></div>
+  <div id="ordersList"></div>
 
 </section>
 
 
-<!-- =========================
-     FIREBASE
-========================= -->
+<!-- FIREBASE SDK -->
 
-<script
-  src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"
-></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
 
-<script
-  src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"
-></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
 
-<script
-  src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"
-></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"></script>
 
 
 <script>
 
-  /* =====================================================
+  /* ================================
      FIREBASE CONFIG
-  ===================================================== */
+  ================================= */
 
   const firebaseConfig = {
 
@@ -561,17 +398,17 @@
   };
 
 
-  /* =====================================================
+  /* ================================
      ADMIN EMAIL
-  ===================================================== */
+  ================================= */
 
   const ADMIN_EMAIL =
     "Pandeyji120ji@gmail.com";
 
 
-  /* =====================================================
-     INITIALIZE
-  ===================================================== */
+  /* ================================
+     FIREBASE START
+  ================================= */
 
   firebase.initializeApp(
     firebaseConfig
@@ -589,53 +426,26 @@
   let allOrders = [];
 
 
-  /* =====================================================
-     ELEMENTS
-  ===================================================== */
+  /* ================================
+     MESSAGE
+  ================================= */
 
-  const loginSection =
-    document.getElementById(
-      "loginSection"
-    );
-
-
-  const dashboard =
-    document.getElementById(
-      "dashboard"
-    );
-
-
-  const logoutBtn =
-    document.getElementById(
-      "logoutBtn"
-    );
-
-
-  const loginBtn =
-    document.getElementById(
-      "loginBtn"
-    );
-
-
-  const loginMessage =
-    document.getElementById(
-      "loginMessage"
-    );
-
-
-  /* =====================================================
-     SHOW MESSAGE
-  ===================================================== */
-
-  function showLoginMessage(
-    message,
+  function showMessage(
+    text,
     error = false
   ){
 
-    loginMessage.textContent =
-      message;
+    const box =
+      document.getElementById(
+        "loginMessage"
+      );
 
-    loginMessage.style.color =
+
+    box.textContent =
+      text;
+
+
+    box.style.color =
       error
         ? "#b00020"
         : "#16803c";
@@ -643,33 +453,38 @@
   }
 
 
-  /* =====================================================
+  /* ================================
      AUTH STATE
-  ===================================================== */
+  ================================= */
 
   auth.onAuthStateChanged(
     user => {
 
       if(!user){
 
-        showLoginScreen();
+        showLogin();
 
         return;
 
       }
 
 
-      if(
+      const email =
         (
           user.email || ""
-        ).toLowerCase() !==
+        ).toLowerCase();
+
+
+      if(
+        email !==
         ADMIN_EMAIL.toLowerCase()
       ){
 
-        showLoginMessage(
-          "This account is not authorized for admin access.",
+        showMessage(
+          "This Google account is not authorized.",
           true
         );
+
 
         auth.signOut();
 
@@ -684,822 +499,138 @@
   );
 
 
-  /* =====================================================
-     SHOW LOGIN
-  ===================================================== */
-
-  function showLoginScreen(){
-
-    loginSection.style.display =
-      "block";
-
-    dashboard.style.display =
-      "none";
-
-    logoutBtn.style.display =
-      "none";
-
-  }
-
-
-  /* =====================================================
-     SHOW DASHBOARD
-  ===================================================== */
-
-  function showDashboard(){
-
-    loginSection.style.display =
-      "none";
-
-    dashboard.style.display =
-      "block";
-
-    logoutBtn.style.display =
-      "block";
-
-    loadOrders();
-
-  }
-
-
-  /* =====================================================
-     LOGIN
-  ===================================================== */
-
-  loginBtn.onclick =
-    async () => {
-
-      const email =
-        document
-          .getElementById(
-            "adminEmail"
-          )
-          .value
-          .trim();
-
-
-      const password =
-        document
-          .getElementById(
-            "adminPassword"
-          )
-          .value;
-
-
-      if(!email ||
-         !password){
-
-        showLoginMessage(
-          "Please enter email and password.",
-          true
-        );
-
-        return;
-
-      }
-
-
-      if(
-        email.toLowerCase() !==
-        ADMIN_EMAIL.toLowerCase()
-      ){
-
-        showLoginMessage(
-          "Unauthorized admin email.",
-          true
-        );
-
-        return;
-
-      }
-
-
-      showLoginMessage(
-        "Logging in..."
-      );
-
-
-      try{
-
-        await auth
-          .signInWithEmailAndPassword(
-            email,
-            password
-          );
-
-      }
-
-      catch(error){
-
-        console.error(
-          error
-        );
-
-        showLoginMessage(
-          "Login failed. Please check your email and password.",
-          true
-        );
-
-      }
-
-    };
-
-
-  /* =====================================================
-     LOGOUT
-  ===================================================== */
-
-  logoutBtn.onclick =
-    async () => {
-
-      try{
-
-        await auth.signOut();
-
-      }
-
-      catch(error){
-
-        console.error(
-          error
-        );
-
-      }
-
-    };
-
-
-  /* =====================================================
-     LOAD ORDERS
-  ===================================================== */
-
-  function loadOrders(){
-
-    db.ref("orders")
-      .on(
-        "value",
-
-        snapshot => {
-
-          const data =
-            snapshot.val() ||
-            {};
-
-
-          allOrders = [];
-
-
-          Object.keys(data)
-            .forEach(
-              uid => {
-
-                const customerOrders =
-                  data[uid] ||
-                  {};
-
-
-                Object.keys(
-                  customerOrders
-                )
-                .forEach(
-                  orderId => {
-
-                    allOrders.push(
-                      customerOrders[
-                        orderId
-                      ]
-                    );
-
-                  }
-                );
-
-              }
-            );
-
-
-          allOrders.sort(
-            (a,b) =>
-
-              new Date(
-                b.createdAt || 0
-              ) -
-
-              new Date(
-                a.createdAt || 0
-              )
-
-          );
-
-
-          updateStats();
-
-          renderOrders(
-            allOrders
-          );
-
-        },
-
-        error => {
-
-          console.error(
-            error
-          );
-
-
-          const errorBox =
-            document.getElementById(
-              "databaseError"
-            );
-
-
-          errorBox.style.display =
-            "block";
-
-
-          errorBox.textContent =
-            "Orders could not be loaded. Firebase Database Rules are probably blocking admin access.";
-
-        }
-      );
-
-  }
-
-
-  /* =====================================================
-     STATS
-  ===================================================== */
-
-  function updateStats(){
-
-    const total =
-      allOrders.length;
-
-
-    const newCount =
-      allOrders.filter(
-        order =>
-          (
-            order.status ||
-            "New"
-          ).toLowerCase() ===
-          "new"
-      ).length;
-
-
-    const sales =
-      allOrders.reduce(
-        (sum,order) =>
-
-          sum +
-          Number(
-            order.total || 0
-          ),
-
-        0
-      );
-
-
-    document
-      .getElementById(
-        "totalOrders"
-      )
-      .textContent =
-      total;
-
-
-    document
-      .getElementById(
-        "newOrders"
-      )
-      .textContent =
-      newCount;
-
-
-    document
-      .getElementById(
-        "totalSales"
-      )
-      .textContent =
-
-      "₹" +
-
-      sales.toLocaleString(
-        "en-IN"
-      );
-
-  }
-
-
-  /* =====================================================
-     RENDER ORDERS
-  ===================================================== */
-
-  function renderOrders(
-    orders
-  ){
-
-    const list =
-      document.getElementById(
-        "ordersList"
-      );
-
-
-    if(!orders.length){
-
-      list.innerHTML =
-        `
-
-        <div class="empty">
-
-          No orders found.
-
-        </div>
-
-        `;
-
-      return;
-
-    }
-
-
-    list.innerHTML =
-
-      orders
-        .map(
-          order =>
-            `
-
-            <div
-              class="order"
-            >
-
-              <div
-                class="order-header"
-              >
-
-                <div>
-
-                  <div
-                    class="order-id"
-                  >
-                    📦 ${escapeHtml(
-                      order.id
-                    )}
-                  </div>
-
-                  <div
-                    class="order-date"
-                  >
-                    ${formatDate(
-                      order.createdAt
-                    )}
-                  </div>
-
-                </div>
-
-
-                <select
-                  class="status"
-                  onchange="
-                    updateOrderStatus(
-                      '${escapeAttr(
-                        order.uid
-                      )}',
-                      '${escapeAttr(
-                        order.id
-                      )}',
-                      this.value
-                    )
-                  "
-                >
-
-                  ${getStatusOptions(
-                    order.status
-                  )}
-
-                </select>
-
-              </div>
-
-
-              <div
-                class="customer"
-              >
-
-                <div>
-                  <strong>Name:</strong><br>
-                  ${escapeHtml(
-                    order.customer?.name
-                  )}
-                </div>
-
-
-                <div>
-                  <strong>Phone:</strong><br>
-                  ${escapeHtml(
-                    order.customer?.phone
-                  )}
-                </div>
-
-
-                <div>
-                  <strong>Email:</strong><br>
-                  ${escapeHtml(
-                    order.customer?.email
-                  )}
-                </div>
-
-
-                <div>
-                  <strong>Payment:</strong><br>
-                  ${escapeHtml(
-                    order.payment
-                  )}
-                </div>
-
-
-                <div>
-                  <strong>City:</strong><br>
-                  ${escapeHtml(
-                    order.customer?.city
-                  )}
-                </div>
-
-
-                <div>
-                  <strong>PIN:</strong><br>
-                  ${escapeHtml(
-                    order.customer?.pin
-                  )}
-                </div>
-
-
-                <div
-                  class="customer-full"
-                >
-                  <strong>Address:</strong><br>
-                  ${escapeHtml(
-                    order.customer?.address
-                  )}
-                </div>
-
-              </div>
-
-
-              <div
-                class="items"
-              >
-
-                ${
-                  (
-                    order.items ||
-                    []
-                  )
-                  .map(
-                    item =>
-                      `
-
-                      <div
-                        class="item"
-                      >
-
-                        <span>
-
-                          ${escapeHtml(
-                            item.name
-                          )}
-
-                          ×
-
-                          ${Number(
-                            item.qty || 0
-                          )}
-
-                        </span>
-
-
-                        <strong>
-
-                          ₹${(
-                            Number(
-                              item.price || 0
-                            ) *
-
-                            Number(
-                              item.qty || 0
-                            )
-                          ).toLocaleString(
-                            "en-IN"
-                          )}
-
-                        </strong>
-
-                      </div>
-
-                      `
-                  )
-                  .join("")
-                }
-
-              </div>
-
-
-              <div
-                class="total"
-              >
-
-                Total:
-                ₹${Number(
-                  order.total || 0
-                ).toLocaleString(
-                  "en-IN"
-                )}
-
-              </div>
-
-            </div>
-
-            `
-        )
-        .join("");
-
-  }
-
-
-  /* =====================================================
-     STATUS OPTIONS
-  ===================================================== */
-
-  function getStatusOptions(
-    current
-  ){
-
-    const statuses = [
-
-      "New",
-
-      "Confirmed",
-
-      "Packed",
-
-      "Shipped",
-
-      "Delivered",
-
-      "Cancelled"
-
-    ];
-
-
-    return statuses
-      .map(
-        status =>
-          `
-
-          <option
-            value="${status}"
-
-            ${
-              (
-                current ||
-                "New"
-              ) === status
-                ? "selected"
-                : ""
-            }
-
-          >
-
-            ${status}
-
-          </option>
-
-          `
-      )
-      .join("");
-
-  }
-
-
-  /* =====================================================
-     UPDATE STATUS
-  ===================================================== */
-
-  async function updateOrderStatus(
-    uid,
-    orderId,
-    status
-  ){
-
-    if(
-      !uid ||
-      !orderId
-    ){
-
-      return;
-
-    }
-
-
-    try{
-
-      await db
-        .ref(
-          "orders/" +
-          uid +
-          "/" +
-          orderId +
-          "/status"
-        )
-        .set(
-          status
-        );
-
-    }
-
-    catch(error){
-
-      console.error(
-        error
-      );
-
-      alert(
-        "Status update failed. Check Firebase Database Rules."
-      );
-
-    }
-
-  }
-
-
-  /* =====================================================
-     SEARCH
-  ===================================================== */
+  /* ================================
+     GOOGLE LOGIN
+  ================================= */
 
   document
     .getElementById(
-      "searchInput"
+      "googleLoginBtn"
     )
-    .addEventListener(
-      "input",
+    .onclick = async () => {
 
-      event => {
+      try{
 
-        const query =
-          event.target.value
-            .toLowerCase()
-            .trim();
+        showMessage(
+          "Opening Google login..."
+        );
 
 
-        if(!query){
+        const provider =
+          new firebase
+            .auth
+            .GoogleAuthProvider();
 
-          renderOrders(
-            allOrders
+
+        provider.setCustomParameters({
+          login_hint:
+            ADMIN_EMAIL
+        });
+
+
+        const result =
+          await auth
+            .signInWithPopup(
+              provider
+            );
+
+
+        const user =
+          result.user;
+
+
+        if(
+          (
+            user.email || ""
+          ).toLowerCase() !==
+          ADMIN_EMAIL.toLowerCase()
+        ){
+
+          await auth.signOut();
+
+
+          showMessage(
+            "This Google account is not authorized for admin access.",
+            true
           );
+
 
           return;
 
         }
 
 
-        const filtered =
-          allOrders.filter(
-            order => {
-
-              const text =
-
-                String(
-                  order.id ||
-                  ""
-                )
-
-                + " " +
-
-                String(
-                  order.customer?.name ||
-                  ""
-                )
-
-                + " " +
-
-                String(
-                  order.customer?.phone ||
-                  ""
-                )
-
-                + " " +
-
-                String(
-                  order.customer?.email ||
-                  ""
-                );
-
-
-              return text
-                .toLowerCase()
-                .includes(
-                  query
-                );
-
-            }
-          );
-
-
-        renderOrders(
-          filtered
-        );
+        showDashboard();
 
       }
-    );
+
+      catch(error){
+
+        console.error(
+          error
+        );
 
 
-  /* =====================================================
-     HELPERS
-  ===================================================== */
+        if(
+          error.code ===
+          "auth/popup-blocked"
+        ){
 
-  function escapeHtml(
-    value
-  ){
+          showMessage(
+            "Popup was blocked. Allow popups for this website.",
+            true
+          );
 
-    return String(
-      value ?? "-"
-    )
+        }
 
-      .replaceAll(
-        "&",
-        "&amp;"
+        else if(
+          error.code ===
+          "auth/popup-closed-by-user"
+        ){
+
+          showMessage(
+            "Google login was cancelled.",
+            true
+          );
+
+        }
+
+        else{
+
+          showMessage(
+            "Google login failed. Please try again.",
+            true
+          );
+
+        }
+
+      }
+
+    };
+
+
+  /* ================================
+     SHOW LOGIN
+  ================================= */
+
+  function showLogin(){
+
+    document
+      .getElementById(
+        "loginSection"
       )
+      .style.display =
+      "block";
 
-      .replaceAll(
-        "<",
-        "&lt;"
+
+    document
+      .getElementById(
+        "dashboard"
       )
-
-      .replaceAll(
-        ">",
-        "&gt;"
-      )
-
-      .replaceAll(
-        '"',
-        "&quot;"
-      )
-
-      .replaceAll(
-        "'",
-        "&#039;"
-      );
-
-  }
+      .style.display =
+      "none";
 
 
-  function escapeAttr(
-    value
-  ){
-
-    return String(
-      value ?? ""
-    )
-      .replaceAll(
-        "'",
-        "\\'"
-      );
-
-  }
-
-
-  function formatDate(
-    value
-  ){
-
-    if(!value)
-      return "-";
-
-
-    const date =
-      new Date(
-        value
-      );
-
-
-    if(
-      Number.isNaN(
-        date.getTime()
-      )
-    ){
-
-      return "-";
-
-    }
-
-
-    return date.toLocaleString(
-      "en-IN"
-    );
-
-  }
-
-</script>
-
-</body>
-</html>
+    document
+      .getElementById(
+        "
