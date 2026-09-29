@@ -1,606 +1,865 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TMSJEANS — Premium everyday denim and streetwear.">
-  <title>TMSJEANS — Premium Denim & Streetwear</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>TMSJEANS — Premium Denim</title>
+
+  <meta
+    name="description"
+    content="TMSJEANS — premium denim, jackets, shirts and everyday essentials."
+  >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
 
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+
 </head>
+
 
 <body>
 
-  <!-- TOP OFFER BAR -->
-  <div class="announcement">
-    Choose your perfect fit here
-    <span>|</span>
-    Buy 2 only ₹999
-    <span>|</span>
-    Extra 5% off on prepaid orders
-    <span>|</span>
-    Offers auto-applied
-  </div>
+
+<!-- =========================
+     ANNOUNCEMENT
+========================= -->
+
+<div class="announcement">
+
+  FREE SHIPPING ON ORDERS ABOVE ₹799
+  <span>•</span>
+  EASY 7-DAY RETURNS
+  <span>•</span>
+  TMSJEANS
+
+</div>
 
 
-  <!-- HEADER -->
-  <header class="site-header">
+<!-- =========================
+     HEADER
+========================= -->
 
-    <a class="brand" href="#home">
-      TMS<span>JEANS</span>
+<header class="header">
+
+  <a
+    href="#home"
+    class="logo"
+  >
+    TMS<span>JEANS</span>
+  </a>
+
+
+  <nav class="nav">
+
+    <a href="#home">
+      Home
     </a>
 
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#shop">Shop</a>
-      <a href="#collections">Collections</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <a href="#shop">
+      Shop
+    </a>
 
-    <div class="header-actions">
+    <a href="#collections">
+      Collections
+    </a>
 
-      <button class="icon-btn" id="searchBtn" aria-label="Search">
-        ⌕
-      </button>
+    <a href="#about">
+      About
+    </a>
 
-      <button class="icon-btn cart-trigger" id="cartBtn" aria-label="Cart">
-        🛍
-        <b id="cartCount">0</b>
-      </button>
+    <a href="#contact">
+      Contact
+    </a>
+
+  </nav>
+
+
+  <div class="header-actions">
+
+    <button
+      id="searchBtn"
+      class="icon-btn"
+      aria-label="Search"
+    >
+      ⌕
+    </button>
+
+
+    <button
+      id="accountBtn"
+      class="icon-btn"
+      aria-label="Account"
+    >
+      ♙
+    </button>
+
+
+    <button
+      id="cartBtn"
+      class="cart-btn"
+      aria-label="Cart"
+    >
+
+      🛍️
+
+      <span id="cartCount">
+        0
+      </span>
+
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section
+  id="home"
+  class="hero"
+>
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      TMSJEANS / NEW DROP
+    </div>
+
+    <h1>
+      DENIM
+      <br>
+      WITHOUT
+      <br>
+      COMPROMISE.
+    </h1>
+
+    <p>
+      Clean fits. Premium fabric.
+      Everyday confidence.
+      Discover the latest TMSJEANS collection.
+    </p>
+
+
+    <div class="hero-buttons">
+
+      <a
+        href="#shop"
+        class="primary-btn"
+      >
+        Shop Collection →
+      </a>
+
+
+      <a
+        href="#collections"
+        class="text-btn"
+      >
+        Explore Styles
+      </a>
 
     </div>
 
-  </header>
+  </div>
 
 
-  <main>
+  <div class="hero-image">
 
-    <!-- HERO -->
-    <section class="hero" id="home">
+    <img
+      src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1400&q=90"
+      alt="TMSJEANS denim"
+    >
 
-      <div class="hero-copy">
+    <div class="hero-badge">
+      UP TO
+      <strong>40%</strong>
+      OFF
+    </div>
 
-        <p class="eyebrow">
-          NEW SEASON / 2026
-        </p>
+  </div>
 
-        <h1>
-          DENIM<br>
-          <em>WITHOUT</em><br>
-          COMPROMISE.
-        </h1>
+</section>
 
-        <p class="hero-text">
-          Clean fits. Premium fabric. Everyday confidence.
-          Discover the latest TMSJEANS collection.
-        </p>
 
-        <div class="hero-actions">
+<!-- =========================
+     TRUST BAR
+========================= -->
 
-          <a class="btn btn-dark" href="#shop">
-            Shop collection
-            <span>→</span>
-          </a>
+<section class="trust-bar">
 
-          <a class="text-link" href="#collections">
-            Explore styles
-          </a>
+  <div>
+    <strong>
+      FREE SHIPPING
+    </strong>
+    <span>
+      On eligible orders
+    </span>
+  </div>
 
-        </div>
 
+  <div>
+    <strong>
+      7-DAY RETURNS
+    </strong>
+    <span>
+      Easy exchange support
+    </span>
+  </div>
+
+
+  <div>
+    <strong>
+      COD AVAILABLE
+    </strong>
+    <span>
+      Where available
+    </span>
+  </div>
+
+
+  <div>
+    <strong>
+      SECURE ACCOUNT
+    </strong>
+    <span>
+      Protected customer login
+    </span>
+  </div>
+
+</section>
+
+
+<!-- =========================
+     COLLECTIONS
+========================= -->
+
+<section
+  id="collections"
+  class="section"
+>
+
+  <div class="section-head">
+
+    <div>
+
+      <div class="eyebrow">
+        SHOP BY STYLE
       </div>
-
-
-      <div class="hero-image">
-
-        <div class="hero-badge">
-          <strong>UP TO</strong>
-          <span>40%</span>
-          <small>OFF</small>
-        </div>
-
-        <img
-          src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1400&q=85"
-          alt="Premium denim"
-        >
-
-      </div>
-
-    </section>
-
-
-    <!-- TRUST -->
-    <section class="trust-strip">
-
-      <div>
-        <strong>FREE SHIPPING</strong>
-        <span>On orders above ₹999</span>
-      </div>
-
-      <div>
-        <strong>7-DAY RETURNS</strong>
-        <span>Easy size exchange</span>
-      </div>
-
-      <div>
-        <strong>COD AVAILABLE</strong>
-        <span>Pay when delivered</span>
-      </div>
-
-      <div>
-        <strong>SECURE CHECKOUT</strong>
-        <span>Your details stay protected</span>
-      </div>
-
-    </section>
-
-
-    <!-- COLLECTIONS -->
-    <section class="section" id="collections">
-
-      <div class="section-head">
-
-        <div>
-          <p class="eyebrow">SHOP BY STYLE</p>
-          <h2>Find your everyday fit.</h2>
-        </div>
-
-        <a class="text-link" href="#shop">
-          View all →
-        </a>
-
-      </div>
-
-
-      <div class="collection-grid">
-
-        <a
-          class="collection-card tall"
-          href="#shop"
-          data-filter="Jeans"
-        >
-
-          <img
-            src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=900&q=85"
-            alt="Jeans collection"
-          >
-
-          <div>
-            <span>01</span>
-            <h3>DENIM</h3>
-            <p>Built for every day</p>
-          </div>
-
-        </a>
-
-
-        <a
-          class="collection-card"
-          href="#shop"
-          data-filter="T-Shirts"
-        >
-
-          <img
-            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85"
-            alt="T-shirt collection"
-          >
-
-          <div>
-            <span>02</span>
-            <h3>ESSENTIALS</h3>
-            <p>Minimal. Comfortable.</p>
-          </div>
-
-        </a>
-
-
-        <a
-          class="collection-card"
-          href="#shop"
-          data-filter="Shirts"
-        >
-
-          <img
-            src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=85"
-            alt="Shirt collection"
-          >
-
-          <div>
-            <span>03</span>
-            <h3>SHIRTS</h3>
-            <p>Sharp everyday layers</p>
-          </div>
-
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- PRODUCTS -->
-    <section class="section products-section" id="shop">
-
-      <div class="section-head">
-
-        <div>
-          <p class="eyebrow">THE DROP</p>
-          <h2>Best sellers.</h2>
-        </div>
-
-        <div class="filters" id="filters">
-
-          <button class="active" data-filter="All">
-            All
-          </button>
-
-          <button data-filter="Jeans">
-            Jeans
-          </button>
-
-          <button data-filter="T-Shirts">
-            T-Shirts
-          </button>
-
-          <button data-filter="Shirts">
-            Shirts
-          </button>
-
-        </div>
-
-      </div>
-
-      <div class="product-grid" id="productGrid"></div>
-
-    </section>
-
-
-    <!-- EDITORIAL -->
-    <section class="editorial">
-
-      <div class="editorial-image">
-
-        <img
-          src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=1400&q=85"
-          alt="Streetwear editorial"
-        >
-
-      </div>
-
-
-      <div class="editorial-copy">
-
-        <p class="eyebrow">
-          THE TMS STANDARD
-        </p>
-
-        <h2>
-          Good clothes should<br>
-          <em>feel like you.</em>
-        </h2>
-
-        <p>
-          We focus on clean silhouettes, reliable fabrics
-          and fits you can actually live in.
-          No unnecessary noise — just clothes that work.
-        </p>
-
-        <a class="btn btn-dark" href="#shop">
-          Shop TMSJEANS
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter" id="about">
-
-      <p class="eyebrow">
-        STAY IN THE LOOP
-      </p>
 
       <h2>
-        New drops. Better fits.
+        Collections.
       </h2>
 
-      <p>
-        Get first access to launches and private offers.
-      </p>
+    </div>
 
-      <form id="newsletterForm">
+  </div>
 
-        <input
-          type="email"
-          placeholder="Your email address"
-          required
+
+  <div class="collections">
+
+    <button
+      class="collection-card"
+      data-filter="Jeans"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=900&q=90"
+        alt="Jeans"
+      >
+
+      <span>
+        JEANS
+      </span>
+
+    </button>
+
+
+    <button
+      class="collection-card"
+      data-filter="Jackets"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=90"
+        alt="Denim Jackets"
+      >
+
+      <span>
+        DENIM JACKETS
+      </span>
+
+    </button>
+
+
+    <button
+      class="collection-card"
+      data-filter="T-Shirts"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=90"
+        alt="T-Shirts"
+      >
+
+      <span>
+        T-SHIRTS
+      </span>
+
+    </button>
+
+
+    <button
+      class="collection-card"
+      data-filter="Shirts"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=90"
+        alt="Shirts"
+      >
+
+      <span>
+        SHIRTS
+      </span>
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SHOP
+========================= -->
+
+<section
+  id="shop"
+  class="section shop-section"
+>
+
+  <div class="section-head">
+
+    <div>
+
+      <div class="eyebrow">
+        THE DROP
+      </div>
+
+      <h2>
+        Best sellers.
+      </h2>
+
+    </div>
+
+
+    <div class="shop-tools">
+
+      <div
+        id="filters"
+        class="filters"
+      >
+
+        <button
+          class="filter active"
+          data-filter="All"
         >
-
-        <button class="btn btn-dark">
-          Subscribe
+          All
         </button>
 
-      </form>
+        <button
+          class="filter"
+          data-filter="Jeans"
+        >
+          Jeans
+        </button>
 
-    </section>
+        <button
+          class="filter"
+          data-filter="Jackets"
+        >
+          Jackets
+        </button>
 
-  </main>
+        <button
+          class="filter"
+          data-filter="T-Shirts"
+        >
+          T-Shirts
+        </button>
 
-
-  <!-- FOOTER -->
-  <footer id="contact">
-
-    <div>
-
-      <a class="brand footer-brand" href="#home">
-        TMS<span>JEANS</span>
-      </a>
-
-      <p>
-        Premium denim & everyday streetwear.
-      </p>
-
-    </div>
-
-
-    <div>
-
-      <h4>Shop</h4>
-
-      <a href="#shop">Jeans</a>
-      <a href="#shop">T-Shirts</a>
-      <a href="#shop">Shirts</a>
-
-    </div>
-
-
-    <div>
-
-      <h4>Help</h4>
-
-      <a href="#">Shipping</a>
-      <a href="#">Returns & Exchange</a>
-      <a href="#">Privacy Policy</a>
-
-    </div>
-
-
-    <div>
-
-      <h4>Contact</h4>
-
-      <a href="mailto:orders@yourbrand.com">
-        orders@yourbrand.com
-      </a>
-
-      <a href="#" id="chatFooterLink">
-        Chat with us
-      </a>
-
-    </div>
-
-  </footer>
-
-
-  <div class="copyright">
-    © 2026 TMSJEANS. All rights reserved.
-  </div>
-
-
-  <!-- CART -->
-  <aside class="cart-drawer" id="cartDrawer">
-
-    <div class="drawer-head">
-
-      <h3>Your bag</h3>
-
-      <button id="closeCart">
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="cart-items" id="cartItems"></div>
-
-
-    <div class="cart-empty" id="cartEmpty">
-
-      Your bag is empty.
-
-      <br>
-
-      <a href="#shop" id="emptyShop">
-        Start shopping →
-      </a>
-
-    </div>
-
-
-    <div class="cart-footer" id="cartFooter">
-
-      <div class="total">
-
-        <span>Subtotal</span>
-
-        <strong id="cartTotal">
-          ₹0
-        </strong>
+        <button
+          class="filter"
+          data-filter="Shirts"
+        >
+          Shirts
+        </button>
 
       </div>
 
-      <button
-        class="btn btn-dark full"
-        id="checkoutBtn"
-      >
-        Checkout →
-      </button>
+    </div>
 
-      <small>
-        Shipping and taxes are calculated at checkout.
-      </small>
+  </div>
+
+
+  <div
+    id="productGrid"
+    class="product-grid"
+  ></div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section
+  id="about"
+  class="about"
+>
+
+  <div>
+
+    <div class="eyebrow">
+      ABOUT TMSJEANS
+    </div>
+
+    <h2>
+      Built for everyday wear.
+    </h2>
+
+  </div>
+
+
+  <p>
+
+    TMSJEANS is focused on clean silhouettes,
+    comfortable denim and versatile everyday
+    clothing. Designed for people who want
+    premium-looking essentials without overdoing it.
+
+  </p>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+  id="contact"
+  class="section contact"
+>
+
+  <div class="eyebrow">
+    CONTACT
+  </div>
+
+  <h2>
+    Need help?
+  </h2>
+
+  <p>
+    Use the support chat in the bottom-right corner
+    for automated help with products, orders and sizing.
+  </p>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+  <div>
+
+    <div class="logo">
+      TMS<span>JEANS</span>
+    </div>
+
+    <p>
+      Premium denim. Everyday confidence.
+    </p>
+
+  </div>
+
+
+  <div class="footer-links">
+
+    <a href="#shop">
+      Shop
+    </a>
+
+    <a href="#collections">
+      Collections
+    </a>
+
+    <a href="#about">
+      About
+    </a>
+
+    <a href="#contact">
+      Contact
+    </a>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     CART DRAWER
+========================= -->
+
+<div
+  id="overlay"
+  class="overlay"
+></div>
+
+
+<aside
+  id="cartDrawer"
+  class="cart-drawer"
+>
+
+  <div class="drawer-head">
+
+    <h3>
+      Your Bag
+    </h3>
+
+    <button
+      id="closeCart"
+      class="close-btn"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div
+    id="cartEmpty"
+    class="cart-empty"
+  >
+    Your bag is empty.
+  </div>
+
+
+  <div
+    id="cartItems"
+    class="cart-items"
+  ></div>
+
+
+  <div
+    id="cartFooter"
+    class="cart-footer"
+  >
+
+    <div class="cart-total-row">
+
+      <span>
+        Total
+      </span>
+
+      <strong id="cartTotal">
+        ₹0
+      </strong>
 
     </div>
 
-  </aside>
+
+    <button
+      id="checkoutBtn"
+      class="primary-btn full"
+    >
+      Proceed to Checkout
+    </button>
+
+  </div>
+
+</aside>
 
 
-  <div class="overlay" id="overlay"></div>
+<!-- =========================
+     SEARCH MODAL
+========================= -->
+
+<div
+  id="searchModal"
+  class="modal"
+>
+
+  <div class="search-box">
+
+    <button
+      id="closeSearch"
+      class="modal-close"
+    >
+      ×
+    </button>
+
+    <div class="eyebrow">
+      SEARCH TMSJEANS
+    </div>
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search products..."
+      autocomplete="off"
+    >
+
+    <div
+      id="searchResults"
+      class="search-results"
+    ></div>
+
+  </div>
+
+</div>
 
 
-  <!-- CHECKOUT -->
-  <div class="modal" id="checkoutModal">
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
 
-    <div class="modal-card">
+<div
+  id="productModal"
+  class="modal"
+>
 
-      <button
-        class="modal-close"
-        id="closeCheckout"
-      >
-        ×
-      </button>
+  <div class="product-modal">
 
-      <p class="eyebrow">
-        CHECKOUT
-      </p>
-
-      <h2>
-        Complete your order.
-      </h2>
+    <button
+      id="productClose"
+      class="modal-close"
+    >
+      ×
+    </button>
 
 
-      <div class="checkout-layout">
+    <div class="product-modal-grid">
 
 
-        <form
-          id="orderForm"
-          class="order-form"
-        >
+      <div class="product-gallery">
 
-          <label>
-            Full name
-
-            <input
-              name="name"
-              required
-              placeholder="Your name"
-            >
-
-          </label>
+        <div
+          id="productThumbs"
+          class="product-thumbs"
+        ></div>
 
 
-          <label>
-            Mobile number
+        <div class="product-main-image">
 
-            <input
-              name="phone"
-              required
-              inputmode="tel"
-              placeholder="10-digit mobile"
-            >
-
-          </label>
-
-
-          <label>
-            Full address
-
-            <textarea
-              name="address"
-              required
-              placeholder="House / street / village"
-            ></textarea>
-
-          </label>
-
-
-          <div class="two-col">
-
-            <label>
-              City
-
-              <input
-                name="city"
-                required
-              >
-
-            </label>
-
-
-            <label>
-              PIN code
-
-              <input
-                name="pin"
-                required
-                inputmode="numeric"
-              >
-
-            </label>
-
-          </div>
-
-
-          <label>
-            Payment method
-
-            <select name="payment">
-
-              <option>
-                Cash on Delivery
-              </option>
-
-              <option>
-                UPI / Prepaid
-              </option>
-
-            </select>
-
-          </label>
-
+          <img
+            id="productMainImage"
+            src=""
+            alt=""
+          >
 
           <button
-            class="btn btn-dark full"
-            type="submit"
+            id="galleryPrev"
+            class="gallery-arrow prev"
           >
-            Submit order request →
+            ‹
           </button>
 
+          <button
+            id="galleryNext"
+            class="gallery-arrow next"
+          >
+            ›
+          </button>
 
-          <p class="form-note">
-            Your order request is prepared for the store.
-            Connect a backend/email service to receive orders
-            automatically in your admin panel.
-          </p>
+        </div>
 
-        </form>
+      </div>
 
 
-        <div class="order-summary">
+      <div class="product-details">
 
-          <h4>
-            Order summary
-          </h4>
+        <div
+          id="productBadge"
+          class="product-badge"
+        >
+          TMSJEANS
+        </div>
 
-          <div id="checkoutSummary"></div>
 
-          <div class="summary-total">
+        <h2
+          id="productName"
+        ></h2>
 
-            <span>
-              Total
-            </span>
 
-            <strong id="checkoutTotal">
-              ₹0
+        <div
+          id="productCategory"
+          class="product-category"
+        ></div>
+
+
+        <div class="modal-price">
+
+          <strong
+            id="productPrice"
+          ></strong>
+
+          <del
+            id="productOldPrice"
+          ></del>
+
+          <span
+            id="productDiscount"
+          ></span>
+
+        </div>
+
+
+        <p
+          id="productDescription"
+          class="product-description"
+        ></p>
+
+
+        <div class="option-title">
+          Size
+        </div>
+
+
+        <div
+          id="sizeOptions"
+          class="size-options"
+        >
+
+          <button
+            class="size-option"
+            data-size="28"
+          >
+            28
+          </button>
+
+          <button
+            class="size-option"
+            data-size="30"
+          >
+            30
+          </button>
+
+          <button
+            class="size-option active"
+            data-size="32"
+          >
+            32
+          </button>
+
+          <button
+            class="size-option"
+            data-size="34"
+          >
+            34
+          </button>
+
+          <button
+            class="size-option"
+            data-size="36"
+          >
+            36
+          </button>
+
+          <button
+            class="size-option"
+            data-size="38"
+          >
+            38
+          </button>
+
+        </div>
+
+
+        <div class="option-title">
+          Quantity
+        </div>
+
+
+        <div class="quantity">
+
+          <button id="qtyMinus">
+            −
+          </button>
+
+          <span id="qtyValue">
+            1
+          </span>
+
+          <button id="qtyPlus">
+            +
+          </button>
+
+        </div>
+
+
+        <div class="product-actions">
+
+          <button
+            id="modalAdd"
+            class="primary-btn"
+          >
+            Add to Bag
+          </button>
+
+          <button
+            id="modalBuy"
+            class="secondary-btn"
+          >
+            Buy Now
+          </button>
+
+        </div>
+
+
+        <div class="benefits">
+
+          <div>
+            <strong>
+              🚚 Delivery
             </strong>
+            Easy shipping support
+          </div>
 
+          <div>
+            <strong>
+              ↩️ Returns
+            </strong>
+            7-day return support
+          </div>
+
+          <div>
+            <strong>
+              🔒 Account
+            </strong>
+            Secure customer login
           </div>
 
         </div>
@@ -611,336 +870,313 @@
 
   </div>
 
+</div>
 
-  <!-- SEARCH -->
-  <div class="search-modal" id="searchModal">
 
-    <div class="search-box">
+<!-- =========================
+     ACCOUNT MODAL
+========================= -->
 
-      <button id="closeSearch">
-        ×
-      </button>
+<div
+  id="accountModal"
+  class="modal"
+>
+
+  <div class="account-box">
+
+    <button
+      id="accountClose"
+      class="modal-close"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      TMSJEANS Account
+    </h2>
+
+
+    <div
+      id="loginArea"
+    >
+
+      <p class="muted">
+        Create an account or login to view your orders.
+      </p>
+
 
       <input
-        id="searchInput"
-        placeholder="Search jeans, shirts, t-shirts..."
-        autofocus
+        id="emailInput"
+        type="email"
+        placeholder="Email address"
       >
 
-      <div id="searchResults"></div>
 
-    </div>
-
-  </div>
-
-
-  <!-- CHAT BUTTON -->
-  <button
-    class="chat-fab"
-    id="chatFab"
-    aria-label="Open chat"
-  >
-    💬
-    <span>Chat</span>
-  </button>
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="Password"
+      >
 
 
-  <!-- CHAT BOX -->
-  <div class="chatbox" id="chatbox">
-
-    <div class="chat-head">
-
-      <div>
-
-        <strong>
-          TMSJEANS Support
-        </strong>
-
-        <small>
-          Usually replies quickly
-        </small>
-
-      </div>
-
-      <button id="closeChat">
-        ×
+      <button
+        id="loginBtn"
+        class="primary-btn full"
+      >
+        Login
       </button>
+
+
+      <button
+        id="createBtn"
+        class="secondary-btn full"
+      >
+        Create Account
+      </button>
+
+
+      <button
+        id="forgotBtn"
+        class="text-btn full"
+      >
+        Forgot Password?
+      </button>
+
+
+      <div
+        id="accountMessage"
+        class="account-message"
+      ></div>
 
     </div>
 
 
     <div
-      class="chat-messages"
-      id="chatMessages"
+      id="loggedArea"
+      style="display:none"
     >
 
-      <div class="chat-msg bot">
-        Hey 👋 Welcome to TMSJEANS!
-        How can we help you?
-      </div>
+      <p
+        id="loggedEmail"
+        class="muted"
+      ></p>
 
 
-      <div class="quick-replies">
+      <button
+        id="myOrdersBtn"
+        class="primary-btn full"
+      >
+        📦 My Orders
+      </button>
 
-        <button data-chat="size">
-          Size guide
-        </button>
 
-        <button data-chat="delivery">
-          Delivery
-        </button>
+      <div
+        id="myOrders"
+        class="my-orders"
+      ></div>
 
-        <button data-chat="return">
-          Returns
-        </button>
 
-        <button data-chat="order">
-          Order help
-        </button>
-
-      </div>
+      <button
+        id="logoutBtn"
+        class="secondary-btn full"
+      >
+        Logout
+      </button>
 
     </div>
 
+  </div>
+
+</div>
+
+
+<!-- =========================
+     CHECKOUT
+========================= -->
+
+<div
+  id="checkoutModal"
+  class="modal"
+>
+
+  <div class="checkout-box">
+
+    <button
+      id="checkoutClose"
+      class="modal-close"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      Checkout
+    </h2>
+
+
+    <div
+      id="checkoutSummary"
+      class="checkout-summary"
+    ></div>
+
 
     <form
-      class="chat-input"
-      id="chatForm"
+      id="orderForm"
     >
 
       <input
-        id="chatInput"
-        placeholder="Type your message..."
-        autocomplete="off"
+        name="name"
+        type="text"
+        placeholder="Full name"
+        required
       >
 
-      <button type="submit">
-        ➤
+
+      <input
+        name="phone"
+        type="tel"
+        placeholder="Phone number"
+        required
+      >
+
+
+      <textarea
+        name="address"
+        placeholder="Full delivery address"
+        required
+      ></textarea>
+
+
+      <input
+        name="city"
+        type="text"
+        placeholder="City"
+        required
+      >
+
+
+      <input
+        name="pin"
+        type="text"
+        placeholder="PIN code"
+        required
+      >
+
+
+      <select
+        name="payment"
+        required
+      >
+
+        <option value="">
+          Select payment method
+        </option>
+
+        <option value="COD">
+          Cash on Delivery
+        </option>
+
+        <option value="UPI - Coming Soon">
+          UPI — Coming Soon
+        </option>
+
+      </select>
+
+
+      <div class="checkout-total">
+
+        <span>
+          Total
+        </span>
+
+        <strong id="checkoutTotal">
+          ₹0
+        </strong>
+
+      </div>
+
+
+      <button
+        class="primary-btn full"
+        type="submit"
+      >
+        Place Order
       </button>
 
     </form>
 
   </div>
 
+</div>
 
-  <!-- TOAST -->
-  <div
-    class="toast"
-    id="toast"
-  ></div>
-
-
-  <script src="app.js"></script>
 
 <!-- =========================
-     TMSJEANS CUSTOMER SUPPORT
+     SUPPORT CHAT
 ========================= -->
 
-<style>
-  #tmsSupportButton {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    width: 58px;
-    height: 58px;
-    border: none;
-    border-radius: 50%;
-    background: #111;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 99999;
-    box-shadow: 0 8px 25px rgba(0,0,0,.25);
-  }
+<div
+  id="chatbox"
+  class="chatbox"
+>
 
-  #tmsSupportBox {
-    position: fixed;
-    right: 22px;
-    bottom: 92px;
-    width: 340px;
-    max-width: calc(100vw - 30px);
-    background: #fff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 15px 50px rgba(0,0,0,.25);
-    z-index: 99999;
-    display: none;
-    border: 1px solid #e5e5e5;
-  }
+  <div class="chat-head">
 
-  #tmsSupportBox.open {
-    display: block;
-  }
-
-  .tms-support-header {
-    background: #111;
-    color: #fff;
-    padding: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .tms-support-header strong {
-    display: block;
-    font-size: 16px;
-  }
-
-  .tms-support-header span {
-    font-size: 12px;
-    opacity: .75;
-  }
-
-  #tmsSupportClose {
-    border: none;
-    background: transparent;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-  }
-
-  #tmsSupportMessages {
-    height: 300px;
-    overflow-y: auto;
-    padding: 15px;
-    background: #f7f7f7;
-  }
-
-  .tms-msg {
-    max-width: 85%;
-    padding: 10px 13px;
-    border-radius: 14px;
-    margin-bottom: 9px;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .tms-msg.bot {
-    background: #fff;
-    border: 1px solid #e5e5e5;
-  }
-
-  .tms-msg.user {
-    margin-left: auto;
-    background: #111;
-    color: #fff;
-  }
-
-  .tms-support-options {
-    padding: 10px 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    border-top: 1px solid #eee;
-    background: #fff;
-  }
-
-  .tms-support-options button {
-    border: 1px solid #ddd;
-    background: #fff;
-    padding: 7px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 12px;
-  }
-
-  .tms-support-form {
-    display: flex;
-    border-top: 1px solid #eee;
-    background: #fff;
-  }
-
-  #tmsSupportInput {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 14px;
-    font-size: 14px;
-  }
-
-  #tmsSupportSend {
-    border: none;
-    background: #111;
-    color: #fff;
-    padding: 0 17px;
-    cursor: pointer;
-  }
-
-  @media (max-width: 480px) {
-    #tmsSupportBox {
-      right: 12px;
-      bottom: 82px;
-      width: calc(100vw - 24px);
-    }
-
-    #tmsSupportButton {
-      right: 15px;
-      bottom: 15px;
-    }
-  }
-</style>
-
-<button id="tmsSupportButton" aria-label="Customer Support">
-  💬
-</button>
-
-<div id="tmsSupportBox">
-
-  <div class="tms-support-header">
     <div>
-      <strong>TMSJEANS Customer Support</strong>
-      <span>How can we help you?</span>
+
+      <strong>
+        TMSJEANS Support
+      </strong>
+
+      <span>
+        Automated assistance
+      </span>
+
     </div>
 
-    <button id="tmsSupportClose">×</button>
+
+    <button
+      id="closeChat"
+    >
+      ×
+    </button>
+
   </div>
 
-  <div id="tmsSupportMessages">
-    <div class="tms-msg bot">
-      👋 Welcome to TMSJEANS Customer Support!
+
+  <div
+    id="chatMessages"
+    class="chat-messages"
+  >
+
+    <div class="chat-msg bot">
+
+      👋 Welcome to TMSJEANS Support.
+
       <br><br>
-      Choose an option below or type your question.
+
+      Tell us your problem and we will guide you.
+
     </div>
-  </div>
-
-  <div class="tms-support-options">
-
-    <button data-support="order">
-      📦 Order Help
-    </button>
-
-    <button data-support="delivery">
-      🚚 Delivery
-    </button>
-
-    <button data-support="return">
-      ↩️ Return
-    </button>
-
-    <button data-support="payment">
-      💳 Payment
-    </button>
-
-    <button data-support="size">
-      👕 Size Help
-    </button>
-
-    <button data-support="human">
-      👨‍💼 Support Team
-    </button>
 
   </div>
 
-  <form class="tms-support-form" id="tmsSupportForm">
+
+  <form
+    id="chatForm"
+    class="chat-form"
+  >
 
     <input
-      id="tmsSupportInput"
+      id="chatInput"
       type="text"
       placeholder="Type your message..."
       autocomplete="off"
     >
 
-    <button id="tmsSupportSend" type="submit">
+    <button
+      type="submit"
+    >
       ➤
     </button>
 
@@ -948,131 +1184,31 @@
 
 </div>
 
-<script>
-(function(){
 
-  const button =
-    document.getElementById("tmsSupportButton");
+<button
+  id="chatFab"
+  class="chat-fab"
+>
+  💬
+</button>
 
-  const box =
-    document.getElementById("tmsSupportBox");
 
-  const close =
-    document.getElementById("tmsSupportClose");
+<!-- =========================
+     FIREBASE
+========================= -->
 
-  const messages =
-    document.getElementById("tmsSupportMessages");
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
 
-  const form =
-    document.getElementById("tmsSupportForm");
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
 
-  const input =
-    document.getElementById("tmsSupportInput");
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"></script>
 
-  const replies = {
+<script
+  src="app.js"
+  defer
+></script>
 
-    order:
-      "📦 Please send your TMSJEANS order ID and we will guide you with your order.",
 
-    delivery:
-      "🚚 Standard delivery usually takes 3–7 business days depending on your PIN code.",
+</body>
 
-    return:
-      "↩️ For return or size exchange, please keep your order ID ready and follow the store's return policy.",
-
-    payment:
-      "💳 For payment problems, tell us whether the payment failed, is pending, or you need help with a refund.",
-
-    size:
-      "👕 Tell us your usual size, height and weight and we can guide you regarding the fit.",
-
-    human:
-      "👨‍💼 Please type your name, order ID (if any), phone/email and your question for Customer Support."
-  };
-
-  function addMessage(text, type){
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      "tms-msg " + type;
-
-    div.textContent =
-      text;
-
-    messages.appendChild(div);
-
-    messages.scrollTop =
-      messages.scrollHeight;
-  }
-
-  button.addEventListener("click", function(){
-    box.classList.toggle("open");
-
-    if(box.classList.contains("open")){
-      input.focus();
-    }
-  });
-
-  close.addEventListener("click", function(){
-    box.classList.remove("open");
-  });
-
-  document
-    .querySelectorAll("[data-support]")
-    .forEach(function(btn){
-
-      btn.addEventListener("click", function(){
-
-        const type =
-          btn.getAttribute("data-support");
-
-        addMessage(
-          btn.textContent.trim(),
-          "user"
-        );
-
-        setTimeout(function(){
-
-          addMessage(
-            replies[type],
-            "bot"
-          );
-
-        }, 250);
-
-      });
-
-    });
-
-  form.addEventListener("submit", function(event){
-
-    event.preventDefault();
-
-    const text =
-      input.value.trim();
-
-    if(!text) return;
-
-    addMessage(
-      text,
-      "user"
-    );
-
-    input.value = "";
-
-    setTimeout(function(){
-
-      addMessage(
-        "Thanks for contacting TMSJEANS Customer Support. Our support team can help with orders, delivery, returns, payments and sizing.",
-        "bot"
-      );
-
-    }, 300);
-
-  });
-
-})();
-</script></body>
 </html>
