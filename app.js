@@ -1,24 +1,41 @@
 /* =========================================================
-   TMSJEANS COMPLETE APP.JS
-   Products + Cart + Search + Checkout
-   Email Login + My Orders + Firebase Orders
-   Customer Support
+   TMSJEANS — FRESH COMPLETE APP.JS
 ========================================================= */
 
 
 /* =========================================================
-   FIREBASE CONFIG
+   FIREBASE
 ========================================================= */
 
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
-  authDomain: "tmsjeans.firebaseapp.com",
-  projectId: "tmsjeans",
-  storageBucket: "tmsjeans.firebasestorage.app",
-  messagingSenderId: "155013489437",
-  appId: "1:155013489437:web:d1f91792dd8ebba29cf7f4",
-  databaseURL: "https://tmsjeans-default-rtdb.firebaseio.com"
+
+  apiKey:
+    "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
+
+  authDomain:
+    "tmsjeans.firebaseapp.com",
+
+  projectId:
+    "tmsjeans",
+
+  storageBucket:
+    "tmsjeans.firebasestorage.app",
+
+  messagingSenderId:
+    "155013489437",
+
+  appId:
+    "1:155013489437:web:d1f91792dd8ebba29cf7f4",
+
+  databaseURL:
+    "https://tmsjeans-default-rtdb.firebaseio.com"
+
 };
+
+
+let auth = null;
+let db = null;
+let firebaseReady = false;
 
 
 /* =========================================================
@@ -27,394 +44,425 @@ const FIREBASE_CONFIG = {
 
 const products = [
 
-  /* ORIGINAL PRODUCTS */
-
   {
-    id: 1,
-    name: "Classic Black Denim",
-    category: "Jeans",
-    price: 699,
-    oldPrice: 999,
-    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=85",
-    tag: "BESTSELLER"
-  },
-
-  {
-    id: 2,
-    name: "Washed Blue Straight Fit",
-    category: "Jeans",
-    price: 749,
-    oldPrice: 1099,
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
-    tag: "NEW"
-  },
-
-  {
-    id: 3,
-    name: "Oversized Essential Tee",
-    category: "T-Shirts",
-    price: 399,
-    oldPrice: 599,
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85",
-    tag: "POPULAR"
-  },
-
-  {
-    id: 4,
-    name: "Premium White Tee",
-    category: "T-Shirts",
-    price: 449,
-    oldPrice: 649,
-    image: "https://images.unsplash.com/photo-1583743814966-8936f37f4c7f?auto=format&fit=crop&w=800&q=85",
-    tag: ""
-  },
-
-  {
-    id: 5,
-    name: "Relaxed Fit Overshirt",
-    category: "Shirts",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85",
-    tag: "NEW"
-  },
-
-  {
-    id: 6,
-    name: "Utility Black Shirt",
-    category: "Shirts",
-    price: 899,
-    oldPrice: 1299,
-    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=85",
-    tag: ""
-  },
-
-  {
-    id: 7,
-    name: "Vintage Grey Denim",
-    category: "Jeans",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85",
-    tag: "LIMITED"
-  },
-
-  {
-    id: 8,
-    name: "Heavyweight Black Tee",
-    category: "T-Shirts",
-    price: 499,
-    oldPrice: 699,
-    image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=85",
-    tag: ""
+    id:1,
+    name:"Classic Black Denim",
+    category:"Jeans",
+    price:799,
+    oldPrice:1199,
+    tag:"BESTSELLER",
+    image:
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/classic-black-denim/front.jpg",
+      "assets/products/classic-black-denim/side.jpg",
+      "assets/products/classic-black-denim/back.jpg",
+      "assets/products/classic-black-denim/detail.jpg"
+    ],
+    description:
+      "Clean black denim with a modern everyday fit."
   },
 
 
-  /* NEW JEANS COLLECTION */
-
   {
-    id: 101,
-    name: "Charcoal Grey Straight Fit Jeans",
-    category: "Jeans",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=85",
-    tag: "NEW"
+    id:2,
+    name:"Dark Blue Slim Fit Jeans",
+    category:"Jeans",
+    price:999,
+    oldPrice:1499,
+    tag:"POPULAR",
+    image:
+      "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/dark-blue-slim/front.jpg",
+      "assets/products/dark-blue-slim/side.jpg",
+      "assets/products/dark-blue-slim/back.jpg",
+      "assets/products/dark-blue-slim/detail.jpg"
+    ],
+    description:
+      "Dark blue slim-fit denim designed for a clean silhouette."
   },
 
-  {
-    id: 102,
-    name: "Black Relaxed Fit Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1299,
-    image: "https://images.unsplash.com/photo-1555689502-c4b22d76c56f?auto=format&fit=crop&w=800&q=85",
-    tag: "BESTSELLER"
-  },
 
   {
-    id: 103,
-    name: "Dark Blue Slim Fit Jeans",
-    category: "Jeans",
-    price: 999,
-    oldPrice: 1499,
-    image: "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?auto=format&fit=crop&w=800&q=85",
-    tag: "POPULAR"
+    id:3,
+    name:"Light Wash Baggy Jeans",
+    category:"Jeans",
+    price:899,
+    oldPrice:1399,
+    tag:"NEW",
+    image:
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/light-wash-baggy/front.jpg",
+      "assets/products/light-wash-baggy/side.jpg",
+      "assets/products/light-wash-baggy/back.jpg",
+      "assets/products/light-wash-baggy/detail.jpg"
+    ],
+    description:
+      "Relaxed baggy denim with a contemporary streetwear fit."
   },
 
-  {
-    id: 104,
-    name: "Ice Blue Wide Leg Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1399,
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
-    tag: "NEW"
-  },
 
   {
-    id: 105,
-    name: "Vintage Blue Straight Jeans",
-    category: "Jeans",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=800&q=85",
-    tag: ""
+    id:4,
+    name:"Vintage Grey Straight Jeans",
+    category:"Jeans",
+    price:799,
+    oldPrice:1199,
+    tag:"",
+    image:
+      "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/vintage-grey/front.jpg",
+      "assets/products/vintage-grey/side.jpg",
+      "assets/products/vintage-grey/back.jpg",
+      "assets/products/vintage-grey/detail.jpg"
+    ],
+    description:
+      "Vintage-washed grey denim with an easy straight fit."
   },
 
-  {
-    id: 106,
-    name: "Light Wash Baggy Jeans",
-    category: "Jeans",
-    price: 999,
-    oldPrice: 1499,
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=85",
-    tag: "TRENDING"
-  },
 
   {
-    id: 107,
-    name: "Steel Grey Mom Fit Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1299,
-    image: "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=800&q=85",
-    tag: ""
+    id:5,
+    name:"Premium Indigo Denim",
+    category:"Jeans",
+    price:1199,
+    oldPrice:1799,
+    tag:"PREMIUM",
+    image:
+      "https://images.unsplash.com/photo-1555689502-c4b22d76c56f?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/premium-indigo/front.jpg",
+      "assets/products/premium-indigo/side.jpg",
+      "assets/products/premium-indigo/back.jpg",
+      "assets/products/premium-indigo/detail.jpg"
+    ],
+    description:
+      "Premium dark indigo denim for a refined everyday look."
   },
 
-  {
-    id: 108,
-    name: "Mid Blue Regular Fit Jeans",
-    category: "Jeans",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=800&q=85",
-    tag: ""
-  },
 
   {
-    id: 109,
-    name: "Washed Grey Slim Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1399,
-    image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=85",
-    tag: "NEW"
+    id:6,
+    name:"Black Cargo Jeans",
+    category:"Jeans",
+    price:1199,
+    oldPrice:1699,
+    tag:"TRENDING",
+    image:
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/black-cargo/front.jpg",
+      "assets/products/black-cargo/side.jpg",
+      "assets/products/black-cargo/back.jpg",
+      "assets/products/black-cargo/detail.jpg"
+    ],
+    description:
+      "Utility-inspired cargo denim with a strong streetwear look."
   },
 
-  {
-    id: 110,
-    name: "Deep Indigo Bootcut Jeans",
-    category: "Jeans",
-    price: 999,
-    oldPrice: 1499,
-    image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=800&q=85",
-    tag: ""
-  },
 
   {
-    id: 111,
-    name: "Loose Fit Washed Blue Jeans",
-    category: "Jeans",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=800&q=85",
-    tag: "POPULAR"
+    id:7,
+    name:"Classic Denim Jacket",
+    category:"Jackets",
+    price:999,
+    oldPrice:1499,
+    tag:"NEW",
+    image:
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/classic-denim-jacket/front.jpg",
+      "assets/products/classic-denim-jacket/side.jpg",
+      "assets/products/classic-denim-jacket/back.jpg",
+      "assets/products/classic-denim-jacket/detail.jpg"
+    ],
+    description:
+      "Classic denim jacket built for layering and everyday wear."
   },
 
-  {
-    id: 112,
-    name: "Black Cargo Style Jeans",
-    category: "Jeans",
-    price: 1199,
-    oldPrice: 1699,
-    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=85",
-    tag: "PREMIUM"
-  },
 
   {
-    id: 113,
-    name: "Classic Blue Regular Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1299,
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
-    tag: ""
+    id:8,
+    name:"Washed Blue Denim Jacket",
+    category:"Jackets",
+    price:1199,
+    oldPrice:1799,
+    tag:"PREMIUM",
+    image:
+      "https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/washed-blue-jacket/front.jpg",
+      "assets/products/washed-blue-jacket/side.jpg",
+      "assets/products/washed-blue-jacket/back.jpg",
+      "assets/products/washed-blue-jacket/detail.jpg"
+    ],
+    description:
+      "Washed denim jacket with a premium relaxed feel."
   },
 
-  {
-    id: 114,
-    name: "Stone Wash Straight Jeans",
-    category: "Jeans",
-    price: 999,
-    oldPrice: 1499,
-    image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=800&q=85",
-    tag: "NEW"
-  },
 
   {
-    id: 115,
-    name: "Jet Black Slim Jeans",
-    category: "Jeans",
-    price: 799,
-    oldPrice: 1199,
-    image: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?auto=format&fit=crop&w=800&q=85",
-    tag: ""
+    id:9,
+    name:"Oversized Essential Tee",
+    category:"T-Shirts",
+    price:399,
+    oldPrice:599,
+    tag:"POPULAR",
+    image:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1000&q=90",
+    gallery:[],
+    description:
+      "Everyday heavyweight oversized tee."
   },
 
-  {
-    id: 116,
-    name: "Light Blue Relaxed Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1399,
-    image: "https://images.unsplash.com/photo-1602293589914-9e5e6b4f53b4?auto=format&fit=crop&w=800&q=85",
-    tag: "TRENDING"
-  },
 
   {
-    id: 117,
-    name: "Grey Distressed Denim",
-    category: "Jeans",
-    price: 999,
-    oldPrice: 1499,
-    image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=85",
-    tag: "LIMITED"
+    id:10,
+    name:"Premium White Tee",
+    category:"T-Shirts",
+    price:449,
+    oldPrice:649,
+    tag:"",
+    image:
+      "https://images.unsplash.com/photo-1583743814966-8936f37f4c7f?auto=format&fit=crop&w=1000&q=90",
+    gallery:[],
+    description:
+      "Clean premium white tee for everyday styling."
   },
 
-  {
-    id: 118,
-    name: "Dark Wash Straight Fit",
-    category: "Jeans",
-    price: 1199,
-    oldPrice: 1699,
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85",
-    tag: "PREMIUM"
-  },
 
   {
-    id: 119,
-    name: "Blue Relaxed Bootcut Jeans",
-    category: "Jeans",
-    price: 899,
-    oldPrice: 1399,
-    image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=800&q=85",
-    tag: ""
+    id:11,
+    name:"Relaxed Overshirt",
+    category:"Shirts",
+    price:799,
+    oldPrice:1199,
+    tag:"NEW",
+    image:
+      "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=1000&q=90",
+    gallery:[],
+    description:
+      "Relaxed overshirt with a versatile everyday silhouette."
   },
 
+
   {
-    id: 120,
-    name: "Premium Dark Denim",
-    category: "Jeans",
-    price: 1199,
-    oldPrice: 1799,
-    image: "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=800&q=85",
-    tag: "PREMIUM"
+    id:12,
+    name:"Utility Black Shirt",
+    category:"Shirts",
+    price:899,
+    oldPrice:1299,
+    tag:"",
+    image:
+      "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=1000&q=90",
+    gallery:[],
+    description:
+      "Minimal utility-inspired shirt with a clean finish."
+  },
+
+
+  {
+    id:13,
+    name:"Mid Blue Regular Jeans",
+    category:"Jeans",
+    price:899,
+    oldPrice:1399,
+    tag:"",
+    image:
+      "https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/mid-blue-regular/front.jpg",
+      "assets/products/mid-blue-regular/side.jpg",
+      "assets/products/mid-blue-regular/back.jpg",
+      "assets/products/mid-blue-regular/detail.jpg"
+    ],
+    description:
+      "Classic mid-blue regular-fit denim."
+  },
+
+
+  {
+    id:14,
+    name:"Stone Wash Straight Jeans",
+    category:"Jeans",
+    price:999,
+    oldPrice:1499,
+    tag:"NEW",
+    image:
+      "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/stone-wash/front.jpg",
+      "assets/products/stone-wash/side.jpg",
+      "assets/products/stone-wash/back.jpg",
+      "assets/products/stone-wash/detail.jpg"
+    ],
+    description:
+      "Soft stone-washed denim with a timeless straight fit."
+  },
+
+
+  {
+    id:15,
+    name:"Jet Black Slim Jeans",
+    category:"Jeans",
+    price:799,
+    oldPrice:1199,
+    tag:"",
+    image:
+      "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/jet-black-slim/front.jpg",
+      "assets/products/jet-black-slim/side.jpg",
+      "assets/products/jet-black-slim/back.jpg",
+      "assets/products/jet-black-slim/detail.jpg"
+    ],
+    description:
+      "Deep black slim denim for a sharp everyday look."
+  },
+
+
+  {
+    id:16,
+    name:"Loose Fit Blue Denim",
+    category:"Jeans",
+    price:899,
+    oldPrice:1399,
+    tag:"TRENDING",
+    image:
+      "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=90",
+    gallery:[
+      "assets/products/loose-fit-blue/front.jpg",
+      "assets/products/loose-fit-blue/side.jpg",
+      "assets/products/loose-fit-blue/back.jpg",
+      "assets/products/loose-fit-blue/detail.jpg"
+    ],
+    description:
+      "Relaxed loose-fit denim with modern proportions."
   }
 
 ];
 
 
 /* =========================================================
-   STATE
+   CART
 ========================================================= */
 
 let cart =
   JSON.parse(
-    localStorage.getItem("tms_cart") || "[]"
+    localStorage.getItem(
+      "tms_cart"
+    ) || "[]"
   );
+
 
 let currentFilter = "All";
 
-let auth = null;
-let db = null;
-let firebaseLoaded = false;
+let currentProduct = null;
+
+let currentGallery = [];
+
+let galleryIndex = 0;
+
+let selectedSize = "32";
+
+let currentQty = 1;
 
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
-const $ = selector =>
-  document.querySelector(selector);
+const $ =
+  selector =>
+    document.querySelector(
+      selector
+    );
 
 
-const money = value =>
-  "₹" +
-  Number(value || 0)
-    .toLocaleString("en-IN");
+const money =
+  value =>
+    "₹" +
+    Number(
+      value || 0
+    ).toLocaleString(
+      "en-IN"
+    );
 
 
-/* =========================================================
-   FIREBASE LOADING
-========================================================= */
+function toast(
+  message
+){
 
-function loadFirebaseScript(src){
-
-  return new Promise(
-    (resolve,reject) => {
-
-      const existing =
-        document.querySelector(
-          `script[src="${src}"]`
-        );
+  let box =
+    $("#toast");
 
 
-      if(existing){
+  if(!box){
 
-        resolve();
-
-        return;
-
-      }
-
-
-      const script =
-        document.createElement("script");
-
-
-      script.src =
-        src;
-
-      script.async =
-        true;
-
-
-      script.onload =
-        resolve;
-
-
-      script.onerror =
-        reject;
-
-
-      document.head.appendChild(
-        script
+    box =
+      document.createElement(
+        "div"
       );
 
-    }
+    box.id =
+      "toast";
+
+    document.body.appendChild(
+      box
+    );
+
+  }
+
+
+  box.textContent =
+    message;
+
+
+  box.classList.add(
+    "show"
   );
+
+
+  clearTimeout(
+    window.tmsToastTimer
+  );
+
+
+  window.tmsToastTimer =
+    setTimeout(
+      () =>
+        box.classList.remove(
+          "show"
+        ),
+      2500
+    );
 
 }
 
+
+/* =========================================================
+   FIREBASE INIT
+========================================================= */
 
 async function initFirebase(){
 
   try{
 
-    await loadFirebaseScript(
-      "https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"
-    );
+    if(
+      typeof firebase ===
+      "undefined"
+    ){
 
+      console.error(
+        "Firebase SDK not loaded."
+      );
 
-    await loadFirebaseScript(
-      "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"
-    );
+      return;
 
-
-    await loadFirebaseScript(
-      "https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"
-    );
+    }
 
 
     if(
@@ -436,27 +484,23 @@ async function initFirebase(){
       firebase.database();
 
 
-    firebaseLoaded =
+    firebaseReady =
       true;
 
 
     auth.onAuthStateChanged(
       user => {
 
-        updateLoginButton(
-          user
-        );
+        updateAccountButton();
 
-        updateAccountUI(
-          user
-        );
+        updateAccountArea();
 
       }
     );
 
 
     console.log(
-      "TMSJEANS Firebase connected"
+      "Firebase connected."
     );
 
   }
@@ -464,7 +508,7 @@ async function initFirebase(){
   catch(error){
 
     console.error(
-      "Firebase connection failed:",
+      "Firebase error:",
       error
     );
 
@@ -473,70 +517,11 @@ async function initFirebase(){
 }
 
 
-const firebaseReady =
-  initFirebase();
-
-
-/* =========================================================
-   CART STORAGE
-========================================================= */
-
-function saveCart(){
-
-  localStorage.setItem(
-    "tms_cart",
-    JSON.stringify(cart)
-  );
-
-
-  renderCart();
-
-}
-
-
 /* =========================================================
    PRODUCTS
 ========================================================= */
 
-function renderProducts(
-  filter = currentFilter,
-  query = ""
-){
-
-  const q =
-    query
-      .toLowerCase()
-      .trim();
-
-
-  const list =
-    products.filter(
-      product => {
-
-        const filterMatch =
-          filter === "All" ||
-          product.category ===
-            filter;
-
-
-        const searchMatch =
-          !q ||
-          product.name
-            .toLowerCase()
-            .includes(q) ||
-          product.category
-            .toLowerCase()
-            .includes(q);
-
-
-        return (
-          filterMatch &&
-          searchMatch
-        );
-
-      }
-    );
-
+function renderProducts(){
 
   const grid =
     $("#productGrid");
@@ -546,131 +531,319 @@ function renderProducts(
     return;
 
 
+  const list =
+    products.filter(
+      product =>
+
+        currentFilter ===
+          "All"
+
+        ||
+
+        product.category ===
+          currentFilter
+
+    );
+
+
   grid.innerHTML =
+    list
+      .map(
+        product => `
 
-    list.length
+          <article
+            class="product-card"
+            data-product-id="${product.id}"
+          >
 
-      ? list
-          .map(
-            product => `
+            <div
+              class="product-image"
+            >
 
-              <article
-                class="product-card"
+              ${
+                product.tag
+                  ? `
+                    <div
+                      class="product-tag"
+                    >
+                      ${product.tag}
+                    </div>
+                  `
+                  : ""
+              }
+
+
+              <img
+                src="${product.image}"
+                alt="${product.name}"
               >
 
-                <div
-                  class="product-image"
-                >
 
-                  ${
-                    product.tag
-                      ? `
-                        <span class="tag">
-                          ${product.tag}
-                        </span>
-                      `
-                      : ""
-                  }
+              <button
+                class="quick-add"
+                data-add="${product.id}"
+                type="button"
+              >
+                ADD TO BAG —
+                ${money(product.price)}
+              </button>
 
-                  <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                  >
-
-                  <button
-                    class="quick-add"
-                    onclick="
-                      addToCart(
-                        ${product.id}
-                      )
-                    "
-                  >
-                    ADD TO BAG —
-                    ${money(
-                      product.price
-                    )}
-                  </button>
-
-                </div>
+            </div>
 
 
-                <div
-                  class="product-info"
-                >
+            <div
+              class="product-info"
+            >
 
-                  <h3>
-                    ${product.name}
-                  </h3>
+              <h3>
+                ${product.name}
+              </h3>
 
-                  <p>
-                    ${product.category}
-                  </p>
+              <p>
+                ${product.category}
+              </p>
 
-                  <p
-                    class="price"
-                  >
 
-                    ${money(
-                      product.price
-                    )}
+              <div
+                class="price-row"
+              >
 
-                    ${
-                      product.oldPrice
-                        ? `
-                          <del>
-                            ${money(
-                              product.oldPrice
-                            )}
-                          </del>
-                        `
-                        : ""
-                    }
+                <strong>
+                  ${money(
+                    product.price
+                  )}
+                </strong>
 
-                  </p>
+                ${
+                  product.oldPrice
+                    ? `
+                      <del>
+                        ${money(
+                          product.oldPrice
+                        )}
+                      </del>
+                    `
+                    : ""
+                }
 
-                </div>
+              </div>
 
-              </article>
+            </div>
 
-            `
-          )
-          .join("")
+          </article>
 
-      : "<p>No products found.</p>";
+        `
+      )
+      .join("");
+
+
+  grid
+    .querySelectorAll(
+      "[data-add]"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          event => {
+
+            event.stopPropagation();
+
+
+            addToCart(
+              Number(
+                button.dataset.add
+              )
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  grid
+    .querySelectorAll(
+      ".product-card"
+    )
+    .forEach(
+      card => {
+
+        card.addEventListener(
+          "click",
+          () => {
+
+            const id =
+              Number(
+                card.dataset.productId
+              );
+
+
+            openProduct(
+              id
+            );
+
+          }
+        );
+
+      }
+    );
 
 }
 
 
 /* =========================================================
-   ADD TO CART
+   COLLECTIONS
 ========================================================= */
 
+function setupCollections(){
+
+  document
+    .querySelectorAll(
+      ".collection-card"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              button.dataset.filter;
+
+
+            document
+              .querySelectorAll(
+                ".filter"
+              )
+              .forEach(
+                filter =>
+                  filter.classList.toggle(
+                    "active",
+                    filter.dataset
+                      .filter ===
+                    currentFilter
+                  )
+              );
+
+
+            renderProducts();
+
+
+            document
+              .querySelector(
+                "#shop"
+              )
+              ?.scrollIntoView({
+                behavior:
+                  "smooth"
+              });
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+function setupFilters(){
+
+  document
+    .querySelectorAll(
+      ".filter"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              button.dataset.filter;
+
+
+            document
+              .querySelectorAll(
+                ".filter"
+              )
+              .forEach(
+                item =>
+                  item.classList.toggle(
+                    "active",
+                    item ===
+                      button
+                  )
+              );
+
+
+            renderProducts();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+function saveCart(){
+
+  localStorage.setItem(
+    "tms_cart",
+    JSON.stringify(
+      cart
+    )
+  );
+
+
+  renderCart();
+
+}
+
+
 function addToCart(
-  id
+  productId,
+  quantity = 1
 ){
 
   const item =
     cart.find(
-      product =>
-        product.id === id
+      cartItem =>
+        cartItem.id ===
+        productId
     );
 
 
   if(item){
 
-    item.qty++;
+    item.qty +=
+      quantity;
 
   }
 
   else{
 
     cart.push({
-
       id:
-        id,
+        productId,
 
       qty:
-        1
+        quantity
 
     });
 
@@ -679,7 +852,9 @@ function addToCart(
 
   saveCart();
 
+
   openCart();
+
 
   toast(
     "Added to your bag"
@@ -688,19 +863,16 @@ function addToCart(
 }
 
 
-/* =========================================================
-   CHANGE QUANTITY
-========================================================= */
-
 function changeQty(
-  id,
+  productId,
   delta
 ){
 
   const item =
     cart.find(
-      product =>
-        product.id === id
+      cartItem =>
+        cartItem.id ===
+        productId
     );
 
 
@@ -718,8 +890,9 @@ function changeQty(
 
     cart =
       cart.filter(
-        product =>
-          product.id !== id
+        cartItem =>
+          cartItem.id !==
+          productId
       );
 
   }
@@ -730,135 +903,130 @@ function changeQty(
 }
 
 
-/* =========================================================
-   RENDER CART
-========================================================= */
-
 function renderCart(){
 
+  const items =
+    cart.map(
+      item => {
+
+        const product =
+          products.find(
+            p =>
+              p.id ===
+              item.id
+          );
+
+
+        return {
+
+          ...item,
+
+          product
+
+        };
+
+      }
+    )
+    .filter(
+      item =>
+        item.product
+    );
+
+
   const count =
-    cart.reduce(
+    items.reduce(
       (sum,item) =>
         sum + item.qty,
       0
     );
 
 
-  if($("#cartCount")){
-
-    $("#cartCount")
-      .textContent =
-      count;
-
-  }
+  $("#cartCount")
+    .textContent =
+    count;
 
 
-  const items =
-    cart
+  $("#cartItems")
+    .innerHTML =
+    items
       .map(
-        item => ({
+        item => `
 
-          ...item,
+          <div
+            class="cart-row"
+          >
 
-          product:
-            products.find(
-              product =>
-                product.id ===
-                item.id
-            )
-
-        })
-      )
-      .filter(
-        item =>
-          item.product
-      );
-
-
-  if($("#cartItems")){
-
-    $("#cartItems")
-      .innerHTML =
-      items
-        .map(
-          item => `
-
-            <div
-              class="cart-row"
+            <img
+              src="${item.product.image}"
+              alt="${item.product.name}"
             >
 
-              <img
-                src="${item.product.image}"
-                alt="${item.product.name}"
+
+            <div>
+
+              <h4>
+                ${item.product.name}
+              </h4>
+
+
+              <p>
+                ${money(
+                  item.product.price
+                )}
+              </p>
+
+
+              <div
+                class="qty-small"
               >
 
-              <div>
-
-                <h4>
-                  ${item.product.name}
-                </h4>
-
-                <p>
-                  ${money(
-                    item.product.price
-                  )}
-                </p>
-
-
-                <div
-                  class="qty"
+                <button
+                  data-qty-minus="${item.id}"
                 >
+                  −
+                </button>
 
-                  <button
-                    onclick="
-                      changeQty(
-                        ${item.id},
-                        -1
-                      )
-                    "
-                  >
-                    −
-                  </button>
+                <span>
+                  ${item.qty}
+                </span>
 
-                  <span>
-                    ${item.qty}
-                  </span>
-
-                  <button
-                    onclick="
-                      changeQty(
-                        ${item.id},
-                        1
-                      )
-                    "
-                  >
-                    +
-                  </button>
-
-                </div>
+                <button
+                  data-qty-plus="${item.id}"
+                >
+                  +
+                </button>
 
               </div>
 
-
-              <button
-                class="remove"
-                onclick="
-                  changeQty(
-                    ${item.id},
-                    -${item.qty}
-                  )
-                "
-              >
-                ×
-              </button>
-
             </div>
 
-          `
-        )
-        .join("");
 
-  }
+            <button
+              class="remove-item"
+              data-remove="${item.id}"
+            >
+              ×
+            </button>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+
+  $("#cartEmpty")
+    .style.display =
+    items.length
+      ? "none"
+      : "block";
+
+
+  $("#cartFooter")
+    .style.display =
+    items.length
+      ? "block"
+      : "none";
 
 
   const total =
@@ -871,83 +1039,493 @@ function renderCart(){
     );
 
 
-  if($("#cartTotal")){
-
-    $("#cartTotal")
-      .textContent =
-      money(total);
-
-  }
+  $("#cartTotal")
+    .textContent =
+    money(total);
 
 
-  if($("#cartEmpty")){
+  document
+    .querySelectorAll(
+      "[data-qty-minus]"
+    )
+    .forEach(
+      button => {
 
-    $("#cartEmpty")
-      .style.display =
-      items.length
-        ? "none"
-        : "block";
+        button.onclick =
+          () =>
+            changeQty(
+              Number(
+                button.dataset
+                  .qtyMinus
+              ),
+              -1
+            );
 
-  }
+      }
+    );
 
 
-  if($("#cartFooter")){
+  document
+    .querySelectorAll(
+      "[data-qty-plus]"
+    )
+    .forEach(
+      button => {
 
-    $("#cartFooter")
-      .style.display =
-      items.length
-        ? "block"
-        : "none";
+        button.onclick =
+          () =>
+            changeQty(
+              Number(
+                button.dataset
+                  .qtyPlus
+              ),
+              1
+            );
 
-  }
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      "[data-remove]"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            const id =
+              Number(
+                button.dataset
+                  .remove
+              );
+
+
+            cart =
+              cart.filter(
+                item =>
+                  item.id !==
+                  id
+              );
+
+
+            saveCart();
+
+          };
+
+      }
+    );
 
 }
 
 
-/* =========================================================
-   CART OPEN / CLOSE
-========================================================= */
-
 function openCart(){
 
-  if($("#cartDrawer")){
-
-    $("#cartDrawer")
-      .classList
-      .add("open");
-
-  }
+  $("#cartDrawer")
+    .classList
+    .add("open");
 
 
-  if($("#overlay")){
+  $("#overlay")
+    .classList
+    .add("show");
 
-    $("#overlay")
-      .classList
-      .add("show");
 
-  }
+  document.body.classList
+    .add("no-scroll");
 
 }
 
 
 function closeCart(){
 
-  if($("#cartDrawer")){
+  $("#cartDrawer")
+    .classList
+    .remove("open");
 
-    $("#cartDrawer")
-      .classList
-      .remove("open");
+
+  $("#overlay")
+    .classList
+    .remove("show");
+
+
+  document.body.classList
+    .remove("no-scroll");
+
+}
+
+
+/* =========================================================
+   PRODUCT MODAL
+========================================================= */
+
+function getGallery(
+  product
+){
+
+  if(
+    product.gallery &&
+    product.gallery.length
+  ){
+
+    return [
+      product.image,
+      ...product.gallery
+    ];
 
   }
 
 
-  if($("#overlay")){
+  return [
+    product.image
+  ];
 
-    $("#overlay")
-      .classList
-      .remove("show");
+}
+
+
+function openProduct(
+  productId
+){
+
+  const product =
+    products.find(
+      item =>
+        item.id ===
+        productId
+    );
+
+
+  if(!product)
+    return;
+
+
+  currentProduct =
+    product;
+
+
+  currentGallery =
+    getGallery(
+      product
+    );
+
+
+  galleryIndex =
+    0;
+
+
+  currentQty =
+    1;
+
+
+  selectedSize =
+    "32";
+
+
+  $("#productBadge")
+    .textContent =
+    product.tag ||
+    "TMSJEANS";
+
+
+  $("#productName")
+    .textContent =
+    product.name;
+
+
+  $("#productCategory")
+    .textContent =
+    product.category;
+
+
+  $("#productPrice")
+    .textContent =
+    money(
+      product.price
+    );
+
+
+  $("#productOldPrice")
+    .textContent =
+    product.oldPrice
+      ? money(
+          product.oldPrice
+        )
+      : "";
+
+
+  if(product.oldPrice){
+
+    const discount =
+      Math.round(
+        (
+          1 -
+          product.price /
+          product.oldPrice
+        ) * 100
+      );
+
+
+    $("#productDiscount")
+      .textContent =
+      discount +
+      "% OFF";
 
   }
+
+  else{
+
+    $("#productDiscount")
+      .textContent =
+      "";
+
+  }
+
+
+  $("#productDescription")
+    .textContent =
+    product.description;
+
+
+  $("#qtyValue")
+    .textContent =
+    currentQty;
+
+
+  document
+    .querySelectorAll(
+      ".size-option"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.size ===
+            "32"
+        );
+
+      }
+    );
+
+
+  renderGallery();
+
+
+  $("#productModal")
+    .classList
+    .add("show");
+
+
+  document.body.classList
+    .add("no-scroll");
+
+}
+
+
+function renderGallery(){
+
+  const thumbs =
+    $("#productThumbs");
+
+
+  thumbs.innerHTML =
+    currentGallery
+      .map(
+        (
+          image,
+          index
+        ) => `
+
+          <button
+            class="
+              thumb
+              ${
+                index === 0
+                  ? "active"
+                  : ""
+              }
+            "
+            data-gallery-index="${index}"
+            type="button"
+          >
+
+            <img
+              src="${image}"
+              alt="Product image ${index + 1}"
+            >
+
+          </button>
+
+        `
+      )
+      .join("");
+
+
+  updateMainGalleryImage();
+
+
+  thumbs
+    .querySelectorAll(
+      ".thumb"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            galleryIndex =
+              Number(
+                button.dataset
+                  .galleryIndex
+              );
+
+
+            updateMainGalleryImage();
+
+          }
+        );
+
+
+        const img =
+          button.querySelector(
+            "img"
+          );
+
+
+        img.addEventListener(
+          "error",
+          () => {
+
+            img.src =
+              currentProduct.image;
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+function updateMainGalleryImage(){
+
+  if(
+    !currentGallery.length
+  )
+    return;
+
+
+  const image =
+    currentGallery[
+      galleryIndex
+    ];
+
+
+  const main =
+    $("#productMainImage");
+
+
+  main.src =
+    image;
+
+
+  main.alt =
+    currentProduct.name;
+
+
+  main.onerror =
+    () => {
+
+      main.onerror =
+        null;
+
+      main.src =
+        currentProduct.image;
+
+    };
+
+
+  document
+    .querySelectorAll(
+      ".thumb"
+    )
+    .forEach(
+      (
+        thumb,
+        index
+      ) => {
+
+        thumb.classList.toggle(
+          "active",
+          index ===
+            galleryIndex
+        );
+
+      }
+    );
+
+}
+
+
+function galleryNext(){
+
+  if(
+    currentGallery.length <
+    2
+  )
+    return;
+
+
+  galleryIndex =
+    (
+      galleryIndex +
+      1
+    ) %
+    currentGallery.length;
+
+
+  updateMainGalleryImage();
+
+}
+
+
+function galleryPrev(){
+
+  if(
+    currentGallery.length <
+    2
+  )
+    return;
+
+
+  galleryIndex =
+    (
+      galleryIndex -
+      1 +
+      currentGallery.length
+    ) %
+    currentGallery.length;
+
+
+  updateMainGalleryImage();
+
+}
+
+
+function closeProduct(){
+
+  $("#productModal")
+    .classList
+    .remove("show");
+
+
+  document.body.classList
+    .remove("no-scroll");
 
 }
 
@@ -958,7 +1536,9 @@ function closeCart(){
 
 function openCheckout(){
 
-  if(!cart.length){
+  if(
+    !cart.length
+  ){
 
     toast(
       "Your bag is empty"
@@ -970,7 +1550,7 @@ function openCheckout(){
 
 
   if(
-    firebaseLoaded &&
+    firebaseReady &&
     auth &&
     !auth.currentUser
   ){
@@ -986,59 +1566,61 @@ function openCheckout(){
   }
 
 
-  closeCart();
-
-
   const items =
     cart.map(
-      item => ({
+      item => {
 
-        ...item,
-
-        product:
+        const product =
           products.find(
-            product =>
-              product.id ===
+            p =>
+              p.id ===
               item.id
-          )
+          );
 
-      })
+
+        return {
+
+          ...item,
+
+          product
+
+        };
+
+      }
+    )
+    .filter(
+      item =>
+        item.product
     );
 
 
-  if($("#checkoutSummary")){
+  $("#checkoutSummary")
+    .innerHTML =
+    items
+      .map(
+        item => `
 
-    $("#checkoutSummary")
-      .innerHTML =
+          <div
+            class="checkout-line"
+          >
 
-      items
-        .map(
-          item => `
+            <span>
+              ${item.product.name}
+              × ${item.qty}
+            </span>
 
-            <div
-              class="summary-item"
-            >
+            <strong>
+              ${money(
+                item.product.price *
+                item.qty
+              )}
+            </strong>
 
-              <span>
-                ${item.product.name}
-                ×
-                ${item.qty}
-              </span>
+          </div>
 
-              <b>
-                ${money(
-                  item.product.price *
-                  item.qty
-                )}
-              </b>
-
-            </div>
-
-          `
-        )
-        .join("");
-
-  }
+        `
+      )
+      .join("");
 
 
   const total =
@@ -1051,42 +1633,36 @@ function openCheckout(){
     );
 
 
-  if($("#checkoutTotal")){
-
-    $("#checkoutTotal")
-      .textContent =
-      money(total);
-
-  }
+  $("#checkoutTotal")
+    .textContent =
+    money(
+      total
+    );
 
 
-  if($("#checkoutModal")){
+  $("#checkoutModal")
+    .classList
+    .add("show");
 
-    $("#checkoutModal")
-      .classList
-      .add("show");
 
-  }
+  document.body.classList
+    .add("no-scroll");
 
 }
 
 
 function closeCheckout(){
 
-  if($("#checkoutModal")){
+  $("#checkoutModal")
+    .classList
+    .remove("show");
 
-    $("#checkoutModal")
-      .classList
-      .remove("show");
 
-  }
+  document.body.classList
+    .remove("no-scroll");
 
 }
 
-
-/* =========================================================
-   CREATE ORDER
-========================================================= */
 
 async function submitOrder(
   event
@@ -1095,7 +1671,9 @@ async function submitOrder(
   event.preventDefault();
 
 
-  if(!cart.length){
+  if(
+    !cart.length
+  ){
 
     toast(
       "Your bag is empty"
@@ -1133,18 +1711,29 @@ async function submitOrder(
 
   const items =
     cart.map(
-      item => ({
+      item => {
 
-        ...item,
-
-        product:
+        const product =
           products.find(
-            product =>
-              product.id ===
+            p =>
+              p.id ===
               item.id
-          )
+          );
 
-      })
+
+        return {
+
+          ...item,
+
+          product
+
+        };
+
+      }
+    )
+    .filter(
+      item =>
+        item.product
     );
 
 
@@ -1177,34 +1766,40 @@ async function submitOrder(
     customer: {
 
       name:
-        form.get("name") ||
-        "",
+        form.get(
+          "name"
+        ) || "",
 
       phone:
-        form.get("phone") ||
-        "",
+        form.get(
+          "phone"
+        ) || "",
 
       email:
         auth.currentUser.email ||
         "",
 
       address:
-        form.get("address") ||
-        "",
+        form.get(
+          "address"
+        ) || "",
 
       city:
-        form.get("city") ||
-        "",
+        form.get(
+          "city"
+        ) || "",
 
       pin:
-        form.get("pin") ||
-        ""
+        form.get(
+          "pin"
+        ) || ""
 
     },
 
     payment:
-      form.get("payment") ||
-      "",
+      form.get(
+        "payment"
+      ) || "",
 
     items:
       items.map(
@@ -1225,12 +1820,12 @@ async function submitOrder(
     total:
       total,
 
+    status:
+      "New",
+
     createdAt:
       new Date()
-        .toISOString(),
-
-    status:
-      "New"
+        .toISOString()
 
   };
 
@@ -1247,27 +1842,6 @@ async function submitOrder(
       .set(
         order
       );
-
-
-    const oldOrders =
-      JSON.parse(
-        localStorage.getItem(
-          "tms_orders"
-        ) || "[]"
-      );
-
-
-    oldOrders.unshift(
-      order
-    );
-
-
-    localStorage.setItem(
-      "tms_orders",
-      JSON.stringify(
-        oldOrders
-      )
-    );
 
 
     localStorage.removeItem(
@@ -1293,15 +1867,12 @@ async function submitOrder(
     );
 
 
+    openAccount();
+
+
     setTimeout(
-      () => {
-
-        openAccount();
-
-        loadMyOrders();
-
-      },
-      500
+      loadMyOrders,
+      300
     );
 
   }
@@ -1309,13 +1880,12 @@ async function submitOrder(
   catch(error){
 
     console.error(
-      "Order save error:",
       error
     );
 
 
     toast(
-      "Order could not be saved. Please check Firebase Rules."
+      "Order could not be saved. Check Firebase Rules."
     );
 
   }
@@ -1326,6 +1896,33 @@ async function submitOrder(
 /* =========================================================
    SEARCH
 ========================================================= */
+
+function openSearch(){
+
+  $("#searchModal")
+    .classList
+    .add("show");
+
+
+  $("#searchInput")
+    .focus();
+
+
+  renderSearch(
+    ""
+  );
+
+}
+
+
+function closeSearch(){
+
+  $("#searchModal")
+    .classList
+    .remove("show");
+
+}
+
 
 function renderSearch(
   query
@@ -1338,526 +1935,127 @@ function renderSearch(
 
 
   const list =
-    products
-      .filter(
-        product =>
-          product.name
-            .toLowerCase()
-            .includes(q)
+    products.filter(
+      product =>
 
-          ||
+        product.name
+          .toLowerCase()
+          .includes(q)
 
-          product.category
-            .toLowerCase()
-            .includes(q)
+        ||
+
+        product.category
+          .toLowerCase()
+          .includes(q)
+
+    )
+    .slice(
+      0,
+      10
+    );
+
+
+  $("#searchResults")
+    .innerHTML =
+    list
+      .map(
+        product => `
+
+          <button
+            class="search-result"
+            data-search-id="${product.id}"
+            type="button"
+          >
+
+            <span>
+              ${product.name}
+            </span>
+
+            <strong>
+              ${money(
+                product.price
+              )}
+            </strong>
+
+          </button>
+
+        `
       )
-      .slice(
-        0,
-        8
-      );
+      .join("");
 
 
-  if($("#searchResults")){
+  document
+    .querySelectorAll(
+      "[data-search-id]"
+    )
+    .forEach(
+      button => {
 
-    $("#searchResults")
-      .innerHTML =
+        button.onclick =
+          () => {
 
-      list
-        .map(
-          product => `
+            closeSearch();
 
-            <div
-              class="search-result"
-            >
+            openProduct(
+              Number(
+                button.dataset
+                  .searchId
+              )
+            );
 
-              <span>
-                ${product.name}
-              </span>
+          };
 
-              <b>
-                ${money(
-                  product.price
-                )}
-              </b>
-
-            </div>
-
-          `
-        )
-        .join("");
-
-  }
+      }
+    );
 
 }
 
 
 /* =========================================================
-   TOAST
-========================================================= */
-
-function toast(
-  text
-){
-
-  const box =
-    $("#toast");
-
-
-  if(!box)
-    return;
-
-
-  box.textContent =
-    text;
-
-
-  box.classList
-    .add("show");
-
-
-  setTimeout(
-    () => {
-
-      box.classList
-        .remove("show");
-
-    },
-    2500
-  );
-
-}
-
-
-/* =========================================================
-   EMAIL ACCOUNT UI
-========================================================= */
-
-const accountCSS =
-  document.createElement(
-    "style"
-  );
-
-
-accountCSS.textContent = `
-
-#tmsAccountButton{
-
-  position:fixed;
-
-  left:20px;
-
-  bottom:20px;
-
-  z-index:99998;
-
-  border:0;
-
-  border-radius:999px;
-
-  padding:11px 16px;
-
-  background:#111;
-
-  color:#fff;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.2);
-
-}
-
-
-#tmsAccountModal{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:100000;
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:20px;
-
-  background:
-    rgba(0,0,0,.6);
-
-}
-
-
-#tmsAccountModal.show{
-
-  display:flex;
-
-}
-
-
-.tms-account-box{
-
-  width:400px;
-
-  max-width:100%;
-
-  max-height:90vh;
-
-  overflow:auto;
-
-  background:#fff;
-
-  color:#111;
-
-  border-radius:20px;
-
-  padding:25px;
-
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.35);
-
-}
-
-
-.tms-account-head{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-}
-
-
-.tms-account-head h2{
-
-  margin:0;
-
-}
-
-
-.tms-close{
-
-  border:0;
-
-  background:transparent;
-
-  font-size:26px;
-
-  cursor:pointer;
-
-}
-
-
-.tms-account-box input{
-
-  width:100%;
-
-  box-sizing:border-box;
-
-  padding:13px;
-
-  margin:7px 0;
-
-  border:1px solid #ddd;
-
-  border-radius:10px;
-
-  outline:none;
-
-}
-
-
-.tms-main-btn{
-
-  width:100%;
-
-  padding:13px;
-
-  margin-top:9px;
-
-  border:0;
-
-  border-radius:10px;
-
-  background:#111;
-
-  color:#fff;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-}
-
-
-.tms-light-btn{
-
-  width:100%;
-
-  padding:12px;
-
-  margin-top:8px;
-
-  border:1px solid #ddd;
-
-  border-radius:10px;
-
-  background:#fff;
-
-  color:#111;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-}
-
-
-#tmsAccountMessage{
-
-  min-height:20px;
-
-  font-size:13px;
-
-  margin-top:10px;
-
-}
-
-
-.tms-order-box{
-
-  border:1px solid #e5e5e5;
-
-  border-radius:12px;
-
-  padding:12px;
-
-  margin-top:10px;
-
-  font-size:14px;
-
-}
-
-
-@media(max-width:500px){
-
-  #tmsAccountButton{
-
-    left:12px;
-
-    bottom:12px;
-
-  }
-
-}
-
-`;
-
-document.head.appendChild(
-  accountCSS
-);
-
-
-document.body.insertAdjacentHTML(
-  "beforeend",
-
-  `
-
-  <button
-    id="tmsAccountButton"
-  >
-    👤 Login
-  </button>
-
-
-  <div
-    id="tmsAccountModal"
-  >
-
-    <div
-      class="tms-account-box"
-    >
-
-      <div
-        class="tms-account-head"
-      >
-
-        <h2>
-          TMSJEANS Account
-        </h2>
-
-        <button
-          class="tms-close"
-          id="tmsAccountClose"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-      <div
-        id="tmsLoginArea"
-      >
-
-        <p
-          style="
-          color:#666;
-          font-size:13px;
-          "
-        >
-          Create your TMSJEANS account
-          or login to continue.
-        </p>
-
-
-        <input
-          id="tmsEmail"
-          type="email"
-          placeholder="Email address"
-          autocomplete="email"
-        >
-
-
-        <input
-          id="tmsPassword"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-        >
-
-
-        <button
-          id="tmsLoginBtn"
-          class="tms-main-btn"
-          type="button"
-        >
-          Login
-        </button>
-
-
-        <button
-          id="tmsCreateBtn"
-          class="tms-light-btn"
-          type="button"
-        >
-          Create Account
-        </button>
-
-
-        <button
-          id="tmsForgotBtn"
-          class="tms-light-btn"
-          type="button"
-        >
-          Forgot Password
-        </button>
-
-
-        <div
-          id="tmsAccountMessage"
-        ></div>
-
-      </div>
-
-
-      <div
-        id="tmsLoggedArea"
-        style="display:none"
-      >
-
-        <p
-          id="tmsLoggedEmail"
-          style="
-          color:#666;
-          font-size:13px;
-          "
-        ></p>
-
-
-        <button
-          id="tmsOrdersBtn"
-          class="tms-main-btn"
-          type="button"
-        >
-          📦 My Orders
-        </button>
-
-
-        <div
-          id="tmsMyOrders"
-        ></div>
-
-
-        <button
-          id="tmsLogoutBtn"
-          class="tms-light-btn"
-          type="button"
-        >
-          Logout
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  `
-);
-
-
-/* =========================================================
-   ACCOUNT FUNCTIONS
+   ACCOUNT
 ========================================================= */
 
 function openAccount(){
 
-  $("#tmsAccountModal")
+  $("#accountModal")
     .classList
     .add("show");
 
-  updateAccountUI(
-    auth &&
-    auth.currentUser
-  );
+
+  document.body.classList
+    .add("no-scroll");
+
+
+  updateAccountArea();
 
 }
 
 
 function closeAccount(){
 
-  $("#tmsAccountModal")
+  $("#accountModal")
     .classList
     .remove("show");
+
+
+  document.body.classList
+    .remove("no-scroll");
 
 }
 
 
 function setAccountMessage(
-  text,
+  message,
   error = false
 ){
 
-  const box =
-    $("#tmsAccountMessage");
+  $("#accountMessage")
+    .textContent =
+    message;
 
 
-  if(!box)
-    return;
-
-
-  box.textContent =
-    text;
-
-
-  box.style.color =
+  $("#accountMessage")
+    .style.color =
     error
       ? "#b00020"
       : "#444";
@@ -1865,70 +2063,65 @@ function setAccountMessage(
 }
 
 
-function updateLoginButton(
-  user
-){
+function updateAccountButton(){
 
   const button =
-    $("#tmsAccountButton");
+    $("#accountBtn");
 
 
-  if(!button)
+  if(
+    !button ||
+    !firebaseReady
+  )
     return;
 
 
   button.textContent =
-    user
-      ? "👤 My Account"
-      : "👤 Login";
+    auth.currentUser
+      ? "♙"
+      : "♙";
 
 }
 
 
-function updateAccountUI(
-  user
-){
+function updateAccountArea(){
 
-  const loginArea =
-    $("#tmsLoginArea");
-
-
-  const loggedArea =
-    $("#tmsLoggedArea");
-
-
-  if(!loginArea ||
-     !loggedArea)
+  if(!firebaseReady)
     return;
+
+
+  const user =
+    auth.currentUser;
 
 
   if(user){
 
-    loginArea.style.display =
+    $("#loginArea")
+      .style.display =
       "none";
 
 
-    loggedArea.style.display =
+    $("#loggedArea")
+      .style.display =
       "block";
 
 
-    $("#tmsLoggedEmail")
+    $("#loggedEmail")
       .textContent =
       "Logged in as " +
-      (
-        user.email ||
-        ""
-      );
+      user.email;
 
   }
 
   else{
 
-    loginArea.style.display =
+    $("#loginArea")
+      .style.display =
       "block";
 
 
-    loggedArea.style.display =
+    $("#loggedArea")
+      .style.display =
       "none";
 
   }
@@ -1936,31 +2129,29 @@ function updateAccountUI(
 }
 
 
-/* =========================================================
-   CREATE CUSTOMER ACCOUNT
-========================================================= */
-
-async function createCustomerAccount(){
+async function createAccount(){
 
   await firebaseReady;
 
 
   const email =
-    $("#tmsEmail")
+    $("#emailInput")
       .value
       .trim();
 
 
   const password =
-    $("#tmsPassword")
+    $("#passwordInput")
       .value;
 
 
-  if(!email ||
-     !password){
+  if(
+    !email ||
+    !password
+  ){
 
     setAccountMessage(
-      "Enter email and password.",
+      "Please enter email and password.",
       true
     );
 
@@ -1970,7 +2161,8 @@ async function createCustomerAccount(){
 
 
   if(
-    password.length < 6
+    password.length <
+    6
   ){
 
     setAccountMessage(
@@ -2015,9 +2207,7 @@ async function createCustomerAccount(){
     );
 
 
-    updateAccountUI(
-      result.user
-    );
+    updateAccountArea();
 
   }
 
@@ -2028,58 +2218,41 @@ async function createCustomerAccount(){
     );
 
 
-    if(
-      error.code ===
-      "auth/email-already-in-use"
-    ){
-
-      setAccountMessage(
-        "This email is already registered. Please login.",
-        true
-      );
-
-    }
-
-    else{
-
-      setAccountMessage(
-        error.message ||
-        "Could not create account.",
-        true
-      );
-
-    }
+    setAccountMessage(
+      friendlyAuthError(
+        error
+      ),
+      true
+    );
 
   }
 
 }
 
 
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function loginCustomer(){
+async function loginAccount(){
 
   await firebaseReady;
 
 
   const email =
-    $("#tmsEmail")
+    $("#emailInput")
       .value
       .trim();
 
 
   const password =
-    $("#tmsPassword")
+    $("#passwordInput")
       .value;
 
 
-  if(!email ||
-     !password){
+  if(
+    !email ||
+    !password
+  ){
 
     setAccountMessage(
-      "Enter email and password.",
+      "Please enter email and password.",
       true
     );
 
@@ -2090,12 +2263,11 @@ async function loginCustomer(){
 
   try{
 
-    const result =
-      await auth
-        .signInWithEmailAndPassword(
-          email,
-          password
-        );
+    await auth
+      .signInWithEmailAndPassword(
+        email,
+        password
+      );
 
 
     toast(
@@ -2103,9 +2275,7 @@ async function loginCustomer(){
     );
 
 
-    updateAccountUI(
-      result.user
-    );
+    updateAccountArea();
 
 
     loadMyOrders();
@@ -2120,7 +2290,9 @@ async function loginCustomer(){
 
 
     setAccountMessage(
-      "Login failed. Check your email and password.",
+      friendlyAuthError(
+        error
+      ),
       true
     );
 
@@ -2129,17 +2301,13 @@ async function loginCustomer(){
 }
 
 
-/* =========================================================
-   PASSWORD RESET
-========================================================= */
-
 async function resetPassword(){
 
   await firebaseReady;
 
 
   const email =
-    $("#tmsEmail")
+    $("#emailInput")
       .value
       .trim();
 
@@ -2147,7 +2315,7 @@ async function resetPassword(){
   if(!email){
 
     setAccountMessage(
-      "Enter your email address first.",
+      "Enter your email first.",
       true
     );
 
@@ -2178,7 +2346,9 @@ async function resetPassword(){
 
 
     setAccountMessage(
-      "Could not send reset email.",
+      friendlyAuthError(
+        error
+      ),
       true
     );
 
@@ -2187,8 +2357,68 @@ async function resetPassword(){
 }
 
 
+async function logoutAccount(){
+
+  await firebaseReady;
+
+
+  try{
+
+    await auth.signOut();
+
+    $("#myOrders")
+      .innerHTML =
+      "";
+
+    toast(
+      "Logged out"
+    );
+
+    updateAccountArea();
+
+  }
+
+  catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+function friendlyAuthError(
+  error
+){
+
+  switch(
+    error.code
+  ){
+
+    case "auth/invalid-credential":
+      return "Email or password is incorrect.";
+
+    case "auth/invalid-email":
+      return "Please enter a valid email.";
+
+    case "auth/email-already-in-use":
+      return "This email is already registered.";
+
+    case "auth/weak-password":
+      return "Password is too weak.";
+
+    default:
+      return "Authentication failed. Please try again.";
+
+  }
+
+}
+
+
 /* =========================================================
-   LOAD MY ORDERS
+   MY ORDERS
 ========================================================= */
 
 async function loadMyOrders(){
@@ -2196,32 +2426,18 @@ async function loadMyOrders(){
   await firebaseReady;
 
 
-  if(
-    !auth ||
-    !auth.currentUser
-  ){
-
-    return;
-
-  }
+  const user =
+    auth.currentUser;
 
 
-  const box =
-    $("#tmsMyOrders");
-
-
-  if(!box)
+  if(!user)
     return;
 
 
-  box.innerHTML =
+  $("#myOrders")
+    .innerHTML =
     `
-      <p
-        style="
-        color:#777;
-        font-size:13px;
-        "
-      >
+      <p class="muted">
         Loading orders...
       </p>
     `;
@@ -2233,7 +2449,7 @@ async function loadMyOrders(){
       await db
         .ref(
           "orders/" +
-          auth.currentUser.uid
+          user.uid
         )
         .once(
           "value"
@@ -2247,33 +2463,29 @@ async function loadMyOrders(){
 
     const orders =
       Object
-        .values(data)
+        .values(
+          data
+        )
         .sort(
-          (a,b) =>
-
+          (
+            a,
+            b
+          ) =>
             new Date(
-              b.createdAt ||
-              0
+              b.createdAt
             ) -
-
             new Date(
-              a.createdAt ||
-              0
+              a.createdAt
             )
-
         );
 
 
     if(!orders.length){
 
-      box.innerHTML =
+      $("#myOrders")
+        .innerHTML =
         `
-          <p
-            style="
-            color:#777;
-            font-size:14px;
-            "
-          >
+          <p class="muted">
             No orders yet.
           </p>
         `;
@@ -2283,46 +2495,40 @@ async function loadMyOrders(){
     }
 
 
-    box.innerHTML =
+    $("#myOrders")
+      .innerHTML =
       orders
         .map(
-          order =>
-
-            `
+          order => `
 
             <div
-              class="tms-order-box"
+              class="order-mini"
             >
 
               <strong>
                 📦 ${order.id}
               </strong>
 
-              <div
-                style="
-                margin-top:5px;
-                "
-              >
+              <span>
                 Total:
                 ${money(
                   order.total
                 )}
-              </div>
+              </span>
 
-              <div
-                style="
-                margin-top:4px;
-                color:#777;
-                font-size:12px;
-                "
-              >
+              <br>
+
+              <span>
                 Status:
-                ${order.status || "New"}
-              </div>
+                ${
+                  order.status ||
+                  "New"
+                }
+              </span>
 
             </div>
 
-            `
+          `
         )
         .join("");
 
@@ -2335,11 +2541,13 @@ async function loadMyOrders(){
     );
 
 
-    box.innerHTML =
+    $("#myOrders")
+      .innerHTML =
       `
         <p
           style="
           color:#b00020;
+          font-size:13px;
           "
         >
           Unable to load orders.
@@ -2361,65 +2569,49 @@ const supportReply =
 
 function openChat(){
 
-  if($("#chatbox")){
-
-    $("#chatbox")
-      .classList
-      .add("open");
-
-  }
+  $("#chatbox")
+    .classList
+    .add("open");
 
 
-  if($("#chatInput")){
-
-    $("#chatInput")
-      .focus();
-
-  }
+  $("#chatInput")
+    .focus();
 
 }
 
 
 function closeChat(){
 
-  if($("#chatbox")){
-
-    $("#chatbox")
-      .classList
-      .remove("open");
-
-  }
+  $("#chatbox")
+    .classList
+    .remove("open");
 
 }
 
 
 function addChatMessage(
-  text,
-  type = "bot"
+  message,
+  type
 ){
 
-  if(!$("#chatMessages"))
-    return;
-
-
-  const message =
+  const el =
     document.createElement(
       "div"
     );
 
 
-  message.className =
+  el.className =
     "chat-msg " +
     type;
 
 
-  message.textContent =
-    text;
+  el.textContent =
+    message;
 
 
   $("#chatMessages")
     .appendChild(
-      message
+      el
     );
 
 
@@ -2431,46 +2623,28 @@ function addChatMessage(
 }
 
 
-function replyTo(
+function supportReplyFor(
   text
 ){
 
-  const message =
+  const q =
     text
       .toLowerCase()
       .trim();
 
 
   if(
-
-    message.includes(
+    q.includes(
       "support"
     )
-
     ||
-
-    message.includes(
+    q.includes(
       "customer care"
     )
-
     ||
-
-    message.includes(
+    q.includes(
       "customer support"
     )
-
-    ||
-
-    message.includes(
-      "agent"
-    )
-
-    ||
-
-    message.includes(
-      "team"
-    )
-
   ){
 
     return supportReply;
@@ -2478,153 +2652,289 @@ function replyTo(
   }
 
 
+  if(
+    q.includes(
+      "return"
+    )
+    ||
+    q.includes(
+      "exchange"
+    )
+  ){
+
+    return (
+      "↩️ Please keep your TMSJEANS Order ID ready for return or exchange help."
+    );
+
+  }
+
+
+  if(
+    q.includes(
+      "delivery"
+    )
+    ||
+    q.includes(
+      "shipping"
+    )
+  ){
+
+    return (
+      "🚚 Delivery timing depends on your PIN code and shipping availability."
+    );
+
+  }
+
+
+  if(
+    q.includes(
+      "size"
+    )
+    ||
+    q.includes(
+      "fit"
+    )
+  ){
+
+    return (
+      "👕 Please tell us your usual size, height and weight for sizing guidance."
+    );
+
+  }
+
+
+  if(
+    q.includes(
+      "order"
+    )
+  ){
+
+    return (
+      "📦 Please provide your TMSJEANS Order ID for order help."
+    );
+
+  }
+
+
+  if(
+    q.includes(
+      "payment"
+    )
+  ){
+
+    return (
+      "💳 Payment support will be available here. UPI checkout is coming soon."
+    );
+
+  }
+
+
   return (
-    "Thanks for contacting TMSJEANS Customer Support. Please tell us your problem and we will guide you."
+    "Thanks for contacting TMSJEANS Support. Please tell us your issue."
   );
 
 }
 
 
 /* =========================================================
-   EVENT LISTENERS
+   DOM EVENTS
 ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   () => {
 
+    renderProducts();
+
+    renderCart();
+
+    setupCollections();
+
+    setupFilters();
+
 
     /* CART */
 
-    if($("#cartBtn"))
-      $("#cartBtn")
-        .onclick =
-        openCart;
+    $("#cartBtn")
+      .addEventListener(
+        "click",
+        openCart
+      );
 
 
-    if($("#closeCart"))
-      $("#closeCart")
-        .onclick =
-        closeCart;
+    $("#closeCart")
+      .addEventListener(
+        "click",
+        closeCart
+      );
 
 
-    if($("#overlay"))
-      $("#overlay")
-        .onclick =
-        closeCart;
+    $("#overlay")
+      .addEventListener(
+        "click",
+        closeCart
+      );
 
 
-    if($("#checkoutBtn"))
-      $("#checkoutBtn")
-        .onclick =
-        openCheckout;
+    $("#checkoutBtn")
+      .addEventListener(
+        "click",
+        openCheckout
+      );
 
 
-    if($("#closeCheckout"))
-      $("#closeCheckout")
-        .onclick =
-        closeCheckout;
+    /* PRODUCT */
+
+    $("#productClose")
+      .addEventListener(
+        "click",
+        closeProduct
+      );
 
 
-    if($("#emptyShop"))
-      $("#emptyShop")
-        .onclick =
-        closeCart;
+    $("#galleryNext")
+      .addEventListener(
+        "click",
+        galleryNext
+      );
 
 
-    /* CHECKOUT */
-
-    if($("#orderForm")){
-
-      $("#orderForm")
-        .addEventListener(
-          "submit",
-          submitOrder
-        );
-
-    }
+    $("#galleryPrev")
+      .addEventListener(
+        "click",
+        galleryPrev
+      );
 
 
-    /* FILTERS */
+    $("#qtyMinus")
+      .addEventListener(
+        "click",
+        () => {
 
-    document
-      .querySelectorAll(
-        "#filters button"
-      )
-      .forEach(
-        button => {
+          if(
+            currentQty >
+            1
+          ){
 
-          button.onclick =
-            () => {
+            currentQty--;
 
-              document
-                .querySelectorAll(
-                  "#filters button"
-                )
-                .forEach(
-                  item =>
-                    item.classList
-                      .remove(
-                        "active"
-                      )
-                );
+          }
 
 
-              button.classList
-                .add(
-                  "active"
-                );
-
-
-              currentFilter =
-                button.dataset
-                  .filter;
-
-
-              renderProducts();
-
-            };
+          $("#qtyValue")
+            .textContent =
+            currentQty;
 
         }
       );
 
 
-    /* COLLECTION CARDS */
+    $("#qtyPlus")
+      .addEventListener(
+        "click",
+        () => {
+
+          if(
+            currentQty <
+            10
+          ){
+
+            currentQty++;
+
+          }
+
+
+          $("#qtyValue")
+            .textContent =
+            currentQty;
+
+        }
+      );
+
 
     document
       .querySelectorAll(
-        ".collection-card"
+        ".size-option"
       )
       .forEach(
-        card => {
+        button => {
 
-          card.onclick =
+          button.addEventListener(
+            "click",
             () => {
 
-              currentFilter =
-                card.dataset
-                  .filter;
+              selectedSize =
+                button.dataset
+                  .size;
 
 
               document
                 .querySelectorAll(
-                  "#filters button"
+                  ".size-option"
                 )
                 .forEach(
-                  button =>
-                    button.classList
-                      .toggle(
-                        "active",
-                        button.dataset
-                          .filter ===
-                        currentFilter
-                      )
+                  item =>
+                    item.classList.toggle(
+                      "active",
+                      item ===
+                        button
+                    )
                 );
 
+            }
+          );
 
-              renderProducts();
+        }
+      );
 
-            };
+
+    $("#modalAdd")
+      .addEventListener(
+        "click",
+        () => {
+
+          if(
+            !currentProduct
+          )
+            return;
+
+
+          addToCart(
+            currentProduct.id,
+            currentQty
+          );
+
+
+          closeProduct();
+
+        }
+      );
+
+
+    $("#modalBuy")
+      .addEventListener(
+        "click",
+        () => {
+
+          if(
+            !currentProduct
+          )
+            return;
+
+
+          addToCart(
+            currentProduct.id,
+            currentQty
+          );
+
+
+          closeProduct();
+
+
+          setTimeout(
+            openCheckout,
+            200
+          );
 
         }
       );
@@ -2632,1607 +2942,230 @@ document.addEventListener(
 
     /* SEARCH */
 
-    if($("#searchBtn")){
-
-      $("#searchBtn")
-        .onclick =
-        () => {
-
-          $("#searchModal")
-            .classList
-            .add("show");
+    $("#searchBtn")
+      .addEventListener(
+        "click",
+        openSearch
+      );
 
 
-          $("#searchInput")
-            .focus();
+    $("#closeSearch")
+      .addEventListener(
+        "click",
+        closeSearch
+      );
 
 
-          renderSearch("");
-
-        };
-
-    }
-
-
-    if($("#closeSearch")){
-
-      $("#closeSearch")
-        .onclick =
-        () => {
-
-          $("#searchModal")
-            .classList
-            .remove(
-              "show"
-            );
-
-        };
-
-    }
-
-
-    if($("#searchInput")){
-
-      $("#searchInput")
-        .addEventListener(
-          "input",
-          event =>
-            renderSearch(
-              event.target.value
-            )
-        );
-
-    }
-
-
-    /* NEWSLETTER */
-
-    if(
-      $("#newsletterForm")
-    ){
-
-      $("#newsletterForm")
-        .addEventListener(
-          "submit",
-          event => {
-
-            event.preventDefault();
-
-            event.target.reset();
-
-            toast(
-              "Thanks — you're on the list!"
-            );
-
-          }
-        );
-
-    }
-
-
-    /* CUSTOMER SUPPORT */
-
-    if($("#chatFab")){
-
-      $("#chatFab")
-        .onclick =
-        openChat;
-
-    }
-
-
-    if($("#closeChat")){
-
-      $("#closeChat")
-        .onclick =
-        closeChat;
-
-    }
-
-
-    if(
-      $("#chatFooterLink")
-    ){
-
-      $("#chatFooterLink")
-        .onclick =
-        event => {
-
-          event.preventDefault();
-
-          openChat();
-
-        };
-
-    }
-
-
-    if($("#chatForm")){
-
-      $("#chatForm")
-        .addEventListener(
-          "submit",
-          event => {
-
-            event.preventDefault();
-
-
-            const input =
-              $("#chatInput");
-
-
-            const text =
-              input.value.trim();
-
-
-            if(!text)
-              return;
-
-
-            addChatMessage(
-              text,
-              "user"
-            );
-
-
-            input.value =
-              "";
-
-
-            setTimeout(
-              () => {
-
-                addChatMessage(
-                  replyTo(text)
-                );
-
-              },
-              350
-            );
-
-          }
-        );
-
-    }
+    $("#searchInput")
+      .addEventListener(
+        "input",
+        event =>
+          renderSearch(
+            event.target.value
+          )
+      );
 
 
     /* ACCOUNT */
 
-    if(
-      $("#tmsAccountButton")
-    ){
-
-      $("#tmsAccountButton")
-        .onclick =
-        openAccount;
-
-    }
+    $("#accountBtn")
+      .addEventListener(
+        "click",
+        openAccount
+      );
 
 
-    if(
-      $("#tmsAccountClose")
-    ){
-
-      $("#tmsAccountClose")
-        .onclick =
-        closeAccount;
-
-    }
+    $("#accountClose")
+      .addEventListener(
+        "click",
+        closeAccount
+      );
 
 
-    if(
-      $("#tmsAccountModal")
-    ){
+    $("#loginBtn")
+      .addEventListener(
+        "click",
+        loginAccount
+      );
 
-      $("#tmsAccountModal")
-        .addEventListener(
+
+    $("#createBtn")
+      .addEventListener(
+        "click",
+        createAccount
+      );
+
+
+    $("#forgotBtn")
+      .addEventListener(
+        "click",
+        resetPassword
+      );
+
+
+    $("#logoutBtn")
+      .addEventListener(
+        "click",
+        logoutAccount
+      );
+
+
+    $("#myOrdersBtn")
+      .addEventListener(
+        "click",
+        loadMyOrders
+      );
+
+
+    /* CHECKOUT */
+
+    $("#checkoutClose")
+      .addEventListener(
+        "click",
+        closeCheckout
+      );
+
+
+    $("#orderForm")
+      .addEventListener(
+        "submit",
+        submitOrder
+      );
+
+
+    /* CHAT */
+
+    $("#chatFab")
+      .addEventListener(
+        "click",
+        openChat
+      );
+
+
+    $("#closeChat")
+      .addEventListener(
+        "click",
+        closeChat
+      );
+
+
+    $("#chatForm")
+      .addEventListener(
+        "submit",
+        event => {
+
+          event.preventDefault();
+
+
+          const input =
+            $("#chatInput");
+
+
+          const message =
+            input.value.trim();
+
+
+          if(!message)
+            return;
+
+
+          addChatMessage(
+            message,
+            "user"
+          );
+
+
+          input.value =
+            "";
+
+
+          setTimeout(
+            () =>
+              addChatMessage(
+                supportReplyFor(
+                  message
+                ),
+                "bot"
+              ),
+            300
+          );
+
+        }
+      );
+
+
+    /* MODAL BACKDROPS */
+
+    [
+      "productModal",
+      "searchModal",
+      "accountModal",
+      "checkoutModal"
+    ]
+    .forEach(
+      id => {
+
+        const modal =
+          document.getElementById(
+            id
+          );
+
+
+        modal.addEventListener(
           "click",
           event => {
 
             if(
-              event.target.id ===
-              "tmsAccountModal"
+              event.target ===
+              modal
             ){
 
-              closeAccount();
+              modal.classList
+                .remove(
+                  "show"
+                );
+
+              document.body
+                .classList
+                .remove(
+                  "no-scroll"
+                );
 
             }
 
           }
         );
 
-    }
-
-
-    if(
-      $("#tmsLoginBtn")
-    ){
-
-      $("#tmsLoginBtn")
-        .onclick =
-        loginCustomer;
-
-    }
-
-
-    if(
-      $("#tmsCreateBtn")
-    ){
-
-      $("#tmsCreateBtn")
-        .onclick =
-        createCustomerAccount;
-
-    }
-
-
-    if(
-      $("#tmsForgotBtn")
-    ){
-
-      $("#tmsForgotBtn")
-        .onclick =
-        resetPassword;
-
-    }
-
-
-    if(
-      $("#tmsOrdersBtn")
-    ){
-
-      $("#tmsOrdersBtn")
-        .onclick =
-        loadMyOrders;
-
-    }
-
-
-    if(
-      $("#tmsLogoutBtn")
-    ){
-
-      $("#tmsLogoutBtn")
-        .onclick =
-        async () => {
-
-          await firebaseReady;
-
-          await auth.signOut();
-
-          toast(
-            "Logged out"
-          );
-
-        };
-
-    }
-
-
-    /* INITIAL RENDER */
-
-    renderProducts();
-
-    renderCart();
-
-  }
-);
-/* =========================================================
-   TMSJEANS PREMIUM PRODUCT EXPERIENCE
-   Product Quick View + 3-Image Gallery + Premium UI
-========================================================= */
-
-(function(){
-
-  const galleryImages = [
-
-    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1555689502-c4b22d76c56f?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1000&q=90",
-
-    "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1000&q=90"
-
-  ];
-
-
-  /* =====================================================
-     PREMIUM CSS
-  ===================================================== */
-
-  const style =
-    document.createElement("style");
-
-  style.textContent = `
-
-    .product-card{
-      position:relative;
-      transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-      cursor:pointer;
-    }
-
-    .product-card:hover{
-      transform:translateY(-6px);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,.12);
-    }
-
-    .product-image{
-      overflow:hidden;
-      position:relative;
-      aspect-ratio:4/5;
-      background:#f2f2f2;
-    }
-
-    .product-image img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transition:
-        transform .45s ease,
-        filter .3s ease;
-    }
-
-    .product-card:hover
-    .product-image img{
-      transform:scale(1.045);
-    }
-
-    .product-card
-    .quick-add{
-      opacity:0;
-      transform:translateY(10px);
-      transition:.25s ease;
-    }
-
-    .product-card:hover
-    .quick-add{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-
-    /* ===================================================
-       PRODUCT MODAL
-    =================================================== */
-
-    #tmsProductModal{
-      position:fixed;
-      inset:0;
-      background:rgba(10,10,10,.72);
-      z-index:100001;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:25px;
-      backdrop-filter:blur(10px);
-    }
-
-    #tmsProductModal.show{
-      display:flex;
-    }
-
-    .tms-product-window{
-      width:min(1180px,100%);
-      max-height:92vh;
-      overflow:auto;
-      background:#fff;
-      border-radius:24px;
-      position:relative;
-      box-shadow:
-        0 30px 100px rgba(0,0,0,.35);
-    }
-
-    .tms-product-close{
-      position:absolute;
-      right:18px;
-      top:18px;
-      z-index:5;
-      width:42px;
-      height:42px;
-      border:0;
-      border-radius:50%;
-      background:#fff;
-      box-shadow:
-        0 5px 20px rgba(0,0,0,.12);
-      font-size:25px;
-      cursor:pointer;
-    }
-
-    .tms-product-content{
-      display:grid;
-      grid-template-columns:
-        1.05fr .95fr;
-      gap:35px;
-      padding:30px;
-    }
-
-    .tms-gallery{
-      display:grid;
-      grid-template-columns:90px 1fr;
-      gap:15px;
-    }
-
-    .tms-thumbs{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .tms-thumb{
-      border:2px solid transparent;
-      border-radius:12px;
-      overflow:hidden;
-      padding:0;
-      background:#f5f5f5;
-      cursor:pointer;
-      aspect-ratio:3/4;
-    }
-
-    .tms-thumb.active{
-      border-color:#111;
-    }
-
-    .tms-thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .tms-main-photo{
-      min-height:620px;
-      border-radius:18px;
-      overflow:hidden;
-      background:#f1f1f1;
-    }
-
-    .tms-main-photo img{
-      width:100%;
-      height:100%;
-      min-height:620px;
-      object-fit:cover;
-    }
-
-    .tms-product-details{
-      padding:20px 10px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .tms-product-badge{
-      display:inline-block;
-      width:max-content;
-      background:#111;
-      color:#fff;
-      padding:7px 11px;
-      border-radius:20px;
-      font-size:10px;
-      font-weight:800;
-      letter-spacing:1px;
-      margin-bottom:14px;
-    }
-
-    .tms-product-details h2{
-      font-size:38px;
-      line-height:1.05;
-      margin:0 0 12px;
-      letter-spacing:-1.5px;
-    }
-
-    .tms-category{
-      color:#777;
-      font-size:14px;
-      margin-bottom:17px;
-    }
-
-    .tms-price{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:18px;
-    }
-
-    .tms-price strong{
-      font-size:30px;
-    }
-
-    .tms-price del{
-      color:#999;
-      font-size:18px;
-    }
-
-    .tms-discount{
-      background:#dff6e8;
-      color:#087a38;
-      border-radius:20px;
-      padding:6px 10px;
-      font-size:12px;
-      font-weight:800;
-    }
-
-    .tms-description{
-      color:#666;
-      line-height:1.65;
-      font-size:14px;
-      margin-bottom:20px;
-    }
-
-    .tms-label{
-      font-size:13px;
-      font-weight:800;
-      margin-bottom:9px;
-    }
-
-    .tms-sizes{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:20px;
-    }
-
-    .tms-size{
-      min-width:48px;
-      padding:10px 13px;
-      background:#fff;
-      color:#111;
-      border:1px solid #ddd;
-      border-radius:50px;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    .tms-size.active{
-      background:#111;
-      color:#fff;
-      border-color:#111;
-    }
-
-    .tms-qty{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:20px;
-    }
-
-    .tms-qty button{
-      width:42px;
-      height:42px;
-      border-radius:50%;
-      border:1px solid #ddd;
-      background:#fff;
-      font-size:20px;
-      cursor:pointer;
-    }
-
-    .tms-qty span{
-      min-width:42px;
-      text-align:center;
-      font-weight:800;
-    }
-
-    .tms-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .tms-add,
-    .tms-buy{
-      min-height:54px;
-      border-radius:13px;
-      font-weight:800;
-      cursor:pointer;
-    }
-
-    .tms-add{
-      background:#111;
-      color:#fff;
-      border:1px solid #111;
-    }
-
-    .tms-buy{
-      background:#fff;
-      color:#111;
-      border:1px solid #111;
-    }
-
-    .tms-benefits{
-      display:grid;
-      grid-template-columns:
-        repeat(3,1fr);
-      gap:10px;
-      margin-top:20px;
-      border-top:1px solid #eee;
-      padding-top:18px;
-    }
-
-    .tms-benefit{
-      font-size:11px;
-      color:#666;
-      line-height:1.45;
-    }
-
-    .tms-benefit strong{
-      display:block;
-      color:#111;
-      margin-bottom:3px;
-    }
-
-
-    /* ===================================================
-       MOBILE
-    =================================================== */
-
-    @media(max-width:800px){
-
-      #tmsProductModal{
-        padding:10px;
       }
-
-      .tms-product-content{
-        grid-template-columns:1fr;
-        padding:15px;
-      }
-
-      .tms-gallery{
-        grid-template-columns:
-          70px 1fr;
-      }
-
-      .tms-main-photo,
-      .tms-main-photo img{
-        min-height:430px;
-      }
-
-      .tms-product-details h2{
-        font-size:29px;
-      }
-
-    }
-
-    @media(max-width:520px){
-
-      .tms-thumbs{
-        gap:6px;
-      }
-
-      .tms-product-content{
-        gap:10px;
-      }
-
-      .tms-benefits{
-        grid-template-columns:1fr;
-      }
-
-      .tms-actions{
-        grid-template-columns:1fr;
-      }
-
-    }
-
-  `;
-
-  document.head.appendChild(style);
-
-
-  /* =====================================================
-     MODAL HTML
-  ===================================================== */
-
-  const modal =
-    document.createElement("div");
-
-  modal.id =
-    "tmsProductModal";
-
-  modal.innerHTML = `
-
-    <div
-      class="tms-product-window"
-    >
-
-      <button
-        class="tms-product-close"
-        id="tmsProductClose"
-      >
-        ×
-      </button>
-
-
-      <div
-        class="tms-product-content"
-      >
-
-        <div
-          class="tms-gallery"
-        >
-
-          <div
-            class="tms-thumbs"
-            id="tmsThumbs"
-          ></div>
-
-
-          <div
-            class="tms-main-photo"
-          >
-
-            <img
-              id="tmsMainProductImage"
-              src=""
-              alt=""
-            >
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="tms-product-details"
-        >
-
-          <span
-            class="tms-product-badge"
-            id="tmsProductBadge"
-          >
-            TMSJEANS
-          </span>
-
-
-          <h2
-            id="tmsProductName"
-          ></h2>
-
-
-          <div
-            class="tms-category"
-            id="tmsProductCategory"
-          ></div>
-
-
-          <div
-            class="tms-price"
-          >
-
-            <strong
-              id="tmsProductPrice"
-            ></strong>
-
-            <del
-              id="tmsProductOldPrice"
-            ></del>
-
-            <span
-              class="tms-discount"
-              id="tmsProductDiscount"
-            ></span>
-
-          </div>
-
-
-          <p
-            class="tms-description"
-          >
-            Premium TMSJEANS denim designed
-            for everyday comfort and modern style.
-            Explore the product from multiple angles
-            before adding it to your bag.
-          </p>
-
-
-          <div
-            class="tms-label"
-          >
-            Select Size
-          </div>
-
-
-          <div
-            class="tms-sizes"
-            id="tmsSizes"
-          >
-
-            <button class="tms-size">
-              28
-            </button>
-
-            <button class="tms-size">
-              30
-            </button>
-
-            <button class="tms-size active">
-              32
-            </button>
-
-            <button class="tms-size">
-              34
-            </button>
-
-            <button class="tms-size">
-              36
-            </button>
-
-            <button class="tms-size">
-              38
-            </button>
-
-          </div>
-
-
-          <div
-            class="tms-label"
-          >
-            Quantity
-          </div>
-
-
-          <div
-            class="tms-qty"
-          >
-
-            <button
-              id="tmsQtyMinus"
-            >
-              −
-            </button>
-
-            <span
-              id="tmsQtyValue"
-            >
-              1
-            </span>
-
-            <button
-              id="tmsQtyPlus"
-            >
-              +
-            </button>
-
-          </div>
-
-
-          <div
-            class="tms-actions"
-          >
-
-            <button
-              class="tms-add"
-              id="tmsModalAdd"
-            >
-              🛒 Add to Bag
-            </button>
-
-            <button
-              class="tms-buy"
-              id="tmsModalBuy"
-            >
-              ⚡ Buy Now
-            </button>
-
-          </div>
-
-
-          <div
-            class="tms-benefits"
-          >
-
-            <div
-              class="tms-benefit"
-            >
-              <strong>
-                🚚 Free Delivery
-              </strong>
-              On eligible orders
-            </div>
-
-
-            <div
-              class="tms-benefit"
-            >
-              <strong>
-                ↩️ 7-Day Returns
-              </strong>
-              Easy exchange support
-            </div>
-
-
-            <div
-              class="tms-benefit"
-            >
-              <strong>
-                🔒 Secure Checkout
-              </strong>
-              Safe shopping experience
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-  document.body.appendChild(modal);
-
-
-  /* =====================================================
-     STATE
-  ===================================================== */
-
-  let currentProduct = null;
-
-  let currentGallery = [];
-
-  let currentQty = 1;
-
-
-  /* =====================================================
-     OPEN MODAL
-  ===================================================== */
-
-  function openProductModal(product){
-
-    if(!product)
-      return;
-
-
-    currentProduct =
-      product;
-
-    currentQty =
-      1;
-
-
-    currentGallery =
-      buildGallery(
-        product
-      );
-
-
-    const badge =
-      product.tag ||
-      "TMSJEANS";
-
-
-    document
-      .getElementById(
-        "tmsProductBadge"
-      )
-      .textContent =
-      badge;
-
-
-    document
-      .getElementById(
-        "tmsProductName"
-      )
-      .textContent =
-      product.name;
-
-
-    document
-      .getElementById(
-        "tmsProductCategory"
-      )
-      .textContent =
-      product.category;
-
-
-    document
-      .getElementById(
-        "tmsProductPrice"
-      )
-      .textContent =
-      money(product.price);
-
-
-    const oldPrice =
-      document
-        .getElementById(
-          "tmsProductOldPrice"
-        );
-
-
-    const discount =
-      document
-        .getElementById(
-          "tmsProductDiscount"
-        );
-
-
-    if(product.oldPrice){
-
-      oldPrice.textContent =
-        money(product.oldPrice);
-
-
-      const percent =
-        Math.round(
-          (
-            1 -
-            product.price /
-            product.oldPrice
-          ) * 100
-        );
-
-
-      discount.textContent =
-        percent +
-        "% OFF";
-
-    }
-
-    else{
-
-      oldPrice.textContent =
-        "";
-
-      discount.textContent =
-        "";
-
-    }
-
-
-    document
-      .getElementById(
-        "tmsQtyValue"
-      )
-      .textContent =
-      currentQty;
-
-
-    renderGallery();
-
-
-    modal
-      .classList
-      .add("show");
-
-
-    document.body.style.overflow =
-      "hidden";
-
-  }
-
-
-  /* =====================================================
-     CLOSE
-  ===================================================== */
-
-  function closeProductModal(){
-
-    modal
-      .classList
-      .remove("show");
-
-
-    document.body.style.overflow =
-      "";
-
-  }
-
-
-  /* =====================================================
-     GALLERY
-  ===================================================== */
-
-  function buildGallery(product){
-
-    const result = [];
-
-    const main =
-      product.image;
-
-
-    if(main)
-      result.push(main);
-
-
-    const start =
-      Math.abs(
-        Number(product.id || 1)
-      ) % galleryImages.length;
-
-
-    for(
-      let i = 0;
-      i < galleryImages.length &&
-      result.length < 3;
-      i++
-    ){
-
-      const image =
-        galleryImages[
-          (start + i) %
-          galleryImages.length
-        ];
-
-
-      if(
-        !result.includes(image)
-      ){
-
-        result.push(image);
-
-      }
-
-    }
-
-
-    return result;
-
-  }
-
-
-  function renderGallery(){
-
-    const thumbs =
-      document
-        .getElementById(
-          "tmsThumbs"
-        );
-
-
-    const main =
-      document
-        .getElementById(
-          "tmsMainProductImage"
-        );
-
-
-    thumbs.innerHTML =
-      currentGallery
-        .map(
-          (
-            image,
-            index
-          ) => `
-
-          <button
-            class="
-              tms-thumb
-              ${
-                index === 0
-                  ? "active"
-                  : ""
-              }
-            "
-            data-index="${index}"
-          >
-
-            <img
-              src="${image}"
-              alt="Product view ${index + 1}"
-            >
-
-          </button>
-
-        `
-        )
-        .join("");
-
-
-    main.src =
-      currentGallery[0];
-
-
-    main.alt =
-      currentProduct
-        ? currentProduct.name
-        : "";
-
-
-    thumbs
-      .querySelectorAll(
-        ".tms-thumb"
-      )
-      .forEach(
-        thumb => {
-
-          thumb.onclick =
-            () => {
-
-              const index =
-                Number(
-                  thumb.dataset
-                    .index
-                );
-
-
-              main.src =
-                currentGallery[
-                  index
-                ];
-
-
-              thumbs
-                .querySelectorAll(
-                  ".tms-thumb"
-                )
-                .forEach(
-                  item =>
-                    item.classList
-                      .remove(
-                        "active"
-                      )
-                );
-
-
-              thumb.classList
-                .add(
-                  "active"
-                );
-
-            };
-
-        }
-      );
-
-  }
-
-
-  /* =====================================================
-     PRODUCT CARD CLICK
-  ===================================================== */
-
-  const productGrid =
-    document.querySelector(
-      "#productGrid"
     );
 
 
-  if(productGrid){
-
-    productGrid.addEventListener(
-      "click",
+    document.addEventListener(
+      "keydown",
       event => {
 
         if(
-          event.target.closest(
-            ".quick-add"
-          )
+          event.key ===
+          "Escape"
         ){
 
-          return;
+          closeProduct();
 
-        }
+          closeSearch();
 
+          closeAccount();
 
-        const card =
-          event.target.closest(
-            ".product-card"
-          );
+          closeCheckout();
 
-
-        if(!card)
-          return;
-
-
-        const nameElement =
-          card.querySelector(
-            "h3"
-          );
-
-
-        if(!nameElement)
-          return;
-
-
-        const name =
-          nameElement
-            .textContent
-            .trim();
-
-
-        const product =
-          products.find(
-            item =>
-              item.name ===
-              name
-          );
-
-
-        if(product){
-
-          openProductModal(
-            product
-          );
+          closeCart();
 
         }
 
       }
     );
+
+
+    initFirebase();
 
   }
-
-
-  /* =====================================================
-     MODAL BUTTONS
-  ===================================================== */
-
-  document
-    .getElementById(
-      "tmsProductClose"
-    )
-    .onclick =
-    closeProductModal;
-
-
-  modal.addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target ===
-        modal
-      ){
-
-        closeProductModal();
-
-      }
-
-    }
-  );
-
-
-  /* =====================================================
-     QUANTITY
-  ===================================================== */
-
-  document
-    .getElementById(
-      "tmsQtyMinus"
-    )
-    .onclick =
-    () => {
-
-      if(
-        currentQty > 1
-      ){
-
-        currentQty--;
-
-      }
-
-
-      document
-        .getElementById(
-          "tmsQtyValue"
-        )
-        .textContent =
-        currentQty;
-
-    };
-
-
-  document
-    .getElementById(
-      "tmsQtyPlus"
-    )
-    .onclick =
-    () => {
-
-      if(
-        currentQty < 10
-      ){
-
-        currentQty++;
-
-      }
-
-
-      document
-        .getElementById(
-          "tmsQtyValue"
-        )
-        .textContent =
-        currentQty;
-
-    };
-
-
-  /* =====================================================
-     SIZE
-  ===================================================== */
-
-  document
-    .querySelectorAll(
-      ".tms-size"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            document
-              .querySelectorAll(
-                ".tms-size"
-              )
-              .forEach(
-                item =>
-                  item.classList
-                    .remove(
-                      "active"
-                    )
-              );
-
-
-            button.classList
-              .add(
-                "active"
-              );
-
-          };
-
-      }
-    );
-
-
-  /* =====================================================
-     ADD TO BAG
-  ===================================================== */
-
-  document
-    .getElementById(
-      "tmsModalAdd"
-    )
-    .onclick =
-    () => {
-
-      if(!currentProduct)
-        return;
-
-
-      for(
-        let i = 0;
-        i < currentQty;
-        i++
-      ){
-
-        addToCart(
-          currentProduct.id
-        );
-
-      }
-
-
-      closeProductModal();
-
-    };
-
-
-  /* =====================================================
-     BUY NOW
-  ===================================================== */
-
-  document
-    .getElementById(
-      "tmsModalBuy"
-    )
-    .onclick =
-    () => {
-
-      if(!currentProduct)
-        return;
-
-
-      for(
-        let i = 0;
-        i < currentQty;
-        i++
-      ){
-
-        addToCart(
-          currentProduct.id
-        );
-
-      }
-
-
-      closeProductModal();
-
-
-      setTimeout(
-        () => {
-
-          if(
-            typeof openCheckout ===
-            "function"
-          ){
-
-            openCheckout();
-
-          }
-
-        },
-        200
-      );
-
-    };
-
-
-  /* =====================================================
-     FIX BROKEN PRODUCT IMAGES
-  ===================================================== */
-
-  document.addEventListener(
-    "error",
-    event => {
-
-      const image =
-        event.target;
-
-
-      if(
-        image &&
-        image.tagName ===
-        "IMG"
-      ){
-
-        if(
-          image.dataset
-            .fallbackApplied
-        ){
-
-          return;
-
-        }
-
-
-        image.dataset
-          .fallbackApplied =
-          "1";
-
-
-        image.src =
-          galleryImages[
-            0
-          ];
-
-      }
-
-    },
-    true
-  );
-
-
-  /* =====================================================
-     KEYBOARD
-  ===================================================== */
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key ===
-        "Escape"
-      ){
-
-        closeProductModal();
-
-      }
-
-    }
-  );
-
-})();
+);
