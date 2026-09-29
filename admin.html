@@ -1,636 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMSJEANS — Admin Panel</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
   >
 
-  <title>TMSJEANS Admin</title>
-
   <style>
-
     *{
       box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
     body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      background:#f4f4f4;
-      color:#111;
-    }
-
-    header{
-      background:#111;
+      font-family:"Inter",Arial,sans-serif;
+      background:#080808;
       color:#fff;
-      padding:18px 22px;
+      min-height:100vh;
+    }
+
+    button,
+    input,
+    select{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    /* =========================
+       TOP BAR
+    ========================= */
+
+    .topbar{
+      height:76px;
+      padding:0 42px;
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:#090909;
+      position:sticky;
+      top:0;
+      z-index:20;
     }
 
-    header h1{
-      margin:0;
-      font-size:21px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:-1px;
     }
 
-    header button{
+    .crown{
+      font-size:25px;
+    }
+
+    .brand span:last-child{
+      color:#ff3150;
+    }
+
+    .top-links{
+      display:flex;
+      gap:34px;
+      color:#aaa;
+      font-size:13px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .admin-badge{
+      border:1px solid #ff3150;
+      color:#ff3150;
+      padding:11px 17px;
+      border-radius:10px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:1.5px;
+      background:rgba(255,49,80,.05);
+    }
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    #loginScreen{
+      min-height:calc(100vh - 76px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:50px 25px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(
+          circle at 10% 80%,
+          rgba(255,49,80,.12),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(255,49,80,.09),
+          transparent 35%
+        ),
+        #090909;
+    }
+
+    #loginScreen::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          115deg,
+          transparent 0 55%,
+          rgba(255,49,80,.035) 55% 100%
+        );
+      pointer-events:none;
+    }
+
+    .login-wrap{
+      width:min(1100px,100%);
+      display:grid;
+      grid-template-columns:1fr 430px;
+      gap:60px;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-copy{
+      padding:20px;
+    }
+
+    .eyebrow{
+      font-size:12px;
+      letter-spacing:5px;
+      color:#aaa;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .hero-copy h1{
+      font-size:clamp(58px,8vw,105px);
+      line-height:.9;
+      letter-spacing:-6px;
+      margin-bottom:20px;
+    }
+
+    .hero-copy h1 .red{
+      color:#ff3150;
+    }
+
+    .hero-sub{
+      font-size:18px;
+      color:#aaa;
+      max-width:530px;
+      line-height:1.7;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-top:35px;
+      max-width:650px;
+    }
+
+    .feature{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.025);
+      padding:18px 10px;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .feature-icon{
+      font-size:22px;
+      color:#ff3150;
+      margin-bottom:8px;
+    }
+
+    .feature-title{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      color:#ddd;
+    }
+
+    .login-card{
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:24px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.07),
+          rgba(255,255,255,.02)
+        );
+      padding:36px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.5),
+        0 0 50px rgba(255,49,80,.08);
+      backdrop-filter:blur(18px);
+    }
+
+    .login-icon{
+      width:82px;
+      height:82px;
+      margin:0 auto 20px;
+      border-radius:50%;
+      border:1px solid #ff3150;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:34px;
+      box-shadow:0 0 35px rgba(255,49,80,.15);
+    }
+
+    .login-card h2{
+      text-align:center;
+      font-size:32px;
+      margin-bottom:8px;
+    }
+
+    .login-card > p{
+      text-align:center;
+      color:#9a9a9a;
+      font-size:14px;
+      margin-bottom:25px;
+    }
+
+    .google-btn{
+      width:100%;
       border:0;
       background:#fff;
       color:#111;
-      padding:10px 15px;
-      border-radius:9px;
-      cursor:pointer;
-      font-weight:700;
-      display:none;
+      border-radius:14px;
+      min-height:58px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      font-weight:800;
+      transition:.2s ease;
     }
 
-    .container{
-      max-width:1150px;
-      margin:25px auto;
-      padding:0 15px;
+    .google-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
     }
 
-    #loginSection{
-      max-width:420px;
-      margin:80px auto;
-      background:#fff;
-      padding:30px;
-      border-radius:18px;
-      box-shadow:0 12px 40px rgba(0,0,0,.10);
-      text-align:center;
+    .google-logo{
+      font-size:22px;
     }
 
-    #loginSection h2{
-      margin-top:0;
+    .authorized{
+      margin-top:18px;
+      border:1px solid rgba(255,255,255,.11);
+      border-radius:13px;
+      padding:16px;
+      background:rgba(255,255,255,.025);
     }
 
-    #loginSection p{
-      color:#666;
-      font-size:14px;
-      line-height:1.5;
-    }
-
-    #googleLoginBtn{
-      width:100%;
-      border:1px solid #ddd;
-      background:#fff;
-      color:#111;
-      padding:13px;
-      border-radius:10px;
-      font-size:15px;
-      font-weight:700;
-      cursor:pointer;
-      margin-top:15px;
-    }
-
-    #loginMessage{
-      margin-top:12px;
-      font-size:13px;
-    }
-
-    #dashboard{
-      display:none;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:15px;
-      margin-bottom:20px;
-    }
-
-    .stat{
-      background:#fff;
-      padding:20px;
-      border-radius:15px;
-      box-shadow:0 5px 20px rgba(0,0,0,.06);
-    }
-
-    .stat small{
-      color:#777;
-    }
-
-    .stat strong{
+    .authorized small{
       display:block;
-      margin-top:8px;
-      font-size:28px;
+      color:#888;
+      margin-bottom:5px;
     }
 
-    #searchInput{
-      width:100%;
-      padding:13px;
-      border:1px solid #ddd;
-      border-radius:10px;
-      font-size:14px;
-      outline:none;
-      margin-bottom:20px;
-    }
-
-    .order{
-      background:#fff;
-      padding:20px;
-      border-radius:15px;
-      margin-bottom:16px;
-      box-shadow:0 5px 20px rgba(0,0,0,.06);
-    }
-
-    .order-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:15px;
-      margin-bottom:15px;
-    }
-
-    .order-id{
-      font-size:18px;
-      font-weight:800;
-    }
-
-    .order-date{
-      font-size:12px;
-      color:#777;
-      margin-top:4px;
-    }
-
-    .status{
-      min-width:160px;
-      padding:10px;
-      border:1px solid #ddd;
-      border-radius:9px;
-      background:#fff;
-    }
-
-    .customer{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px 20px;
-      padding:15px 0;
-      border-top:1px solid #eee;
-      border-bottom:1px solid #eee;
-      font-size:14px;
-    }
-
-    .customer-full{
-      grid-column:1/-1;
-    }
-
-    .items{
-      padding-top:15px;
-    }
-
-    .item{
-      display:flex;
-      justify-content:space-between;
-      padding:7px 0;
-      font-size:14px;
-      border-bottom:1px solid #f2f2f2;
-    }
-
-    .total{
-      font-size:19px;
-      font-weight:800;
-      margin-top:15px;
-    }
-
-    .empty{
-      background:#fff;
-      padding:35px;
-      text-align:center;
-      border-radius:15px;
-      color:#777;
-    }
-
-    .error-box{
-      background:#fff1f1;
-      color:#a40000;
-      padding:14px;
-      border-radius:10px;
-      margin-bottom:15px;
-      font-size:13px;
-      display:none;
-    }
-
-    @media(max-width:700px){
-
-      .stats{
-        grid-template-columns:1fr;
-      }
-
-      .customer{
-        grid-template-columns:1fr;
-      }
-
-      .customer-full{
-        grid-column:auto;
-      }
-
-      .order-header{
-        flex-direction:column;
-      }
-
-      .status{
-        width:100%;
-      }
-
-      header h1{
-        font-size:17px;
-      }
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-
-<header>
-
-  <h1>
-    TMSJEANS Admin Dashboard
-  </h1>
-
-  <button id="logoutBtn">
-    Logout
-  </button>
-
-</header>
-
-
-<!-- LOGIN -->
-
-<section id="loginSection">
-
-  <h2>
-    TMSJEANS Admin
-  </h2>
-
-  <p>
-    Admin access is restricted to the authorized Google account.
-  </p>
-
-  <button
-    id="googleLoginBtn"
-  >
-    🔐 Continue with Google
-  </button>
-
-  <div id="loginMessage"></div>
-
-</section>
-
-
-<!-- DASHBOARD -->
-
-<section
-  id="dashboard"
-  class="container"
->
-
-  <div
-    id="databaseError"
-    class="error-box"
-  ></div>
-
-
-  <div class="stats">
-
-    <div class="stat">
-
-      <small>
-        Total Orders
-      </small>
-
-      <strong id="totalOrders">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="stat">
-
-      <small>
-        New Orders
-      </small>
-
-      <strong id="newOrders">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="stat">
-
-      <small>
-        Total Sales
-      </small>
-
-      <strong id="totalSales">
-        ₹0
-      </strong>
-
-    </div>
-
-  </div>
-
-
-  <input
-    id="searchInput"
-    type="search"
-    placeholder="Search order ID, name, phone or email..."
-  >
-
-
-  <div id="ordersList"></div>
-
-</section>
-
-
-<!-- FIREBASE SDK -->
-
-<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"></script>
-
-
-<script>
-
-  /* ================================
-     FIREBASE CONFIG
-  ================================= */
-
-  const firebaseConfig = {
-
-    apiKey:
-      "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
-
-    authDomain:
-      "tmsjeans.firebaseapp.com",
-
-    projectId:
-      "tmsjeans",
-
-    storageBucket:
-      "tmsjeans.firebasestorage.app",
-
-    messagingSenderId:
-      "155013489437",
-
-    appId:
-      "1:155013489437:web:d1f91792dd8ebba29cf7f4",
-
-    databaseURL:
-      "https://tmsjeans-default-rtdb.firebaseio.com"
-
-  };
-
-
-  /* ================================
-     ADMIN EMAIL
-  ================================= */
-
-  const ADMIN_EMAIL =
-    "Pandeyji120ji@gmail.com";
-
-
-  /* ================================
-     FIREBASE START
-  ================================= */
-
-  firebase.initializeApp(
-    firebaseConfig
-  );
-
-
-  const auth =
-    firebase.auth();
-
-
-  const db =
-    firebase.database();
-
-
-  let allOrders = [];
-
-
-  /* ================================
-     MESSAGE
-  ================================= */
-
-  function showMessage(
-    text,
-    error = false
-  ){
-
-    const box =
-      document.getElementById(
-        "loginMessage"
-      );
-
-
-    box.textContent =
-      text;
-
-
-    box.style.color =
-      error
-        ? "#b00020"
-        : "#16803c";
-
-  }
-
-
-  /* ================================
-     AUTH STATE
-  ================================= */
-
-  auth.onAuthStateChanged(
-    user => {
-
-      if(!user){
-
-        showLogin();
-
-        return;
-
-      }
-
-
-      const email =
-        (
-          user.email || ""
-        ).toLowerCase();
-
-
-      if(
-        email !==
-        ADMIN_EMAIL.toLowerCase()
-      ){
-
-        showMessage(
-          "This Google account is not authorized.",
-          true
-        );
-
-
-        auth.signOut();
-
-        return;
-
-      }
-
-
-      showDashboard();
-
-    }
-  );
-
-
-  /* ================================
-     GOOGLE LOGIN
-  ================================= */
-
-  document
-    .getElementById(
-      "googleLoginBtn"
-    )
-    .onclick = async () => {
-
-      try{
-
-        showMessage(
-          "Opening Google login..."
-        );
-
-
-        const provider =
-          new firebase
-            .auth
-            .GoogleAuthProvider();
-
-
-        provider.setCustomParameters({
-          login_hint:
-            ADMIN_EMAIL
-        });
-
-
-        const result =
-          await auth
-            .signInWithPopup(
-              provider
-            );
-
-
-        const user =
-          result.user;
-
-
-        if(
-          (
-            user.email || ""
-          ).toLowerCase() !==
-          ADMIN_EMAIL.toLowerCase()
-        ){
-
-          await auth.signOut();
-
-
-          showMessage(
-            "This Google account is not authorized for admin access.",
-            true
-          );
-
-
-          return;
-
-        }
-
-
-        showDashboard();
-
-      }
-
-      catch(error){
-
-        console.error(
-          error
-        );
-
-
-        if(
-          error.code ===
-          "auth/popup-blocked"
-        ){
-
-          showMessage(
-            "Popup was blocked. Allow popups for this website.",
-            true
-          );
-
-        }
-
-        else if(
-          error.code ===
-          "auth/popup-closed-by-user"
-        ){
-
-          showMessage(
-            "Google login was cancelled.",
-            true
-          );
-
-        }
-
-        else{
-
-          showMessage(
-            "Google login failed. Please try again.",
-            true
-          );
-
-        }
-
-      }
-
-    };
-
-
-  /* ================================
-     SHOW LOGIN
-  ================================= */
-
-  function showLogin(){
-
-    document
-      .getElementById(
-        "loginSection"
-      )
-      .style.display =
-      "block";
-
-
-    document
-      .getElementById(
-        "dashboard"
-      )
-      .style.display =
-      "none";
-
-
-    document
-      .getElementById(
-        "
+    .authorized strong{
+      color:#eee;
+      word-break:break-word;
