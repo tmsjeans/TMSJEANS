@@ -1,12 +1,14 @@
 /* =========================================================
-   TMSJEANS - COMPLETE APP.JS
+   TMSJEANS COMPLETE APP.JS
    Products + Cart + Search + Checkout
-   Customer Support + Email Login + Firebase Orders
+   Email Login + My Orders + Firebase Orders
+   Customer Support
 ========================================================= */
 
-/* =========================
+
+/* =========================================================
    FIREBASE CONFIG
-========================= */
+========================================================= */
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",
@@ -19,11 +21,13 @@ const FIREBASE_CONFIG = {
 };
 
 
-/* =========================
+/* =========================================================
    PRODUCTS
-========================= */
+========================================================= */
 
 const products = [
+
+  /* ORIGINAL PRODUCTS */
 
   {
     id: 1,
@@ -31,8 +35,7 @@ const products = [
     category: "Jeans",
     price: 699,
     oldPrice: 999,
-    image:
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=85",
     tag: "BESTSELLER"
   },
 
@@ -42,8 +45,7 @@ const products = [
     category: "Jeans",
     price: 749,
     oldPrice: 1099,
-    image:
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
     tag: "NEW"
   },
 
@@ -53,8 +55,7 @@ const products = [
     category: "T-Shirts",
     price: 399,
     oldPrice: 599,
-    image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85",
     tag: "POPULAR"
   },
 
@@ -64,8 +65,7 @@ const products = [
     category: "T-Shirts",
     price: 449,
     oldPrice: 649,
-    image:
-      "https://images.unsplash.com/photo-1583743814966-8936f37f4c7f?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f37f4c7f?auto=format&fit=crop&w=800&q=85",
     tag: ""
   },
 
@@ -75,8 +75,7 @@ const products = [
     category: "Shirts",
     price: 799,
     oldPrice: 1199,
-    image:
-      "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85",
     tag: "NEW"
   },
 
@@ -86,8 +85,7 @@ const products = [
     category: "Shirts",
     price: 899,
     oldPrice: 1299,
-    image:
-      "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=85",
     tag: ""
   },
 
@@ -97,8 +95,7 @@ const products = [
     category: "Jeans",
     price: 799,
     oldPrice: 1199,
-    image:
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85",
     tag: "LIMITED"
   },
 
@@ -108,17 +105,219 @@ const products = [
     category: "T-Shirts",
     price: 499,
     oldPrice: 699,
-    image:
-      "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=85",
     tag: ""
+  },
+
+
+  /* NEW JEANS COLLECTION */
+
+  {
+    id: 101,
+    name: "Charcoal Grey Straight Fit Jeans",
+    category: "Jeans",
+    price: 799,
+    oldPrice: 1199,
+    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=85",
+    tag: "NEW"
+  },
+
+  {
+    id: 102,
+    name: "Black Relaxed Fit Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1299,
+    image: "https://images.unsplash.com/photo-1555689502-c4b22d76c56f?auto=format&fit=crop&w=800&q=85",
+    tag: "BESTSELLER"
+  },
+
+  {
+    id: 103,
+    name: "Dark Blue Slim Fit Jeans",
+    category: "Jeans",
+    price: 999,
+    oldPrice: 1499,
+    image: "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?auto=format&fit=crop&w=800&q=85",
+    tag: "POPULAR"
+  },
+
+  {
+    id: 104,
+    name: "Ice Blue Wide Leg Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1399,
+    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
+    tag: "NEW"
+  },
+
+  {
+    id: 105,
+    name: "Vintage Blue Straight Jeans",
+    category: "Jeans",
+    price: 799,
+    oldPrice: 1199,
+    image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 106,
+    name: "Light Wash Baggy Jeans",
+    category: "Jeans",
+    price: 999,
+    oldPrice: 1499,
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=85",
+    tag: "TRENDING"
+  },
+
+  {
+    id: 107,
+    name: "Steel Grey Mom Fit Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1299,
+    image: "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 108,
+    name: "Mid Blue Regular Fit Jeans",
+    category: "Jeans",
+    price: 799,
+    oldPrice: 1199,
+    image: "https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 109,
+    name: "Washed Grey Slim Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1399,
+    image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=85",
+    tag: "NEW"
+  },
+
+  {
+    id: 110,
+    name: "Deep Indigo Bootcut Jeans",
+    category: "Jeans",
+    price: 999,
+    oldPrice: 1499,
+    image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 111,
+    name: "Loose Fit Washed Blue Jeans",
+    category: "Jeans",
+    price: 799,
+    oldPrice: 1199,
+    image: "https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=800&q=85",
+    tag: "POPULAR"
+  },
+
+  {
+    id: 112,
+    name: "Black Cargo Style Jeans",
+    category: "Jeans",
+    price: 1199,
+    oldPrice: 1699,
+    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=85",
+    tag: "PREMIUM"
+  },
+
+  {
+    id: 113,
+    name: "Classic Blue Regular Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1299,
+    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 114,
+    name: "Stone Wash Straight Jeans",
+    category: "Jeans",
+    price: 999,
+    oldPrice: 1499,
+    image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=800&q=85",
+    tag: "NEW"
+  },
+
+  {
+    id: 115,
+    name: "Jet Black Slim Jeans",
+    category: "Jeans",
+    price: 799,
+    oldPrice: 1199,
+    image: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 116,
+    name: "Light Blue Relaxed Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1399,
+    image: "https://images.unsplash.com/photo-1602293589914-9e5e6b4f53b4?auto=format&fit=crop&w=800&q=85",
+    tag: "TRENDING"
+  },
+
+  {
+    id: 117,
+    name: "Grey Distressed Denim",
+    category: "Jeans",
+    price: 999,
+    oldPrice: 1499,
+    image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=85",
+    tag: "LIMITED"
+  },
+
+  {
+    id: 118,
+    name: "Dark Wash Straight Fit",
+    category: "Jeans",
+    price: 1199,
+    oldPrice: 1699,
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85",
+    tag: "PREMIUM"
+  },
+
+  {
+    id: 119,
+    name: "Blue Relaxed Bootcut Jeans",
+    category: "Jeans",
+    price: 899,
+    oldPrice: 1399,
+    image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=800&q=85",
+    tag: ""
+  },
+
+  {
+    id: 120,
+    name: "Premium Dark Denim",
+    category: "Jeans",
+    price: 1199,
+    oldPrice: 1799,
+    image: "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=800&q=85",
+    tag: "PREMIUM"
   }
 
 ];
 
 
-/* =========================
-   GLOBAL STATE
-========================= */
+/* =========================================================
+   STATE
+========================================================= */
 
 let cart =
   JSON.parse(
@@ -129,47 +328,69 @@ let currentFilter = "All";
 
 let auth = null;
 let db = null;
-
 let firebaseLoaded = false;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
 
 const $ = selector =>
   document.querySelector(selector);
 
+
 const money = value =>
   "₹" +
-  Number(value || 0).toLocaleString("en-IN");
+  Number(value || 0)
+    .toLocaleString("en-IN");
 
 
 /* =========================================================
-   FIREBASE LOAD
+   FIREBASE LOADING
 ========================================================= */
 
-function loadScript(src) {
+function loadFirebaseScript(src){
 
   return new Promise(
-    (resolve, reject) => {
+    (resolve,reject) => {
 
-      if (
+      const existing =
         document.querySelector(
           `script[src="${src}"]`
-        )
-      ) {
+        );
+
+
+      if(existing){
 
         resolve();
+
         return;
 
       }
 
+
       const script =
         document.createElement("script");
 
-      script.src = src;
-      script.async = true;
 
-      script.onload = resolve;
-      script.onerror = reject;
+      script.src =
+        src;
 
-      document.head.appendChild(script);
+      script.async =
+        true;
+
+
+      script.onload =
+        resolve;
+
+
+      script.onerror =
+        reject;
+
+
+      document.head.appendChild(
+        script
+      );
 
     }
   );
@@ -177,26 +398,28 @@ function loadScript(src) {
 }
 
 
-async function initFirebase() {
+async function initFirebase(){
 
-  try {
+  try{
 
-    await loadScript(
+    await loadFirebaseScript(
       "https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"
     );
 
-    await loadScript(
+
+    await loadFirebaseScript(
       "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"
     );
 
-    await loadScript(
+
+    await loadFirebaseScript(
       "https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"
     );
 
 
-    if (
+    if(
       !firebase.apps.length
-    ) {
+    ){
 
       firebase.initializeApp(
         FIREBASE_CONFIG
@@ -208,33 +431,40 @@ async function initFirebase() {
     auth =
       firebase.auth();
 
+
     db =
       firebase.database();
 
-    firebaseLoaded = true;
+
+    firebaseLoaded =
+      true;
 
 
     auth.onAuthStateChanged(
       user => {
 
-        updateAccountButton();
+        updateLoginButton(
+          user
+        );
 
-        updateAccountScreen();
+        updateAccountUI(
+          user
+        );
 
       }
     );
 
 
     console.log(
-      "Firebase connected"
+      "TMSJEANS Firebase connected"
     );
 
   }
 
-  catch (error) {
+  catch(error){
 
     console.error(
-      "Firebase error:",
+      "Firebase connection failed:",
       error
     );
 
@@ -248,13 +478,30 @@ const firebaseReady =
 
 
 /* =========================================================
+   CART STORAGE
+========================================================= */
+
+function saveCart(){
+
+  localStorage.setItem(
+    "tms_cart",
+    JSON.stringify(cart)
+  );
+
+
+  renderCart();
+
+}
+
+
+/* =========================================================
    PRODUCTS
 ========================================================= */
 
 function renderProducts(
   filter = currentFilter,
   query = ""
-) {
+){
 
   const q =
     query
@@ -266,9 +513,10 @@ function renderProducts(
     products.filter(
       product => {
 
-        const categoryMatch =
+        const filterMatch =
           filter === "All" ||
-          product.category === filter;
+          product.category ===
+            filter;
 
 
         const searchMatch =
@@ -282,7 +530,7 @@ function renderProducts(
 
 
         return (
-          categoryMatch &&
+          filterMatch &&
           searchMatch
         );
 
@@ -293,85 +541,96 @@ function renderProducts(
   const grid =
     $("#productGrid");
 
-  if (!grid)
+
+  if(!grid)
     return;
 
 
   grid.innerHTML =
+
     list.length
 
       ? list
           .map(
             product => `
 
-            <article
-              class="product-card"
-            >
-
-              <div
-                class="product-image"
+              <article
+                class="product-card"
               >
 
-                ${
-                  product.tag
-                    ? `
-                      <span class="tag">
-                        ${product.tag}
-                      </span>
-                    `
-                    : ""
-                }
-
-                <img
-                  src="${product.image}"
-                  alt="${product.name}"
+                <div
+                  class="product-image"
                 >
-
-                <button
-                  class="quick-add"
-                  onclick="addToCart(${product.id})"
-                >
-                  ADD TO BAG —
-                  ${money(product.price)}
-                </button>
-
-              </div>
-
-              <div
-                class="product-info"
-              >
-
-                <h3>
-                  ${product.name}
-                </h3>
-
-                <p>
-                  ${product.category}
-                </p>
-
-                <p
-                  class="price"
-                >
-
-                  ${money(product.price)}
 
                   ${
-                    product.oldPrice
+                    product.tag
                       ? `
-                        <del>
-                          ${money(
-                            product.oldPrice
-                          )}
-                        </del>
+                        <span class="tag">
+                          ${product.tag}
+                        </span>
                       `
                       : ""
                   }
 
-                </p>
+                  <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                  >
 
-              </div>
+                  <button
+                    class="quick-add"
+                    onclick="
+                      addToCart(
+                        ${product.id}
+                      )
+                    "
+                  >
+                    ADD TO BAG —
+                    ${money(
+                      product.price
+                    )}
+                  </button>
 
-            </article>
+                </div>
+
+
+                <div
+                  class="product-info"
+                >
+
+                  <h3>
+                    ${product.name}
+                  </h3>
+
+                  <p>
+                    ${product.category}
+                  </p>
+
+                  <p
+                    class="price"
+                  >
+
+                    ${money(
+                      product.price
+                    )}
+
+                    ${
+                      product.oldPrice
+                        ? `
+                          <del>
+                            ${money(
+                              product.oldPrice
+                            )}
+                          </del>
+                        `
+                        : ""
+                    }
+
+                  </p>
+
+                </div>
+
+              </article>
 
             `
           )
@@ -383,41 +642,36 @@ function renderProducts(
 
 
 /* =========================================================
-   CART
+   ADD TO CART
 ========================================================= */
 
-function saveCart() {
+function addToCart(
+  id
+){
 
-  localStorage.setItem(
-    "tms_cart",
-    JSON.stringify(cart)
-  );
-
-  renderCart();
-
-}
-
-
-function addToCart(id) {
-
-  const existing =
+  const item =
     cart.find(
-      item =>
-        item.id === id
+      product =>
+        product.id === id
     );
 
 
-  if (existing) {
+  if(item){
 
-    existing.qty++;
+    item.qty++;
 
   }
 
-  else {
+  else{
 
     cart.push({
-      id: id,
-      qty: 1
+
+      id:
+        id,
+
+      qty:
+        1
+
     });
 
   }
@@ -434,10 +688,14 @@ function addToCart(id) {
 }
 
 
+/* =========================================================
+   CHANGE QUANTITY
+========================================================= */
+
 function changeQty(
   id,
-  amount
-) {
+  delta
+){
 
   const item =
     cart.find(
@@ -446,16 +704,17 @@ function changeQty(
     );
 
 
-  if (!item)
+  if(!item)
     return;
 
 
-  item.qty += amount;
+  item.qty +=
+    delta;
 
 
-  if (
+  if(
     item.qty <= 0
-  ) {
+  ){
 
     cart =
       cart.filter(
@@ -471,17 +730,21 @@ function changeQty(
 }
 
 
-function renderCart() {
+/* =========================================================
+   RENDER CART
+========================================================= */
+
+function renderCart(){
 
   const count =
     cart.reduce(
-      (sum, item) =>
+      (sum,item) =>
         sum + item.qty,
       0
     );
 
 
-  if ($("#cartCount")) {
+  if($("#cartCount")){
 
     $("#cartCount")
       .textContent =
@@ -512,15 +775,13 @@ function renderCart() {
       );
 
 
-  if ($("#cartItems")) {
+  if($("#cartItems")){
 
     $("#cartItems")
       .innerHTML =
-
       items
         .map(
-          item =>
-            `
+          item => `
 
             <div
               class="cart-row"
@@ -542,6 +803,7 @@ function renderCart() {
                     item.product.price
                   )}
                 </p>
+
 
                 <div
                   class="qty"
@@ -577,6 +839,7 @@ function renderCart() {
 
               </div>
 
+
               <button
                 class="remove"
                 onclick="
@@ -591,7 +854,7 @@ function renderCart() {
 
             </div>
 
-            `
+          `
         )
         .join("");
 
@@ -600,7 +863,7 @@ function renderCart() {
 
   const total =
     items.reduce(
-      (sum, item) =>
+      (sum,item) =>
         sum +
         item.product.price *
         item.qty,
@@ -608,7 +871,7 @@ function renderCart() {
     );
 
 
-  if ($("#cartTotal")) {
+  if($("#cartTotal")){
 
     $("#cartTotal")
       .textContent =
@@ -617,7 +880,7 @@ function renderCart() {
   }
 
 
-  if ($("#cartEmpty")) {
+  if($("#cartEmpty")){
 
     $("#cartEmpty")
       .style.display =
@@ -628,7 +891,7 @@ function renderCart() {
   }
 
 
-  if ($("#cartFooter")) {
+  if($("#cartFooter")){
 
     $("#cartFooter")
       .style.display =
@@ -641,9 +904,13 @@ function renderCart() {
 }
 
 
-function openCart() {
+/* =========================================================
+   CART OPEN / CLOSE
+========================================================= */
 
-  if ($("#cartDrawer")) {
+function openCart(){
+
+  if($("#cartDrawer")){
 
     $("#cartDrawer")
       .classList
@@ -651,7 +918,8 @@ function openCart() {
 
   }
 
-  if ($("#overlay")) {
+
+  if($("#overlay")){
 
     $("#overlay")
       .classList
@@ -662,9 +930,9 @@ function openCart() {
 }
 
 
-function closeCart() {
+function closeCart(){
 
-  if ($("#cartDrawer")) {
+  if($("#cartDrawer")){
 
     $("#cartDrawer")
       .classList
@@ -672,7 +940,8 @@ function closeCart() {
 
   }
 
-  if ($("#overlay")) {
+
+  if($("#overlay")){
 
     $("#overlay")
       .classList
@@ -687,11 +956,9 @@ function closeCart() {
    CHECKOUT
 ========================================================= */
 
-function openCheckout() {
+function openCheckout(){
 
-  if (
-    !cart.length
-  ) {
+  if(!cart.length){
 
     toast(
       "Your bag is empty"
@@ -702,15 +969,16 @@ function openCheckout() {
   }
 
 
-  if (
+  if(
     firebaseLoaded &&
+    auth &&
     !auth.currentUser
-  ) {
+  ){
 
     openAccount();
 
     setAccountMessage(
-      "Please login before placing an order."
+      "Please login before placing your order."
     );
 
     return;
@@ -738,15 +1006,14 @@ function openCheckout() {
     );
 
 
-  if ($("#checkoutSummary")) {
+  if($("#checkoutSummary")){
 
     $("#checkoutSummary")
       .innerHTML =
 
       items
         .map(
-          item =>
-            `
+          item => `
 
             <div
               class="summary-item"
@@ -767,7 +1034,7 @@ function openCheckout() {
 
             </div>
 
-            `
+          `
         )
         .join("");
 
@@ -776,7 +1043,7 @@ function openCheckout() {
 
   const total =
     items.reduce(
-      (sum, item) =>
+      (sum,item) =>
         sum +
         item.product.price *
         item.qty,
@@ -784,7 +1051,7 @@ function openCheckout() {
     );
 
 
-  if ($("#checkoutTotal")) {
+  if($("#checkoutTotal")){
 
     $("#checkoutTotal")
       .textContent =
@@ -793,7 +1060,7 @@ function openCheckout() {
   }
 
 
-  if ($("#checkoutModal")) {
+  if($("#checkoutModal")){
 
     $("#checkoutModal")
       .classList
@@ -804,9 +1071,9 @@ function openCheckout() {
 }
 
 
-function closeCheckout() {
+function closeCheckout(){
 
-  if ($("#checkoutModal")) {
+  if($("#checkoutModal")){
 
     $("#checkoutModal")
       .classList
@@ -818,19 +1085,17 @@ function closeCheckout() {
 
 
 /* =========================================================
-   ORDER CREATION
+   CREATE ORDER
 ========================================================= */
 
 async function submitOrder(
   event
-) {
+){
 
   event.preventDefault();
 
 
-  if (
-    !cart.length
-  ) {
+  if(!cart.length){
 
     toast(
       "Your bag is empty"
@@ -844,15 +1109,15 @@ async function submitOrder(
   await firebaseReady;
 
 
-  if (
+  if(
     !auth ||
     !auth.currentUser
-  ) {
+  ){
 
     openAccount();
 
     setAccountMessage(
-      "Please login to place your order."
+      "Please login before placing your order."
     );
 
     return;
@@ -885,7 +1150,7 @@ async function submitOrder(
 
   const total =
     items.reduce(
-      (sum, item) =>
+      (sum,item) =>
         sum +
         item.product.price *
         item.qty,
@@ -912,27 +1177,34 @@ async function submitOrder(
     customer: {
 
       name:
-        form.get("name") || "",
+        form.get("name") ||
+        "",
 
       phone:
-        form.get("phone") || "",
+        form.get("phone") ||
+        "",
 
       email:
-        auth.currentUser.email || "",
+        auth.currentUser.email ||
+        "",
 
       address:
-        form.get("address") || "",
+        form.get("address") ||
+        "",
 
       city:
-        form.get("city") || "",
+        form.get("city") ||
+        "",
 
       pin:
-        form.get("pin") || ""
+        form.get("pin") ||
+        ""
 
     },
 
     payment:
-      form.get("payment") || "",
+      form.get("payment") ||
+      "",
 
     items:
       items.map(
@@ -963,7 +1235,7 @@ async function submitOrder(
   };
 
 
-  try {
+  try{
 
     await db
       .ref(
@@ -972,10 +1244,10 @@ async function submitOrder(
         "/" +
         orderId
       )
-      .set(order);
+      .set(
+        order
+      );
 
-
-    /* Backup in browser */
 
     const oldOrders =
       JSON.parse(
@@ -1034,16 +1306,16 @@ async function submitOrder(
 
   }
 
-  catch (error) {
+  catch(error){
 
     console.error(
-      "ORDER ERROR:",
+      "Order save error:",
       error
     );
 
 
     toast(
-      "Order could not be saved. Please check Firebase Database Rules."
+      "Order could not be saved. Please check Firebase Rules."
     );
 
   }
@@ -1057,7 +1329,7 @@ async function submitOrder(
 
 function renderSearch(
   query
-) {
+){
 
   const q =
     query
@@ -1072,26 +1344,27 @@ function renderSearch(
           product.name
             .toLowerCase()
             .includes(q)
+
           ||
+
           product.category
             .toLowerCase()
             .includes(q)
       )
       .slice(
         0,
-        6
+        8
       );
 
 
-  if ($("#searchResults")) {
+  if($("#searchResults")){
 
     $("#searchResults")
       .innerHTML =
 
       list
         .map(
-          product =>
-            `
+          product => `
 
             <div
               class="search-result"
@@ -1109,7 +1382,7 @@ function renderSearch(
 
             </div>
 
-            `
+          `
         )
         .join("");
 
@@ -1122,12 +1395,15 @@ function renderSearch(
    TOAST
 ========================================================= */
 
-function toast(text) {
+function toast(
+  text
+){
 
   const box =
     $("#toast");
 
-  if (!box)
+
+  if(!box)
     return;
 
 
@@ -1153,140 +1429,7 @@ function toast(text) {
 
 
 /* =========================================================
-   CUSTOMER SUPPORT
-========================================================= */
-
-const supportMessage =
-  "👨‍💼 TMSJEANS Customer Support is automated. Please tell us your problem and we will guide you.";
-
-
-function openChat() {
-
-  if ($("#chatbox")) {
-
-    $("#chatbox")
-      .classList
-      .add("open");
-
-  }
-
-  if ($("#chatInput")) {
-
-    $("#chatInput")
-      .focus();
-
-  }
-
-}
-
-
-function closeChat() {
-
-  if ($("#chatbox")) {
-
-    $("#chatbox")
-      .classList
-      .remove("open");
-
-  }
-
-}
-
-
-function addChatMessage(
-  text,
-  type = "bot"
-) {
-
-  if (!$("#chatMessages"))
-    return;
-
-
-  const message =
-    document.createElement(
-      "div"
-    );
-
-
-  message.className =
-    "chat-msg " +
-    type;
-
-
-  message.textContent =
-    text;
-
-
-  $("#chatMessages")
-    .appendChild(
-      message
-    );
-
-
-  $("#chatMessages")
-    .scrollTop =
-    $("#chatMessages")
-      .scrollHeight;
-
-}
-
-
-function replyTo(
-  text
-) {
-
-  const message =
-    text
-      .toLowerCase()
-      .trim();
-
-
-  if (
-
-    message.includes(
-      "support"
-    )
-
-    ||
-
-    message.includes(
-      "customer support"
-    )
-
-    ||
-
-    message.includes(
-      "customer care"
-    )
-
-    ||
-
-    message.includes(
-      "agent"
-    )
-
-    ||
-
-    message.includes(
-      "team"
-    )
-
-  ) {
-
-    return supportMessage;
-
-  }
-
-
-  return (
-    "Thanks for contacting TMSJEANS Customer Support. Please tell us your problem and we will guide you."
-  );
-
-}
-
-
-/* =========================================================
-   ACCOUNT UI
+   EMAIL ACCOUNT UI
 ========================================================= */
 
 const accountCSS =
@@ -1300,43 +1443,54 @@ accountCSS.textContent = `
 #tmsAccountButton{
 
   position:fixed;
+
   left:20px;
+
   bottom:20px;
+
   z-index:99998;
 
   border:0;
+
   border-radius:999px;
 
   padding:11px 16px;
 
   background:#111;
+
   color:#fff;
 
   font-weight:700;
+
   cursor:pointer;
 
   box-shadow:
-    0 8px 25px rgba(0,0,0,.20);
+    0 8px 25px rgba(0,0,0,.2);
 
 }
+
 
 #tmsAccountModal{
 
   position:fixed;
-  inset:0;
 
-  display:none;
-  align-items:center;
-  justify-content:center;
+  inset:0;
 
   z-index:100000;
 
-  background:
-    rgba(0,0,0,.60);
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
 
   padding:20px;
 
+  background:
+    rgba(0,0,0,.6);
+
 }
+
 
 #tmsAccountModal.show{
 
@@ -1344,83 +1498,95 @@ accountCSS.textContent = `
 
 }
 
+
 .tms-account-box{
 
   width:400px;
+
   max-width:100%;
 
   max-height:90vh;
+
   overflow:auto;
 
   background:#fff;
 
+  color:#111;
+
   border-radius:20px;
 
-  padding:24px;
+  padding:25px;
 
   box-shadow:
-    0 20px 70px rgba(0,0,0,.30);
+    0 25px 80px rgba(0,0,0,.35);
 
 }
+
 
 .tms-account-head{
 
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
 
-  margin-bottom:15px;
-
 }
+
 
 .tms-account-head h2{
 
   margin:0;
-  font-size:21px;
 
 }
 
-.tms-account-close{
+
+.tms-close{
 
   border:0;
+
   background:transparent;
 
   font-size:26px;
+
   cursor:pointer;
 
 }
 
+
 .tms-account-box input{
 
   width:100%;
+
   box-sizing:border-box;
+
+  padding:13px;
+
+  margin:7px 0;
 
   border:1px solid #ddd;
 
   border-radius:10px;
 
-  padding:13px;
-
-  margin:6px 0;
-
-  font-size:14px;
-
   outline:none;
 
 }
+
 
 .tms-main-btn{
 
   width:100%;
 
-  border:0;
-  border-radius:10px;
-
   padding:13px;
 
   margin-top:9px;
 
+  border:0;
+
+  border-radius:10px;
+
   background:#111;
+
   color:#fff;
 
   font-weight:700;
@@ -1429,16 +1595,18 @@ accountCSS.textContent = `
 
 }
 
+
 .tms-light-btn{
 
   width:100%;
 
-  border:1px solid #ddd;
-  border-radius:10px;
-
   padding:12px;
 
   margin-top:8px;
+
+  border:1px solid #ddd;
+
+  border-radius:10px;
 
   background:#fff;
 
@@ -1450,17 +1618,19 @@ accountCSS.textContent = `
 
 }
 
-.tms-account-message{
+
+#tmsAccountMessage{
 
   min-height:20px;
 
-  margin-top:10px;
-
   font-size:13px;
+
+  margin-top:10px;
 
 }
 
-.tms-order{
+
+.tms-order-box{
 
   border:1px solid #e5e5e5;
 
@@ -1470,26 +1640,24 @@ accountCSS.textContent = `
 
   margin-top:10px;
 
-}
-
-.tms-order-id{
-
-  font-weight:800;
+  font-size:14px;
 
 }
 
-.tms-order-small{
 
-  color:#777;
+@media(max-width:500px){
 
-  font-size:12px;
+  #tmsAccountButton{
 
-  margin-top:5px;
+    left:12px;
+
+    bottom:12px;
+
+  }
 
 }
 
 `;
-
 
 document.head.appendChild(
   accountCSS
@@ -1525,7 +1693,7 @@ document.body.insertAdjacentHTML(
         </h2>
 
         <button
-          class="tms-account-close"
+          class="tms-close"
           id="tmsAccountClose"
         >
           ×
@@ -1544,8 +1712,8 @@ document.body.insertAdjacentHTML(
           font-size:13px;
           "
         >
-          Login or create your
-          TMSJEANS customer account.
+          Create your TMSJEANS account
+          or login to continue.
         </p>
 
 
@@ -1594,7 +1762,6 @@ document.body.insertAdjacentHTML(
 
         <div
           id="tmsAccountMessage"
-          class="tms-account-message"
         ></div>
 
       </div>
@@ -1608,8 +1775,8 @@ document.body.insertAdjacentHTML(
         <p
           id="tmsLoggedEmail"
           style="
-          color:#555;
-          font-size:14px;
+          color:#666;
+          font-size:13px;
           "
         ></p>
 
@@ -1650,18 +1817,21 @@ document.body.insertAdjacentHTML(
    ACCOUNT FUNCTIONS
 ========================================================= */
 
-function openAccount() {
+function openAccount(){
 
   $("#tmsAccountModal")
     .classList
     .add("show");
 
-  updateAccountScreen();
+  updateAccountUI(
+    auth &&
+    auth.currentUser
+  );
 
 }
 
 
-function closeAccount() {
+function closeAccount(){
 
   $("#tmsAccountModal")
     .classList
@@ -1671,20 +1841,20 @@ function closeAccount() {
 
 
 function setAccountMessage(
-  message,
+  text,
   error = false
-) {
+){
 
   const box =
     $("#tmsAccountMessage");
 
 
-  if (!box)
+  if(!box)
     return;
 
 
   box.textContent =
-    message;
+    text;
 
 
   box.style.color =
@@ -1695,19 +1865,16 @@ function setAccountMessage(
 }
 
 
-function updateAccountButton() {
+function updateLoginButton(
+  user
+){
 
   const button =
     $("#tmsAccountButton");
 
 
-  if (!button)
+  if(!button)
     return;
-
-
-  const user =
-    auth &&
-    auth.currentUser;
 
 
   button.textContent =
@@ -1718,15 +1885,9 @@ function updateAccountButton() {
 }
 
 
-function updateAccountScreen() {
-
-  if (!firebaseLoaded)
-    return;
-
-
-  const user =
-    auth.currentUser;
-
+function updateAccountUI(
+  user
+){
 
   const loginArea =
     $("#tmsLoginArea");
@@ -1736,15 +1897,16 @@ function updateAccountScreen() {
     $("#tmsLoggedArea");
 
 
-  if (!loginArea ||
-      !loggedArea)
+  if(!loginArea ||
+     !loggedArea)
     return;
 
 
-  if (user) {
+  if(user){
 
     loginArea.style.display =
       "none";
+
 
     loggedArea.style.display =
       "block";
@@ -1753,14 +1915,18 @@ function updateAccountScreen() {
     $("#tmsLoggedEmail")
       .textContent =
       "Logged in as " +
-      user.email;
+      (
+        user.email ||
+        ""
+      );
 
   }
 
-  else {
+  else{
 
     loginArea.style.display =
       "block";
+
 
     loggedArea.style.display =
       "none";
@@ -1771,10 +1937,10 @@ function updateAccountScreen() {
 
 
 /* =========================================================
-   CREATE ACCOUNT
+   CREATE CUSTOMER ACCOUNT
 ========================================================= */
 
-async function createCustomerAccount() {
+async function createCustomerAccount(){
 
   await firebaseReady;
 
@@ -1790,11 +1956,11 @@ async function createCustomerAccount() {
       .value;
 
 
-  if (!email ||
-      !password) {
+  if(!email ||
+     !password){
 
     setAccountMessage(
-      "Please enter email and password.",
+      "Enter email and password.",
       true
     );
 
@@ -1803,9 +1969,9 @@ async function createCustomerAccount() {
   }
 
 
-  if (
+  if(
     password.length < 6
-  ) {
+  ){
 
     setAccountMessage(
       "Password must be at least 6 characters.",
@@ -1817,7 +1983,7 @@ async function createCustomerAccount() {
   }
 
 
-  try {
+  try{
 
     const result =
       await auth
@@ -1844,30 +2010,28 @@ async function createCustomerAccount() {
       });
 
 
-    setAccountMessage(
-      "✅ Account created successfully."
+    toast(
+      "Account created successfully"
     );
 
 
-    updateAccountScreen();
-
-    toast(
-      "Account created"
+    updateAccountUI(
+      result.user
     );
 
   }
 
-  catch (error) {
+  catch(error){
 
     console.error(
       error
     );
 
 
-    if (
+    if(
       error.code ===
       "auth/email-already-in-use"
-    ) {
+    ){
 
       setAccountMessage(
         "This email is already registered. Please login.",
@@ -1876,7 +2040,7 @@ async function createCustomerAccount() {
 
     }
 
-    else {
+    else{
 
       setAccountMessage(
         error.message ||
@@ -1895,7 +2059,7 @@ async function createCustomerAccount() {
    LOGIN
 ========================================================= */
 
-async function loginCustomer() {
+async function loginCustomer(){
 
   await firebaseReady;
 
@@ -1911,11 +2075,11 @@ async function loginCustomer() {
       .value;
 
 
-  if (!email ||
-      !password) {
+  if(!email ||
+     !password){
 
     setAccountMessage(
-      "Please enter email and password.",
+      "Enter email and password.",
       true
     );
 
@@ -1924,31 +2088,31 @@ async function loginCustomer() {
   }
 
 
-  try {
+  try{
 
-    await auth
-      .signInWithEmailAndPassword(
-        email,
-        password
-      );
+    const result =
+      await auth
+        .signInWithEmailAndPassword(
+          email,
+          password
+        );
 
-
-    setAccountMessage(
-      "✅ Login successful."
-    );
-
-
-    updateAccountScreen();
-
-    loadMyOrders();
 
     toast(
       "Login successful"
     );
 
+
+    updateAccountUI(
+      result.user
+    );
+
+
+    loadMyOrders();
+
   }
 
-  catch (error) {
+  catch(error){
 
     console.error(
       error
@@ -1956,7 +2120,7 @@ async function loginCustomer() {
 
 
     setAccountMessage(
-      "Login failed. Please check your email and password.",
+      "Login failed. Check your email and password.",
       true
     );
 
@@ -1969,7 +2133,7 @@ async function loginCustomer() {
    PASSWORD RESET
 ========================================================= */
 
-async function forgotPassword() {
+async function resetPassword(){
 
   await firebaseReady;
 
@@ -1980,7 +2144,7 @@ async function forgotPassword() {
       .trim();
 
 
-  if (!email) {
+  if(!email){
 
     setAccountMessage(
       "Enter your email address first.",
@@ -1992,7 +2156,7 @@ async function forgotPassword() {
   }
 
 
-  try {
+  try{
 
     await auth
       .sendPasswordResetEmail(
@@ -2006,7 +2170,7 @@ async function forgotPassword() {
 
   }
 
-  catch (error) {
+  catch(error){
 
     console.error(
       error
@@ -2014,7 +2178,7 @@ async function forgotPassword() {
 
 
     setAccountMessage(
-      "Could not send password reset email.",
+      "Could not send reset email.",
       true
     );
 
@@ -2024,54 +2188,30 @@ async function forgotPassword() {
 
 
 /* =========================================================
-   LOGOUT
+   LOAD MY ORDERS
 ========================================================= */
 
-async function logoutCustomer() {
+async function loadMyOrders(){
 
   await firebaseReady;
 
 
-  try {
-
-    await auth.signOut();
-
-    updateAccountScreen();
-
-    toast(
-      "Logged out"
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   MY ORDERS
-========================================================= */
-
-async function loadMyOrders() {
-
-  await firebaseReady;
-
-
-  if (
+  if(
+    !auth ||
     !auth.currentUser
-  )
+  ){
+
     return;
+
+  }
 
 
   const box =
     $("#tmsMyOrders");
+
+
+  if(!box)
+    return;
 
 
   box.innerHTML =
@@ -2087,7 +2227,7 @@ async function loadMyOrders() {
     `;
 
 
-  try {
+  try{
 
     const snapshot =
       await db
@@ -2095,7 +2235,9 @@ async function loadMyOrders() {
           "orders/" +
           auth.currentUser.uid
         )
-        .once("value");
+        .once(
+          "value"
+        );
 
 
     const data =
@@ -2107,17 +2249,22 @@ async function loadMyOrders() {
       Object
         .values(data)
         .sort(
-          (a, b) =>
+          (a,b) =>
+
             new Date(
-              b.createdAt
+              b.createdAt ||
+              0
             ) -
+
             new Date(
-              a.createdAt
+              a.createdAt ||
+              0
             )
+
         );
 
 
-    if (!orders.length) {
+    if(!orders.length){
 
       box.innerHTML =
         `
@@ -2125,7 +2272,6 @@ async function loadMyOrders() {
             style="
             color:#777;
             font-size:14px;
-            margin-top:15px;
             "
           >
             No orders yet.
@@ -2141,27 +2287,34 @@ async function loadMyOrders() {
       orders
         .map(
           order =>
+
             `
 
             <div
-              class="tms-order"
+              class="tms-order-box"
             >
 
-              <div
-                class="tms-order-id"
-              >
+              <strong>
                 📦 ${order.id}
-              </div>
+              </strong>
 
               <div
-                class="tms-order-small"
+                style="
+                margin-top:5px;
+                "
               >
                 Total:
-                ${money(order.total)}
+                ${money(
+                  order.total
+                )}
               </div>
 
               <div
-                class="tms-order-small"
+                style="
+                margin-top:4px;
+                color:#777;
+                font-size:12px;
+                "
               >
                 Status:
                 ${order.status || "New"}
@@ -2175,7 +2328,7 @@ async function loadMyOrders() {
 
   }
 
-  catch (error) {
+  catch(error){
 
     console.error(
       error
@@ -2187,7 +2340,6 @@ async function loadMyOrders() {
         <p
           style="
           color:#b00020;
-          font-size:13px;
           "
         >
           Unable to load orders.
@@ -2200,6 +2352,140 @@ async function loadMyOrders() {
 
 
 /* =========================================================
+   CUSTOMER SUPPORT
+========================================================= */
+
+const supportReply =
+  "👨‍💼 TMSJEANS Customer Support is automated. Please tell us your problem and we will guide you.";
+
+
+function openChat(){
+
+  if($("#chatbox")){
+
+    $("#chatbox")
+      .classList
+      .add("open");
+
+  }
+
+
+  if($("#chatInput")){
+
+    $("#chatInput")
+      .focus();
+
+  }
+
+}
+
+
+function closeChat(){
+
+  if($("#chatbox")){
+
+    $("#chatbox")
+      .classList
+      .remove("open");
+
+  }
+
+}
+
+
+function addChatMessage(
+  text,
+  type = "bot"
+){
+
+  if(!$("#chatMessages"))
+    return;
+
+
+  const message =
+    document.createElement(
+      "div"
+    );
+
+
+  message.className =
+    "chat-msg " +
+    type;
+
+
+  message.textContent =
+    text;
+
+
+  $("#chatMessages")
+    .appendChild(
+      message
+    );
+
+
+  $("#chatMessages")
+    .scrollTop =
+    $("#chatMessages")
+      .scrollHeight;
+
+}
+
+
+function replyTo(
+  text
+){
+
+  const message =
+    text
+      .toLowerCase()
+      .trim();
+
+
+  if(
+
+    message.includes(
+      "support"
+    )
+
+    ||
+
+    message.includes(
+      "customer care"
+    )
+
+    ||
+
+    message.includes(
+      "customer support"
+    )
+
+    ||
+
+    message.includes(
+      "agent"
+    )
+
+    ||
+
+    message.includes(
+      "team"
+    )
+
+  ){
+
+    return supportReply;
+
+  }
+
+
+  return (
+    "Thanks for contacting TMSJEANS Customer Support. Please tell us your problem and we will guide you."
+  );
+
+}
+
+
+/* =========================================================
    EVENT LISTENERS
 ========================================================= */
 
@@ -2207,39 +2493,40 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
+
     /* CART */
 
-    if ($("#cartBtn"))
+    if($("#cartBtn"))
       $("#cartBtn")
         .onclick =
         openCart;
 
 
-    if ($("#closeCart"))
+    if($("#closeCart"))
       $("#closeCart")
         .onclick =
         closeCart;
 
 
-    if ($("#overlay"))
+    if($("#overlay"))
       $("#overlay")
         .onclick =
         closeCart;
 
 
-    if ($("#checkoutBtn"))
+    if($("#checkoutBtn"))
       $("#checkoutBtn")
         .onclick =
         openCheckout;
 
 
-    if ($("#closeCheckout"))
+    if($("#closeCheckout"))
       $("#closeCheckout")
         .onclick =
         closeCheckout;
 
 
-    if ($("#emptyShop"))
+    if($("#emptyShop"))
       $("#emptyShop")
         .onclick =
         closeCart;
@@ -2247,7 +2534,7 @@ document.addEventListener(
 
     /* CHECKOUT */
 
-    if ($("#orderForm")) {
+    if($("#orderForm")){
 
       $("#orderForm")
         .addEventListener(
@@ -2284,7 +2571,9 @@ document.addEventListener(
 
 
               button.classList
-                .add("active");
+                .add(
+                  "active"
+                );
 
 
               currentFilter =
@@ -2300,7 +2589,7 @@ document.addEventListener(
       );
 
 
-    /* COLLECTION */
+    /* COLLECTION CARDS */
 
     document
       .querySelectorAll(
@@ -2323,12 +2612,13 @@ document.addEventListener(
                 )
                 .forEach(
                   button =>
-                    button.classList.toggle(
-                      "active",
-                      button.dataset
-                        .filter ===
-                      currentFilter
-                    )
+                    button.classList
+                      .toggle(
+                        "active",
+                        button.dataset
+                          .filter ===
+                        currentFilter
+                      )
                 );
 
 
@@ -2342,7 +2632,7 @@ document.addEventListener(
 
     /* SEARCH */
 
-    if ($("#searchBtn")) {
+    if($("#searchBtn")){
 
       $("#searchBtn")
         .onclick =
@@ -2364,7 +2654,7 @@ document.addEventListener(
     }
 
 
-    if ($("#closeSearch")) {
+    if($("#closeSearch")){
 
       $("#closeSearch")
         .onclick =
@@ -2372,14 +2662,16 @@ document.addEventListener(
 
           $("#searchModal")
             .classList
-            .remove("show");
+            .remove(
+              "show"
+            );
 
         };
 
     }
 
 
-    if ($("#searchInput")) {
+    if($("#searchInput")){
 
       $("#searchInput")
         .addEventListener(
@@ -2395,9 +2687,9 @@ document.addEventListener(
 
     /* NEWSLETTER */
 
-    if (
+    if(
       $("#newsletterForm")
-    ) {
+    ){
 
       $("#newsletterForm")
         .addEventListener(
@@ -2418,21 +2710,30 @@ document.addEventListener(
     }
 
 
-    /* SUPPORT */
+    /* CUSTOMER SUPPORT */
 
-    if ($("#chatFab"))
+    if($("#chatFab")){
+
       $("#chatFab")
         .onclick =
         openChat;
 
+    }
 
-    if ($("#closeChat"))
+
+    if($("#closeChat")){
+
       $("#closeChat")
         .onclick =
         closeChat;
 
+    }
 
-    if ($("#chatFooterLink"))
+
+    if(
+      $("#chatFooterLink")
+    ){
+
       $("#chatFooterLink")
         .onclick =
         event => {
@@ -2443,8 +2744,10 @@ document.addEventListener(
 
         };
 
+    }
 
-    if ($("#chatForm")) {
+
+    if($("#chatForm")){
 
       $("#chatForm")
         .addEventListener(
@@ -2462,7 +2765,7 @@ document.addEventListener(
               input.value.trim();
 
 
-            if (!text)
+            if(!text)
               return;
 
 
@@ -2477,11 +2780,14 @@ document.addEventListener(
 
 
             setTimeout(
-              () =>
+              () => {
+
                 addChatMessage(
                   replyTo(text)
-                ),
-              300
+                );
+
+              },
+              350
             );
 
           }
@@ -2490,52 +2796,11 @@ document.addEventListener(
     }
 
 
-    /* QUICK CHAT */
-
-    document
-      .querySelectorAll(
-        ".quick-replies button"
-      )
-      .forEach(
-        button => {
-
-          button.onclick =
-            () => {
-
-              const label =
-                button.textContent
-                  .trim();
-
-
-              addChatMessage(
-                label,
-                "user"
-              );
-
-
-              setTimeout(
-                () =>
-                  addChatMessage(
-                    replyTo(
-                      button.dataset
-                        .chat ||
-                      label
-                    )
-                  ),
-                300
-              );
-
-            };
-
-        }
-      );
-
-
     /* ACCOUNT */
 
-    if (
+    if(
       $("#tmsAccountButton")
-    ) {
+    ){
 
       $("#tmsAccountButton")
         .onclick =
@@ -2544,9 +2809,9 @@ document.addEventListener(
     }
 
 
-    if (
+    if(
       $("#tmsAccountClose")
-    ) {
+    ){
 
       $("#tmsAccountClose")
         .onclick =
@@ -2555,19 +2820,19 @@ document.addEventListener(
     }
 
 
-    if (
+    if(
       $("#tmsAccountModal")
-    ) {
+    ){
 
       $("#tmsAccountModal")
         .addEventListener(
           "click",
           event => {
 
-            if (
+            if(
               event.target.id ===
               "tmsAccountModal"
-            ) {
+            ){
 
               closeAccount();
 
@@ -2579,9 +2844,9 @@ document.addEventListener(
     }
 
 
-    if (
+    if(
       $("#tmsLoginBtn")
-    ) {
+    ){
 
       $("#tmsLoginBtn")
         .onclick =
@@ -2590,9 +2855,9 @@ document.addEventListener(
     }
 
 
-    if (
+    if(
       $("#tmsCreateBtn")
-    ) {
+    ){
 
       $("#tmsCreateBtn")
         .onclick =
@@ -2601,20 +2866,20 @@ document.addEventListener(
     }
 
 
-    if (
+    if(
       $("#tmsForgotBtn")
-    ) {
+    ){
 
       $("#tmsForgotBtn")
         .onclick =
-        forgotPassword;
+        resetPassword;
 
     }
 
 
-    if (
+    if(
       $("#tmsOrdersBtn")
-    ) {
+    ){
 
       $("#tmsOrdersBtn")
         .onclick =
@@ -2623,24 +2888,32 @@ document.addEventListener(
     }
 
 
-    if (
+    if(
       $("#tmsLogoutBtn")
-    ) {
+    ){
 
       $("#tmsLogoutBtn")
         .onclick =
-        logoutCustomer;
+        async () => {
+
+          await firebaseReady;
+
+          await auth.signOut();
+
+          toast(
+            "Logged out"
+          );
+
+        };
 
     }
 
 
-    /* INITIAL */
+    /* INITIAL RENDER */
 
     renderProducts();
 
     renderCart();
-
-    updateAccountButton();
 
   }
 );
