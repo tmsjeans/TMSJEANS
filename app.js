@@ -2917,3 +2917,1322 @@ document.addEventListener(
 
   }
 );
+/* =========================================================
+   TMSJEANS PREMIUM PRODUCT EXPERIENCE
+   Product Quick View + 3-Image Gallery + Premium UI
+========================================================= */
+
+(function(){
+
+  const galleryImages = [
+
+    "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1555689502-c4b22d76c56f?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1000&q=90",
+
+    "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1000&q=90"
+
+  ];
+
+
+  /* =====================================================
+     PREMIUM CSS
+  ===================================================== */
+
+  const style =
+    document.createElement("style");
+
+  style.textContent = `
+
+    .product-card{
+      position:relative;
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+      cursor:pointer;
+    }
+
+    .product-card:hover{
+      transform:translateY(-6px);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.12);
+    }
+
+    .product-image{
+      overflow:hidden;
+      position:relative;
+      aspect-ratio:4/5;
+      background:#f2f2f2;
+    }
+
+    .product-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:
+        transform .45s ease,
+        filter .3s ease;
+    }
+
+    .product-card:hover
+    .product-image img{
+      transform:scale(1.045);
+    }
+
+    .product-card
+    .quick-add{
+      opacity:0;
+      transform:translateY(10px);
+      transition:.25s ease;
+    }
+
+    .product-card:hover
+    .quick-add{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+
+    /* ===================================================
+       PRODUCT MODAL
+    =================================================== */
+
+    #tmsProductModal{
+      position:fixed;
+      inset:0;
+      background:rgba(10,10,10,.72);
+      z-index:100001;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:25px;
+      backdrop-filter:blur(10px);
+    }
+
+    #tmsProductModal.show{
+      display:flex;
+    }
+
+    .tms-product-window{
+      width:min(1180px,100%);
+      max-height:92vh;
+      overflow:auto;
+      background:#fff;
+      border-radius:24px;
+      position:relative;
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.35);
+    }
+
+    .tms-product-close{
+      position:absolute;
+      right:18px;
+      top:18px;
+      z-index:5;
+      width:42px;
+      height:42px;
+      border:0;
+      border-radius:50%;
+      background:#fff;
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.12);
+      font-size:25px;
+      cursor:pointer;
+    }
+
+    .tms-product-content{
+      display:grid;
+      grid-template-columns:
+        1.05fr .95fr;
+      gap:35px;
+      padding:30px;
+    }
+
+    .tms-gallery{
+      display:grid;
+      grid-template-columns:90px 1fr;
+      gap:15px;
+    }
+
+    .tms-thumbs{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .tms-thumb{
+      border:2px solid transparent;
+      border-radius:12px;
+      overflow:hidden;
+      padding:0;
+      background:#f5f5f5;
+      cursor:pointer;
+      aspect-ratio:3/4;
+    }
+
+    .tms-thumb.active{
+      border-color:#111;
+    }
+
+    .tms-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .tms-main-photo{
+      min-height:620px;
+      border-radius:18px;
+      overflow:hidden;
+      background:#f1f1f1;
+    }
+
+    .tms-main-photo img{
+      width:100%;
+      height:100%;
+      min-height:620px;
+      object-fit:cover;
+    }
+
+    .tms-product-details{
+      padding:20px 10px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .tms-product-badge{
+      display:inline-block;
+      width:max-content;
+      background:#111;
+      color:#fff;
+      padding:7px 11px;
+      border-radius:20px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      margin-bottom:14px;
+    }
+
+    .tms-product-details h2{
+      font-size:38px;
+      line-height:1.05;
+      margin:0 0 12px;
+      letter-spacing:-1.5px;
+    }
+
+    .tms-category{
+      color:#777;
+      font-size:14px;
+      margin-bottom:17px;
+    }
+
+    .tms-price{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .tms-price strong{
+      font-size:30px;
+    }
+
+    .tms-price del{
+      color:#999;
+      font-size:18px;
+    }
+
+    .tms-discount{
+      background:#dff6e8;
+      color:#087a38;
+      border-radius:20px;
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .tms-description{
+      color:#666;
+      line-height:1.65;
+      font-size:14px;
+      margin-bottom:20px;
+    }
+
+    .tms-label{
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:9px;
+    }
+
+    .tms-sizes{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:20px;
+    }
+
+    .tms-size{
+      min-width:48px;
+      padding:10px 13px;
+      background:#fff;
+      color:#111;
+      border:1px solid #ddd;
+      border-radius:50px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .tms-size.active{
+      background:#111;
+      color:#fff;
+      border-color:#111;
+    }
+
+    .tms-qty{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    .tms-qty button{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:1px solid #ddd;
+      background:#fff;
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    .tms-qty span{
+      min-width:42px;
+      text-align:center;
+      font-weight:800;
+    }
+
+    .tms-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .tms-add,
+    .tms-buy{
+      min-height:54px;
+      border-radius:13px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .tms-add{
+      background:#111;
+      color:#fff;
+      border:1px solid #111;
+    }
+
+    .tms-buy{
+      background:#fff;
+      color:#111;
+      border:1px solid #111;
+    }
+
+    .tms-benefits{
+      display:grid;
+      grid-template-columns:
+        repeat(3,1fr);
+      gap:10px;
+      margin-top:20px;
+      border-top:1px solid #eee;
+      padding-top:18px;
+    }
+
+    .tms-benefit{
+      font-size:11px;
+      color:#666;
+      line-height:1.45;
+    }
+
+    .tms-benefit strong{
+      display:block;
+      color:#111;
+      margin-bottom:3px;
+    }
+
+
+    /* ===================================================
+       MOBILE
+    =================================================== */
+
+    @media(max-width:800px){
+
+      #tmsProductModal{
+        padding:10px;
+      }
+
+      .tms-product-content{
+        grid-template-columns:1fr;
+        padding:15px;
+      }
+
+      .tms-gallery{
+        grid-template-columns:
+          70px 1fr;
+      }
+
+      .tms-main-photo,
+      .tms-main-photo img{
+        min-height:430px;
+      }
+
+      .tms-product-details h2{
+        font-size:29px;
+      }
+
+    }
+
+    @media(max-width:520px){
+
+      .tms-thumbs{
+        gap:6px;
+      }
+
+      .tms-product-content{
+        gap:10px;
+      }
+
+      .tms-benefits{
+        grid-template-columns:1fr;
+      }
+
+      .tms-actions{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  `;
+
+  document.head.appendChild(style);
+
+
+  /* =====================================================
+     MODAL HTML
+  ===================================================== */
+
+  const modal =
+    document.createElement("div");
+
+  modal.id =
+    "tmsProductModal";
+
+  modal.innerHTML = `
+
+    <div
+      class="tms-product-window"
+    >
+
+      <button
+        class="tms-product-close"
+        id="tmsProductClose"
+      >
+        ×
+      </button>
+
+
+      <div
+        class="tms-product-content"
+      >
+
+        <div
+          class="tms-gallery"
+        >
+
+          <div
+            class="tms-thumbs"
+            id="tmsThumbs"
+          ></div>
+
+
+          <div
+            class="tms-main-photo"
+          >
+
+            <img
+              id="tmsMainProductImage"
+              src=""
+              alt=""
+            >
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="tms-product-details"
+        >
+
+          <span
+            class="tms-product-badge"
+            id="tmsProductBadge"
+          >
+            TMSJEANS
+          </span>
+
+
+          <h2
+            id="tmsProductName"
+          ></h2>
+
+
+          <div
+            class="tms-category"
+            id="tmsProductCategory"
+          ></div>
+
+
+          <div
+            class="tms-price"
+          >
+
+            <strong
+              id="tmsProductPrice"
+            ></strong>
+
+            <del
+              id="tmsProductOldPrice"
+            ></del>
+
+            <span
+              class="tms-discount"
+              id="tmsProductDiscount"
+            ></span>
+
+          </div>
+
+
+          <p
+            class="tms-description"
+          >
+            Premium TMSJEANS denim designed
+            for everyday comfort and modern style.
+            Explore the product from multiple angles
+            before adding it to your bag.
+          </p>
+
+
+          <div
+            class="tms-label"
+          >
+            Select Size
+          </div>
+
+
+          <div
+            class="tms-sizes"
+            id="tmsSizes"
+          >
+
+            <button class="tms-size">
+              28
+            </button>
+
+            <button class="tms-size">
+              30
+            </button>
+
+            <button class="tms-size active">
+              32
+            </button>
+
+            <button class="tms-size">
+              34
+            </button>
+
+            <button class="tms-size">
+              36
+            </button>
+
+            <button class="tms-size">
+              38
+            </button>
+
+          </div>
+
+
+          <div
+            class="tms-label"
+          >
+            Quantity
+          </div>
+
+
+          <div
+            class="tms-qty"
+          >
+
+            <button
+              id="tmsQtyMinus"
+            >
+              −
+            </button>
+
+            <span
+              id="tmsQtyValue"
+            >
+              1
+            </span>
+
+            <button
+              id="tmsQtyPlus"
+            >
+              +
+            </button>
+
+          </div>
+
+
+          <div
+            class="tms-actions"
+          >
+
+            <button
+              class="tms-add"
+              id="tmsModalAdd"
+            >
+              🛒 Add to Bag
+            </button>
+
+            <button
+              class="tms-buy"
+              id="tmsModalBuy"
+            >
+              ⚡ Buy Now
+            </button>
+
+          </div>
+
+
+          <div
+            class="tms-benefits"
+          >
+
+            <div
+              class="tms-benefit"
+            >
+              <strong>
+                🚚 Free Delivery
+              </strong>
+              On eligible orders
+            </div>
+
+
+            <div
+              class="tms-benefit"
+            >
+              <strong>
+                ↩️ 7-Day Returns
+              </strong>
+              Easy exchange support
+            </div>
+
+
+            <div
+              class="tms-benefit"
+            >
+              <strong>
+                🔒 Secure Checkout
+              </strong>
+              Safe shopping experience
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.body.appendChild(modal);
+
+
+  /* =====================================================
+     STATE
+  ===================================================== */
+
+  let currentProduct = null;
+
+  let currentGallery = [];
+
+  let currentQty = 1;
+
+
+  /* =====================================================
+     OPEN MODAL
+  ===================================================== */
+
+  function openProductModal(product){
+
+    if(!product)
+      return;
+
+
+    currentProduct =
+      product;
+
+    currentQty =
+      1;
+
+
+    currentGallery =
+      buildGallery(
+        product
+      );
+
+
+    const badge =
+      product.tag ||
+      "TMSJEANS";
+
+
+    document
+      .getElementById(
+        "tmsProductBadge"
+      )
+      .textContent =
+      badge;
+
+
+    document
+      .getElementById(
+        "tmsProductName"
+      )
+      .textContent =
+      product.name;
+
+
+    document
+      .getElementById(
+        "tmsProductCategory"
+      )
+      .textContent =
+      product.category;
+
+
+    document
+      .getElementById(
+        "tmsProductPrice"
+      )
+      .textContent =
+      money(product.price);
+
+
+    const oldPrice =
+      document
+        .getElementById(
+          "tmsProductOldPrice"
+        );
+
+
+    const discount =
+      document
+        .getElementById(
+          "tmsProductDiscount"
+        );
+
+
+    if(product.oldPrice){
+
+      oldPrice.textContent =
+        money(product.oldPrice);
+
+
+      const percent =
+        Math.round(
+          (
+            1 -
+            product.price /
+            product.oldPrice
+          ) * 100
+        );
+
+
+      discount.textContent =
+        percent +
+        "% OFF";
+
+    }
+
+    else{
+
+      oldPrice.textContent =
+        "";
+
+      discount.textContent =
+        "";
+
+    }
+
+
+    document
+      .getElementById(
+        "tmsQtyValue"
+      )
+      .textContent =
+      currentQty;
+
+
+    renderGallery();
+
+
+    modal
+      .classList
+      .add("show");
+
+
+    document.body.style.overflow =
+      "hidden";
+
+  }
+
+
+  /* =====================================================
+     CLOSE
+  ===================================================== */
+
+  function closeProductModal(){
+
+    modal
+      .classList
+      .remove("show");
+
+
+    document.body.style.overflow =
+      "";
+
+  }
+
+
+  /* =====================================================
+     GALLERY
+  ===================================================== */
+
+  function buildGallery(product){
+
+    const result = [];
+
+    const main =
+      product.image;
+
+
+    if(main)
+      result.push(main);
+
+
+    const start =
+      Math.abs(
+        Number(product.id || 1)
+      ) % galleryImages.length;
+
+
+    for(
+      let i = 0;
+      i < galleryImages.length &&
+      result.length < 3;
+      i++
+    ){
+
+      const image =
+        galleryImages[
+          (start + i) %
+          galleryImages.length
+        ];
+
+
+      if(
+        !result.includes(image)
+      ){
+
+        result.push(image);
+
+      }
+
+    }
+
+
+    return result;
+
+  }
+
+
+  function renderGallery(){
+
+    const thumbs =
+      document
+        .getElementById(
+          "tmsThumbs"
+        );
+
+
+    const main =
+      document
+        .getElementById(
+          "tmsMainProductImage"
+        );
+
+
+    thumbs.innerHTML =
+      currentGallery
+        .map(
+          (
+            image,
+            index
+          ) => `
+
+          <button
+            class="
+              tms-thumb
+              ${
+                index === 0
+                  ? "active"
+                  : ""
+              }
+            "
+            data-index="${index}"
+          >
+
+            <img
+              src="${image}"
+              alt="Product view ${index + 1}"
+            >
+
+          </button>
+
+        `
+        )
+        .join("");
+
+
+    main.src =
+      currentGallery[0];
+
+
+    main.alt =
+      currentProduct
+        ? currentProduct.name
+        : "";
+
+
+    thumbs
+      .querySelectorAll(
+        ".tms-thumb"
+      )
+      .forEach(
+        thumb => {
+
+          thumb.onclick =
+            () => {
+
+              const index =
+                Number(
+                  thumb.dataset
+                    .index
+                );
+
+
+              main.src =
+                currentGallery[
+                  index
+                ];
+
+
+              thumbs
+                .querySelectorAll(
+                  ".tms-thumb"
+                )
+                .forEach(
+                  item =>
+                    item.classList
+                      .remove(
+                        "active"
+                      )
+                );
+
+
+              thumb.classList
+                .add(
+                  "active"
+                );
+
+            };
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     PRODUCT CARD CLICK
+  ===================================================== */
+
+  const productGrid =
+    document.querySelector(
+      "#productGrid"
+    );
+
+
+  if(productGrid){
+
+    productGrid.addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target.closest(
+            ".quick-add"
+          )
+        ){
+
+          return;
+
+        }
+
+
+        const card =
+          event.target.closest(
+            ".product-card"
+          );
+
+
+        if(!card)
+          return;
+
+
+        const nameElement =
+          card.querySelector(
+            "h3"
+          );
+
+
+        if(!nameElement)
+          return;
+
+
+        const name =
+          nameElement
+            .textContent
+            .trim();
+
+
+        const product =
+          products.find(
+            item =>
+              item.name ===
+              name
+          );
+
+
+        if(product){
+
+          openProductModal(
+            product
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     MODAL BUTTONS
+  ===================================================== */
+
+  document
+    .getElementById(
+      "tmsProductClose"
+    )
+    .onclick =
+    closeProductModal;
+
+
+  modal.addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        modal
+      ){
+
+        closeProductModal();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     QUANTITY
+  ===================================================== */
+
+  document
+    .getElementById(
+      "tmsQtyMinus"
+    )
+    .onclick =
+    () => {
+
+      if(
+        currentQty > 1
+      ){
+
+        currentQty--;
+
+      }
+
+
+      document
+        .getElementById(
+          "tmsQtyValue"
+        )
+        .textContent =
+        currentQty;
+
+    };
+
+
+  document
+    .getElementById(
+      "tmsQtyPlus"
+    )
+    .onclick =
+    () => {
+
+      if(
+        currentQty < 10
+      ){
+
+        currentQty++;
+
+      }
+
+
+      document
+        .getElementById(
+          "tmsQtyValue"
+        )
+        .textContent =
+        currentQty;
+
+    };
+
+
+  /* =====================================================
+     SIZE
+  ===================================================== */
+
+  document
+    .querySelectorAll(
+      ".tms-size"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          () => {
+
+            document
+              .querySelectorAll(
+                ".tms-size"
+              )
+              .forEach(
+                item =>
+                  item.classList
+                    .remove(
+                      "active"
+                    )
+              );
+
+
+            button.classList
+              .add(
+                "active"
+              );
+
+          };
+
+      }
+    );
+
+
+  /* =====================================================
+     ADD TO BAG
+  ===================================================== */
+
+  document
+    .getElementById(
+      "tmsModalAdd"
+    )
+    .onclick =
+    () => {
+
+      if(!currentProduct)
+        return;
+
+
+      for(
+        let i = 0;
+        i < currentQty;
+        i++
+      ){
+
+        addToCart(
+          currentProduct.id
+        );
+
+      }
+
+
+      closeProductModal();
+
+    };
+
+
+  /* =====================================================
+     BUY NOW
+  ===================================================== */
+
+  document
+    .getElementById(
+      "tmsModalBuy"
+    )
+    .onclick =
+    () => {
+
+      if(!currentProduct)
+        return;
+
+
+      for(
+        let i = 0;
+        i < currentQty;
+        i++
+      ){
+
+        addToCart(
+          currentProduct.id
+        );
+
+      }
+
+
+      closeProductModal();
+
+
+      setTimeout(
+        () => {
+
+          if(
+            typeof openCheckout ===
+            "function"
+          ){
+
+            openCheckout();
+
+          }
+
+        },
+        200
+      );
+
+    };
+
+
+  /* =====================================================
+     FIX BROKEN PRODUCT IMAGES
+  ===================================================== */
+
+  document.addEventListener(
+    "error",
+    event => {
+
+      const image =
+        event.target;
+
+
+      if(
+        image &&
+        image.tagName ===
+        "IMG"
+      ){
+
+        if(
+          image.dataset
+            .fallbackApplied
+        ){
+
+          return;
+
+        }
+
+
+        image.dataset
+          .fallbackApplied =
+          "1";
+
+
+        image.src =
+          galleryImages[
+            0
+          ];
+
+      }
+
+    },
+    true
+  );
+
+
+  /* =====================================================
+     KEYBOARD
+  ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Escape"
+      ){
+
+        closeProductModal();
+
+      }
+
+    }
+  );
+
+})();
