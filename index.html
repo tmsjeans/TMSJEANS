@@ -1,343 +1,1735 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TMSJEANS — Premium denim and everyday fashion.">
+<title>TMSJEANS — Denim, Refined.</title>
 
-  <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<style>
+:root{
+  --bg:#f4f1eb;
+  --card:#e9e5dd;
+  --dark:#111;
+  --muted:#75716a;
+  --line:#d8d3ca;
+  --white:#fff;
+  --accent:#24394a;
+}
 
-  <title>TMSJEANS — Premium Denim</title>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  <meta
-    name="description"
-    content="TMSJEANS — premium denim, jackets, shirts and everyday essentials."
-  >
+html{
+  scroll-behavior:smooth;
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+body{
+  font-family:"DM Sans",sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  overflow-x:hidden;
+}
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  >
+button,input{
+  font-family:inherit;
+}
 
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
+button{
+  cursor:pointer;
+}
 
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* TOP BAR */
+
+.topbar{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:10px 15px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.19em;
+}
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:18px 5vw;
+  background:rgba(244,241,235,.93);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.07em;
+}
+
+.logo span{
+  font-weight:400;
+}
+
+.nav{
+  display:flex;
+  gap:30px;
+}
+
+.nav a{
+  font-size:13px;
+  position:relative;
+}
+
+.nav a:after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0;
+  height:1px;
+  background:#111;
+  transition:.25s;
+}
+
+.nav a:hover:after{
+  width:100%;
+}
+
+.actions{
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.action{
+  border:0;
+  background:transparent;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  font-size:18px;
+}
+
+.action:hover{
+  background:#e7e2d9;
+}
+
+.bag{
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:50px;
+  padding:11px 16px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.bag span{
+  margin-left:5px;
+  background:#fff;
+  color:#111;
+  padding:2px 7px;
+  border-radius:20px;
+}
+
+/* HERO */
+
+.hero{
+  min-height:calc(100vh - 100px);
+  padding:60px 6vw 50px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.hero-copy{
+  max-width:670px;
+}
+
+.eyebrow{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.22em;
+  color:#858078;
+  margin-bottom:17px;
+}
+
+.hero h1{
+  font-size:clamp(72px,9vw,135px);
+  line-height:.82;
+  letter-spacing:-.09em;
+  font-weight:800;
+}
+
+.hero h1 em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.hero-description{
+  max-width:480px;
+  color:#63605a;
+  font-size:16px;
+  line-height:1.7;
+  margin-top:28px;
+}
+
+.hero-buttons{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  margin-top:30px;
+}
+
+.btn{
+  border:0;
+  border-radius:50px;
+  padding:15px 22px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+
+.btn-dark{
+  background:#111;
+  color:#fff;
+}
+
+.btn-light{
+  background:#fff;
+  color:#111;
+}
+
+.outline-btn{
+  background:transparent;
+  border:1px solid #111;
+  color:#111;
+}
+
+.text-link{
+  font-size:12px;
+  border-bottom:1px solid #111;
+  padding-bottom:3px;
+}
+
+.hero-mini{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:55px;
+  color:#888;
+  font-size:10px;
+  letter-spacing:.1em;
+}
+
+.hero-mini span:nth-child(2){
+  width:42px;
+  height:1px;
+  background:#b5b0a8;
+}
+
+/* HERO VISUAL */
+
+.hero-visual{
+  min-height:570px;
+  position:relative;
+}
+
+.visual-back,
+.visual-front{
+  position:absolute;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 35px 70px rgba(0,0,0,.14);
+}
+
+.visual-back{
+  width:59%;
+  height:75%;
+  right:3%;
+  top:2%;
+  transform:rotate(6deg);
+  background:linear-gradient(145deg,#d4d6d4,#adb9c0);
+}
+
+.visual-front{
+  width:70%;
+  height:72%;
+  left:0;
+  bottom:0;
+  transform:rotate(-5deg);
+  background:linear-gradient(135deg,#18202a,#465766);
+}
+
+.visual-front:before{
+  content:"";
+  position:absolute;
+  width:42%;
+  height:78%;
+  left:29%;
+  top:10%;
+  background:linear-gradient(
+    90deg,
+    #31495c 0%,
+    #638199 47%,
+    #31495c 100%
+  );
+  clip-path:polygon(
+    30% 0,
+    70% 0,
+    81% 16%,
+    71% 34%,
+    87% 100%,
+    13% 100%,
+    29% 34%,
+    19% 16%
+  );
+  filter:drop-shadow(0 20px 20px rgba(0,0,0,.25));
+}
+
+.visual-back:before{
+  content:"";
+  position:absolute;
+  width:45%;
+  height:72%;
+  left:28%;
+  top:13%;
+  background:linear-gradient(
+    90deg,
+    #435d70,
+    #7992a4,
+    #435d70
+  );
+  clip-path:polygon(
+    30% 0,
+    70% 0,
+    80% 17%,
+    71% 36%,
+    88% 100%,
+    12% 100%,
+    29% 36%,
+    20% 17%
+  );
+}
+
+.visual-label{
+  position:absolute;
+  left:25px;
+  bottom:24px;
+  color:#fff;
+  font-weight:800;
+  letter-spacing:.1em;
+  font-size:13px;
+}
+
+.visual-label small{
+  display:block;
+  font-size:8px;
+  letter-spacing:.2em;
+  opacity:.6;
+  margin-top:6px;
+}
+
+/* TRUST */
+
+.trust{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+.trust-item{
+  padding:24px 3vw;
+  border-right:1px solid var(--line);
+}
+
+.trust-item:last-child{
+  border-right:0;
+}
+
+.trust-item strong{
+  display:block;
+  font-size:10px;
+  letter-spacing:.16em;
+}
+
+.trust-item span{
+  color:#858078;
+  font-size:11px;
+  display:block;
+  margin-top:6px;
+}
+
+/* SECTIONS */
+
+.section{
+  padding:100px 6vw;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:35px;
+  gap:20px;
+}
+
+.section-title{
+  font-size:clamp(47px,5.6vw,78px);
+  line-height:.9;
+  letter-spacing:-.07em;
+}
+
+.section-title em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+/* COLLECTIONS */
+
+.collections{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.collection{
+  min-height:310px;
+  border:0;
+  border-radius:20px;
+  padding:22px;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+  transition:.35s;
+}
+
+.collection:hover{
+  transform:translateY(-7px);
+}
+
+.collection:nth-child(1){
+  background:#c9d6df;
+}
+
+.collection:nth-child(2){
+  background:#9fadb6;
+}
+
+.collection:nth-child(3){
+  background:#ddd8ce;
+}
+
+.collection:nth-child(4){
+  background:#c9c0b3;
+}
+
+.collection-number{
+  font-size:10px;
+  color:#63615c;
+}
+
+.collection-content{
+  position:absolute;
+  bottom:22px;
+}
+
+.collection h3{
+  font-size:28px;
+  letter-spacing:-.06em;
+}
+
+.collection p{
+  margin-top:5px;
+  color:#67645e;
+  font-size:11px;
+}
+
+/* SHOP */
+
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.filter{
+  border:1px solid #d1ccc4;
+  background:transparent;
+  border-radius:50px;
+  padding:10px 14px;
+  font-size:11px;
+}
+
+.filter.active,
+.filter:hover{
+  color:#fff;
+  border-color:#111;
+  background:#111;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:35px 14px;
+}
+
+.product{
+  position:relative;
+}
+
+.product-image{
+  position:relative;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  border-radius:19px;
+  background:#e1ddd5;
+  cursor:pointer;
+}
+
+.product-image .art{
+  position:absolute;
+  left:20%;
+  top:9%;
+  width:60%;
+  height:78%;
+  transition:.45s;
+}
+
+.product:hover .art{
+  transform:scale(1.04) translateY(-3px);
+}
+
+.jeans-art{
+  background:linear-gradient(
+    90deg,
+    #263d50 0%,
+    #55718a 49%,
+    #263d50 100%
+  );
+  clip-path:polygon(
+    17% 0,
+    83% 0,
+    74% 46%,
+    66% 100%,
+    51% 100%,
+    50% 55%,
+    49% 55%,
+    48% 100%,
+    34% 100%,
+    26% 46%
+  );
+}
+
+.jacket-art{
+  background:linear-gradient(
+    90deg,
+    #40596d 0%,
+    #7690a3 48%,
+    #40596d 100%
+  );
+  clip-path:polygon(
+    29% 0,
+    71% 0,
+    81% 17%,
+    71% 35%,
+    87% 100%,
+    13% 100%,
+    29% 35%,
+    19% 17%
+  );
+}
+
+.tee-art{
+  background:#272727;
+  clip-path:polygon(
+    30% 0,
+    70% 0,
+    100% 19%,
+    81% 46%,
+    69% 35%,
+    69% 100%,
+    31% 100%,
+    31% 35%,
+    19% 46%,
+    0 19%
+  );
+}
+
+.white-art{
+  background:#f0efea;
+  clip-path:polygon(
+    30% 0,
+    70% 0,
+    100% 19%,
+    81% 46%,
+    69% 35%,
+    69% 100%,
+    31% 100%,
+    31% 35%,
+    19% 46%,
+    0 19%
+  );
+}
+
+.shirt-art{
+  background:linear-gradient(
+    90deg,
+    #222 0%,
+    #464646 50%,
+    #222 100%
+  );
+  clip-path:polygon(
+    29% 0,
+    71% 0,
+    89% 20%,
+    100% 51%,
+    84% 60%,
+    76% 43%,
+    73% 100%,
+    27% 100%,
+    24% 43%,
+    16% 60%,
+    0 51%,
+    11% 20%
+  );
+}
+
+.product-badge{
+  position:absolute;
+  top:12px;
+  left:12px;
+  z-index:2;
+  background:#111;
+  color:#fff;
+  border-radius:50px;
+  padding:7px 9px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.heart{
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:3;
+  width:37px;
+  height:37px;
+  border:0;
+  background:rgba(255,255,255,.86);
+  border-radius:50%;
+  font-size:17px;
+}
+
+.product-info{
+  padding:13px 2px;
+}
+
+.product-name{
+  font-size:13px;
+  font-weight:800;
+}
+
+.product-meta{
+  color:#858078;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.price{
+  margin-top:7px;
+  display:flex;
+  gap:8px;
+  align-items:baseline;
+}
+
+.price strong{
+  font-size:14px;
+}
+
+.price s{
+  color:#99938a;
+  font-size:11px;
+}
+
+/* EDITORIAL */
+
+.editorial{
+  margin:15px 6vw 100px;
+  border-radius:24px;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:530px;
+}
+
+.editorial-copy{
+  padding:70px;
+  background:#171717;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+.editorial-copy .eyebrow{
+  color:#929292;
+}
+
+.editorial-copy h2{
+  font-size:clamp(50px,5vw,77px);
+  line-height:.88;
+  letter-spacing:-.07em;
+}
+
+.editorial-copy h2 em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.editorial-copy p{
+  color:#aaa;
+  max-width:430px;
+  font-size:14px;
+  line-height:1.7;
+  margin:22px 0 27px;
+}
+
+.editorial-photo{
+  position:relative;
+  background:
+    linear-gradient(135deg,#b9c3c8,#657682);
+}
+
+.editorial-photo:before{
+  content:"";
+  position:absolute;
+  width:40%;
+  height:77%;
+  left:30%;
+  top:11%;
+  background:linear-gradient(
+    90deg,
+    #344c5f,
+    #718ba0,
+    #344c5f
+  );
+  clip-path:polygon(
+    30% 0,
+    70% 0,
+    81% 16%,
+    71% 35%,
+    87% 100%,
+    13% 100%,
+    29% 35%,
+    19% 16%
+  );
+  filter:drop-shadow(0 25px 25px rgba(0,0,0,.25));
+}
+
+.editorial-stamp{
+  position:absolute;
+  bottom:24px;
+  right:25px;
+  color:rgba(255,255,255,.74);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.2em;
+  line-height:1.5;
+  text-align:right;
+}
+
+/* STORY */
+
+.story{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+  border-top:1px solid var(--line);
+  padding-top:70px;
+}
+
+.story h2{
+  font-size:clamp(49px,5vw,75px);
+  line-height:.9;
+  letter-spacing:-.07em;
+}
+
+.story h2 em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.story-text{
+  font-size:17px;
+  color:#5f5b55;
+  line-height:1.8;
+  max-width:560px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-top:45px;
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+}
+
+.stat span{
+  color:#888;
+  font-size:10px;
+  margin-top:4px;
+  display:block;
+}
+
+/* CONTACT */
+
+.contact-card{
+  background:#ded7ca;
+  border-radius:22px;
+  padding:47px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.contact-card h2{
+  font-size:45px;
+  line-height:.95;
+  letter-spacing:-.06em;
+}
+
+.contact-card p{
+  color:#666159;
+  font-size:13px;
+  margin-top:10px;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:35px 6vw;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:20px;
+}
+
+.footer-links{
+  display:flex;
+  gap:20px;
+}
+
+.footer-links a{
+  font-size:11px;
+}
+
+.footer-copy{
+  justify-self:end;
+  color:#89847c;
+  font-size:10px;
+}
+
+/* MODAL */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.53);
+  z-index:200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.overlay.open{
+  display:flex;
+}
+
+.modal{
+  width:min(1050px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#f7f4ee;
+  border-radius:24px;
+  position:relative;
+  padding:28px;
+}
+
+.close{
+  position:absolute;
+  right:18px;
+  top:15px;
+  width:38px;
+  height:38px;
+  border:0;
+  background:#eae5dc;
+  border-radius:50%;
+  font-size:22px;
+  z-index:5;
+}
+
+/* PRODUCT MODAL */
+
+.product-modal{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+}
+
+.product-main{
+  border-radius:19px;
+  aspect-ratio:4/5;
+  background:#e0dcd4;
+  position:relative;
+  overflow:hidden;
+}
+
+.product-main .large-art{
+  position:absolute;
+  width:53%;
+  height:78%;
+  left:23%;
+  top:10%;
+}
+
+.product-thumbs{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.thumb{
+  border:2px solid transparent;
+  width:70px;
+  height:84px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#ddd;
+}
+
+.thumb.active{
+  border-color:#111;
+}
+
+.thumb-art{
+  width:100%;
+  height:100%;
+}
+
+/* INFO */
+
+.modal-info{
+  padding:25px 10px;
+}
+
+.modal-info h2{
+  font-size:52px;
+  line-height:.92;
+  letter-spacing:-.07em;
+}
+
+.description{
+  color:#69645d;
+  font-size:13px;
+  line-height:1.7;
+  margin-top:18px;
+}
+
+.modal-price{
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+  margin-top:15px;
+}
+
+.modal-price strong{
+  font-size:21px;
+}
+
+.modal-price s{
+  color:#99938b;
+  font-size:12px;
+}
+
+.options{
+  margin-top:28px;
+}
+
+.option-title{
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.sizes{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+}
+
+.size{
+  background:#fff;
+  border:1px solid #d5d0c7;
+  border-radius:8px;
+  padding:11px 5px;
+}
+
+.size.selected{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.quantity{
+  margin-top:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.qty-box{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.qty-box button{
+  width:31px;
+  height:31px;
+  border:1px solid #ccc;
+  border-radius:50%;
+  background:#fff;
+}
+
+.modal-buttons{
+  margin-top:23px;
+  display:grid;
+  gap:8px;
+}
+
+.details{
+  margin-top:25px;
+  border-top:1px solid #d7d2c9;
+}
+
+.detail-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #d7d2c9;
+  font-size:11px;
+}
+
+.detail-row span{
+  color:#858078;
+}
+
+/* CART */
+
+.drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  width:min(430px,100%);
+  height:100vh;
+  z-index:210;
+  background:#f7f4ee;
+  transform:translateX(105%);
+  transition:.35s;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-20px 0 60px rgba(0,0,0,.18);
+}
+
+.drawer.open{
+  transform:translateX(0);
+}
+
+.drawer-head{
+  padding:24px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+}
+
+.drawer-head h3{
+  font-size:18px;
+}
+
+.drawer-body{
+  flex:1;
+  overflow:auto;
+  padding:20px;
+}
+
+.cart-item{
+  display:grid;
+  grid-template-columns:72px 1fr auto;
+  gap:11px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:17px;
+  margin-bottom:17px;
+}
+
+.cart-visual{
+  width:72px;
+  height:85px;
+  background:#dedad2;
+  border-radius:10px;
+  position:relative;
+  overflow:hidden;
+}
+
+.cart-visual .art{
+  position:absolute;
+  width:55%;
+  height:76%;
+  left:22%;
+  top:12%;
+}
+
+.cart-item h4{
+  font-size:12px;
+}
+
+.cart-item p{
+  color:#888;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.cart-controls{
+  margin-top:10px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.cart-controls button{
+  width:27px;
+  height:27px;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:50%;
+}
+
+.remove{
+  border:0;
+  background:transparent;
+  color:#777;
+  font-size:18px;
+}
+
+.drawer-bottom{
+  padding:20px;
+  border-top:1px solid var(--line);
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  font-size:15px;
+  margin-bottom:14px;
+}
+
+.backdrop{
+  position:fixed;
+  inset:0;
+  z-index:205;
+  background:rgba(0,0,0,.35);
+  display:none;
+}
+
+.backdrop.show{
+  display:block;
+}
+
+/* SEARCH */
+
+.search-modal{
+  width:min(700px,100%);
+  padding:45px;
+}
+
+.search-input{
+  width:100%;
+  border:0;
+  border-bottom:2px solid #111;
+  background:transparent;
+  outline:0;
+  padding:16px 0;
+  font-size:30px;
+}
+
+.search-results{
+  margin-top:20px;
+  display:grid;
+  gap:10px;
+}
+
+.search-result{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+
+.search-result-image{
+  width:55px;
+  height:65px;
+  background:#ddd;
+  border-radius:8px;
+  position:relative;
+}
+
+.search-result-image .art{
+  position:absolute;
+  width:50%;
+  height:75%;
+  left:25%;
+  top:12%;
+}
+
+/* CHECKOUT */
+
+.checkout{
+  width:min(600px,100%);
+}
+
+.form{
+  margin-top:25px;
+  display:grid;
+  gap:10px;
+}
+
+.form input,
+.form textarea{
+  border:1px solid #d2cdc4;
+  background:#fff;
+  border-radius:10px;
+  padding:14px;
+  outline:0;
+  font-size:13px;
+}
+
+.form textarea{
+  resize:vertical;
+}
+
+.two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.payment{
+  background:#fff;
+  border-radius:11px;
+  padding:15px;
+  display:grid;
+  gap:9px;
+  font-size:12px;
+}
+
+.checkout-total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:17px 0;
+  font-size:17px;
+}
+
+/* CHAT */
+
+.chat-fab{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:190;
+  width:59px;
+  height:59px;
+  border:0;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:21px;
+  box-shadow:0 15px 40px rgba(0,0,0,.23);
+}
+
+.chat{
+  position:fixed;
+  right:22px;
+  bottom:94px;
+  width:min(380px,calc(100% - 28px));
+  height:510px;
+  background:#f7f4ee;
+  border:1px solid #d2cdc5;
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.2);
+  z-index:189;
+  display:none;
+  overflow:hidden;
+}
+
+.chat.open{
+  display:flex;
+  flex-direction:column;
+}
+
+.chat-head{
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+}
+
+.chat-head strong{
+  display:block;
+  font-size:13px;
+}
+
+.chat-head small{
+  color:#888;
+  font-size:9px;
+}
+
+.chat-head button{
+  border:0;
+  background:transparent;
+  font-size:22px;
+}
+
+.messages{
+  flex:1;
+  overflow:auto;
+  padding:15px;
+}
+
+.msg{
+  max-width:84%;
+  background:#e8e3db;
+  border-radius:13px;
+  padding:10px;
+  font-size:11px;
+  line-height:1.5;
+  margin-bottom:8px;
+}
+
+.msg.you{
+  margin-left:auto;
+  background:#111;
+  color:#fff;
+}
+
+.quick{
+  padding:0 12px 10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.quick button{
+  background:#fff;
+  border:1px solid #d4cec5;
+  border-radius:30px;
+  padding:7px 10px;
+  font-size:9px;
+}
+
+.chat-input{
+  padding:10px;
+  border-top:1px solid var(--line);
+  display:flex;
+  gap:7px;
+}
+
+.chat-input input{
+  flex:1;
+  border:1px solid #d2cdc4;
+  border-radius:9px;
+  padding:11px;
+  outline:0;
+}
+
+.chat-input button{
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:9px;
+  padding:0 14px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  header{
+    grid-template-columns:1fr auto;
+  }
+
+  .nav{
+    display:none;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .hero-visual{
+    min-height:500px;
+  }
+
+  .collections,
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .story{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+
+  .editorial{
+    grid-template-columns:1fr;
+  }
+
+  .editorial-photo{
+    min-height:430px;
+  }
+
+  .trust{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  footer{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footer-copy{
+    grid-column:1/-1;
+    justify-self:start;
+  }
+}
+
+@media(max-width:600px){
+
+  .topbar{
+    font-size:8px;
+  }
+
+  header{
+    padding:14px 4vw;
+  }
+
+  .logo{
+    font-size:19px;
+  }
+
+  .actions{
+    gap:2px;
+  }
+
+  .action{
+    width:32px;
+    height:32px;
+  }
+
+  .bag{
+    padding:9px 11px;
+  }
+
+  .hero{
+    padding:45px 5vw;
+  }
+
+  .hero h1{
+    font-size:65px;
+  }
+
+  .hero-visual{
+    min-height:390px;
+  }
+
+  .section{
+    padding:75px 5vw;
+  }
+
+  .section-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .collections,
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .trust{
+    grid-template-columns:1fr;
+  }
+
+  .trust-item{
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .editorial{
+    margin:10px 5vw 75px;
+  }
+
+  .editorial-copy{
+    padding:42px;
+  }
+
+  .contact-card{
+    padding:32px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  footer{
+    grid-template-columns:1fr;
+  }
+
+  .footer-copy{
+    grid-column:auto;
+  }
+
+  .product-modal{
+    grid-template-columns:1fr;
+  }
+
+  .modal-info{
+    padding:10px 2px 20px;
+  }
+
+  .modal-info h2{
+    font-size:42px;
+  }
+
+  .sizes{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .two{
+    grid-template-columns:1fr;
+  }
+
+  .search-modal{
+    padding:35px 22px;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     ANNOUNCEMENT
-========================= -->
-
-<div class="announcement">
-
-  FREE SHIPPING ON ORDERS ABOVE ₹799
-  <span>•</span>
-  EASY 7-DAY RETURNS
-  <span>•</span>
-  TMSJEANS
-
+<div class="topbar">
+  FREE SHIPPING ABOVE ₹999 &nbsp; · &nbsp; COD AVAILABLE
 </div>
 
+<header>
 
-<!-- =========================
-     HEADER
-========================= -->
-
-<header class="header">
-
-  <a
-    href="#home"
-    class="logo"
-  >
-    TMS<span>JEANS</span>
+  <a href="#home" class="logo">
+    <span>TMS</span>JEANS
   </a>
 
-
   <nav class="nav">
-
-    <a href="#home">
-      Home
-    </a>
-
-    <a href="#shop">
-      Shop
-    </a>
-
-    <a href="#collections">
-      Collections
-    </a>
-
-    <a href="#about">
-      About
-    </a>
-
-    <a href="#contact">
-      Contact
-    </a>
-
+    <a href="#shop">Shop</a>
+    <a href="#collections">Collections</a>
+    <a href="#about">About</a>
+    <a href="#support">Support</a>
   </nav>
 
+  <div class="actions">
 
-  <div class="header-actions">
+    <button class="action" id="searchBtn">⌕</button>
 
-    <button
-      id="searchBtn"
-      class="icon-btn"
-      aria-label="Search"
-    >
-      ⌕
-    </button>
+    <button class="action" id="accountBtn">◯</button>
 
-
-    <button
-      id="accountBtn"
-      class="icon-btn"
-      aria-label="Account"
-    >
-      ♙
-    </button>
-
-
-    <button
-      id="cartBtn"
-      class="cart-btn"
-      aria-label="Cart"
-    >
-
-      🛍️
-
-      <span id="cartCount">
-        0
-      </span>
-
+    <button class="bag" id="bagBtn">
+      Bag <span id="bagCount">0</span>
     </button>
 
   </div>
 
 </header>
 
+<main id="home">
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
-<section
-  id="home"
-  class="hero"
->
+<section class="hero">
 
-  <div class="hero-content">
+  <div class="hero-copy">
 
-    <div class="eyebrow">
-      TMSJEANS / NEW DROP
-    </div>
+    <p class="eyebrow">NEW SEASON / 2026</p>
 
     <h1>
-      DENIM
-      <br>
-      WITHOUT
-      <br>
-      COMPROMISE.
+      Denim,<br>
+      <em>refined.</em>
     </h1>
 
-    <p>
-      Clean fits. Premium fabric.
-      Everyday confidence.
-      Discover the latest TMSJEANS collection.
+    <p class="hero-description">
+      Premium silhouettes. Everyday comfort. 
+      Clean design made for the way you move.
     </p>
-
 
     <div class="hero-buttons">
 
-      <a
-        href="#shop"
-        class="primary-btn"
-      >
-        Shop Collection →
+      <a href="#shop" class="btn btn-dark">
+        SHOP THE EDIT
       </a>
 
-
-      <a
-        href="#collections"
-        class="text-btn"
-      >
-        Explore Styles
+      <a href="#collections" class="text-link">
+        Explore collections →
       </a>
 
     </div>
 
+    <div class="hero-mini">
+      <span>01</span>
+      <span></span>
+      <span>DESIGNED FOR DAILY WEAR</span>
+    </div>
+
   </div>
 
+  <div class="hero-visual">
 
-  <div class="hero-image">
+    <div class="visual-back"></div>
 
-    <img
-      src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1400&q=90"
-      alt="TMSJEANS denim"
-    >
-
-    <div class="hero-badge">
-      UP TO
-      <strong>40%</strong>
-      OFF
+    <div class="visual-front">
+      <div class="visual-label">
+        TMSJEANS
+        <small>STUDIO EDIT</small>
+      </div>
     </div>
 
   </div>
 
 </section>
 
+<!-- TRUST -->
 
-<!-- =========================
-     TRUST BAR
-========================= -->
+<section class="trust">
 
-<section class="trust-bar">
-
-  <div>
-    <strong>
-      FREE SHIPPING
-    </strong>
-    <span>
-      On eligible orders
-    </span>
+  <div class="trust-item">
+    <strong>PREMIUM FABRIC</strong>
+    <span>Curated denim weights</span>
   </div>
 
-
-  <div>
-    <strong>
-      7-DAY RETURNS
-    </strong>
-    <span>
-      Easy exchange support
-    </span>
+  <div class="trust-item">
+    <strong>FAST DISPATCH</strong>
+    <span>Ships within 24–48 hours</span>
   </div>
 
-
-  <div>
-    <strong>
-      COD AVAILABLE
-    </strong>
-    <span>
-      Where available
-    </span>
+  <div class="trust-item">
+    <strong>EASY EXCHANGE</strong>
+    <span>Size-first support</span>
   </div>
 
-
-  <div>
-    <strong>
-      SECURE ACCOUNT
-    </strong>
-    <span>
-      Protected customer login
-    </span>
+  <div class="trust-item">
+    <strong>SECURE CHECKOUT</strong>
+    <span>COD available</span>
   </div>
 
 </section>
 
+<!-- COLLECTIONS -->
 
-<!-- =========================
-     COLLECTIONS
-========================= -->
-
-<section
-  id="collections"
-  class="section"
->
+<section class="section" id="collections">
 
   <div class="section-head">
 
     <div>
-
-      <div class="eyebrow">
-        SHOP BY STYLE
-      </div>
-
-      <h2>
-        Collections.
+      <p class="eyebrow">SHOP BY CATEGORY</p>
+      <h2 class="section-title">
+        Collections
       </h2>
-
     </div>
 
-  </div>
+    <a href="#shop" class="text-link">
+      View all →
+    </a>
 
+  </div>
 
   <div class="collections">
 
-    <button
-      class="collection-card"
-      data-filter="Jeans"
-    >
+    <button class="collection" data-category="Jeans">
 
-      <img
-        src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=900&q=90"
-        alt="Jeans"
-      >
+      <span class="collection-number">01</span>
 
-      <span>
-        JEANS
-      </span>
+      <div class="collection-content">
+        <h3>Jeans</h3>
+        <p>From ₹799</p>
+      </div>
 
     </button>
 
+    <button class="collection" data-category="Jackets">
 
-    <button
-      class="collection-card"
-      data-filter="Jackets"
-    >
+      <span class="collection-number">02</span>
 
-      <img
-        src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=90"
-        alt="Denim Jackets"
-      >
-
-      <span>
-        DENIM JACKETS
-      </span>
+      <div class="collection-content">
+        <h3>Denim Jackets</h3>
+        <p>From ₹999</p>
+      </div>
 
     </button>
 
+    <button class="collection" data-category="T-Shirts">
 
-    <button
-      class="collection-card"
-      data-filter="T-Shirts"
-    >
+      <span class="collection-number">03</span>
 
-      <img
-        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=90"
-        alt="T-Shirts"
-      >
-
-      <span>
-        T-SHIRTS
-      </span>
+      <div class="collection-content">
+        <h3>T-Shirts</h3>
+        <p>From ₹399</p>
+      </div>
 
     </button>
 
+    <button class="collection" data-category="Shirts">
 
-    <button
-      class="collection-card"
-      data-filter="Shirts"
-    >
+      <span class="collection-number">04</span>
 
-      <img
-        src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=90"
-        alt="Shirts"
-      >
-
-      <span>
-        SHIRTS
-      </span>
+      <div class="collection-content">
+        <h3>Shirts</h3>
+        <p>From ₹799</p>
+      </div>
 
     </button>
 
@@ -345,72 +1737,133 @@
 
 </section>
 
+<!-- SHOP -->
 
-<!-- =========================
-     SHOP
-========================= -->
-
-<section
-  id="shop"
-  class="section shop-section"
->
+<section class="section" id="shop">
 
   <div class="section-head">
 
     <div>
+      <p class="eyebrow">THE TMS EDIT</p>
 
-      <div class="eyebrow">
-        THE DROP
-      </div>
-
-      <h2>
-        Best sellers.
+      <h2 class="section-title">
+        Best <em>sellers.</em>
       </h2>
 
     </div>
 
+    <div class="filters">
 
-    <div class="shop-tools">
+      <button class="filter active" data-filter="All">
+        All
+      </button>
 
-      <div
-        id="filters"
-        class="filters"
-      >
+      <button class="filter" data-filter="Jeans">
+        Jeans
+      </button>
 
-        <button
-          class="filter active"
-          data-filter="All"
-        >
-          All
-        </button>
+      <button class="filter" data-filter="Jackets">
+        Jackets
+      </button>
 
-        <button
-          class="filter"
-          data-filter="Jeans"
-        >
-          Jeans
-        </button>
+      <button class="filter" data-filter="T-Shirts">
+        T-Shirts
+      </button>
 
-        <button
-          class="filter"
-          data-filter="Jackets"
-        >
-          Jackets
-        </button>
+      <button class="filter" data-filter="Shirts">
+        Shirts
+      </button>
 
-        <button
-          class="filter"
-          data-filter="T-Shirts"
-        >
-          T-Shirts
-        </button>
+    </div>
 
-        <button
-          class="filter"
-          data-filter="Shirts"
-        >
-          Shirts
-        </button>
+  </div>
+
+  <div class="products" id="products"></div>
+
+</section>
+
+<!-- EDITORIAL -->
+
+<section class="editorial">
+
+  <div class="editorial-copy">
+
+    <p class="eyebrow">
+      THE TMS FIT
+    </p>
+
+    <h2>
+      Clean cuts.<br>
+      <em>Real comfort.</em>
+    </h2>
+
+    <p>
+      Built around slim, straight and relaxed silhouettes —
+      designed to become your everyday rotation.
+    </p>
+
+    <a href="#shop" class="btn btn-light">
+      SHOP DENIM
+    </a>
+
+  </div>
+
+  <div class="editorial-photo">
+
+    <div class="editorial-stamp">
+      TMS<br>
+      JEANS<br>
+      2026
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="section" id="about">
+
+  <div class="story">
+
+    <div>
+
+      <p class="eyebrow">
+        OUR APPROACH
+      </p>
+
+      <h2>
+        Less noise.<br>
+        <em>Better denim.</em>
+      </h2>
+
+    </div>
+
+    <div>
+
+      <p class="story-text">
+        TMSJEANS is built around one simple idea:
+        make clothes you reach for again and again.
+        We focus on versatile denim, clean details
+        and accessible everyday pricing.
+      </p>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong>4</strong>
+          <span>CORE COLLECTIONS</span>
+        </div>
+
+        <div class="stat">
+          <strong>₹399+</strong>
+          <span>EVERYDAY ESSENTIALS</span>
+        </div>
+
+        <div class="stat">
+          <strong>COD</strong>
+          <span>AVAILABLE</span>
+        </div>
 
       </div>
 
@@ -418,448 +1871,191 @@
 
   </div>
 
-
-  <div
-    id="productGrid"
-    class="product-grid"
-  ></div>
-
 </section>
 
+<!-- SUPPORT -->
 
-<!-- =========================
-     ABOUT
-========================= -->
+<section class="section" id="support">
 
-<section
-  id="about"
-  class="about"
->
+  <div class="contact-card">
 
-  <div>
+    <div>
 
-    <div class="eyebrow">
-      ABOUT TMSJEANS
+      <p class="eyebrow">
+        NEED HELP?
+      </p>
+
+      <h2>
+        Talk to TMS support.
+      </h2>
+
+      <p>
+        Ask about size, orders, delivery or anything
+        else before placing your order.
+      </p>
+
     </div>
 
-    <h2>
-      Built for everyday wear.
-    </h2>
+    <button class="btn btn-dark" id="supportBtn">
+      OPEN SUPPORT
+    </button>
 
   </div>
-
-
-  <p>
-
-    TMSJEANS is focused on clean silhouettes,
-    comfortable denim and versatile everyday
-    clothing. Designed for people who want
-    premium-looking essentials without overdoing it.
-
-  </p>
 
 </section>
 
+</main>
 
-<!-- =========================
-     CONTACT
-========================= -->
+<!-- FOOTER -->
 
-<section
-  id="contact"
-  class="section contact"
->
+<footer>
 
-  <div class="eyebrow">
-    CONTACT
+  <div class="logo">
+    <span>TMS</span>JEANS
   </div>
-
-  <h2>
-    Need help?
-  </h2>
-
-  <p>
-    Use the support chat in the bottom-right corner
-    for automated help with products, orders and sizing.
-  </p>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer class="footer">
-
-  <div>
-
-    <div class="logo">
-      TMS<span>JEANS</span>
-    </div>
-
-    <p>
-      Premium denim. Everyday confidence.
-    </p>
-
-  </div>
-
 
   <div class="footer-links">
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#support">Support</a>
+  </div>
 
-    <a href="#shop">
-      Shop
-    </a>
-
-    <a href="#collections">
-      Collections
-    </a>
-
-    <a href="#about">
-      About
-    </a>
-
-    <a href="#contact">
-      Contact
-    </a>
-
+  <div class="footer-copy">
+    © 2026 TMSJEANS
   </div>
 
 </footer>
 
+<!-- CART -->
 
-<!-- =========================
-     CART DRAWER
-========================= -->
+<div class="backdrop" id="backdrop"></div>
 
-<div
-  id="overlay"
-  class="overlay"
-></div>
-
-
-<aside
-  id="cartDrawer"
-  class="cart-drawer"
->
+<aside class="drawer" id="drawer">
 
   <div class="drawer-head">
 
-    <h3>
-      Your Bag
-    </h3>
+    <h3>Your Bag</h3>
 
-    <button
-      id="closeCart"
-      class="close-btn"
-    >
+    <button class="remove" id="closeBag">
       ×
     </button>
 
   </div>
 
+  <div class="drawer-body" id="cartItems"></div>
 
-  <div
-    id="cartEmpty"
-    class="cart-empty"
-  >
-    Your bag is empty.
-  </div>
+  <div class="drawer-bottom">
 
-
-  <div
-    id="cartItems"
-    class="cart-items"
-  ></div>
-
-
-  <div
-    id="cartFooter"
-    class="cart-footer"
-  >
-
-    <div class="cart-total-row">
-
-      <span>
-        Total
-      </span>
-
-      <strong id="cartTotal">
-        ₹0
-      </strong>
-
+    <div class="total">
+      <span>Subtotal</span>
+      <strong id="subtotal">₹0</strong>
     </div>
 
-
-    <button
-      id="checkoutBtn"
-      class="primary-btn full"
-    >
-      Proceed to Checkout
+    <button class="btn btn-dark" style="width:100%" id="checkoutBtn">
+      CHECKOUT
     </button>
 
   </div>
 
 </aside>
 
+<!-- PRODUCT MODAL -->
 
-<!-- =========================
-     SEARCH MODAL
-========================= -->
+<div class="overlay" id="productOverlay">
 
-<div
-  id="searchModal"
-  class="modal"
->
+  <div class="modal">
 
-  <div class="search-box">
-
-    <button
-      id="closeSearch"
-      class="modal-close"
-    >
+    <button class="close" id="closeProduct">
       ×
     </button>
 
-    <div class="eyebrow">
-      SEARCH TMSJEANS
-    </div>
+    <div class="product-modal">
 
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search products..."
-      autocomplete="off"
-    >
+      <div>
 
-    <div
-      id="searchResults"
-      class="search-results"
-    ></div>
+        <div class="product-main" id="productMain"></div>
 
-  </div>
-
-</div>
-
-
-<!-- =========================
-     PRODUCT MODAL
-========================= -->
-
-<div
-  id="productModal"
-  class="modal"
->
-
-  <div class="product-modal">
-
-    <button
-      id="productClose"
-      class="modal-close"
-    >
-      ×
-    </button>
-
-
-    <div class="product-modal-grid">
-
-
-      <div class="product-gallery">
-
-        <div
-          id="productThumbs"
-          class="product-thumbs"
-        ></div>
-
-
-        <div class="product-main-image">
-
-          <img
-            id="productMainImage"
-            src=""
-            alt=""
-          >
-
-          <button
-            id="galleryPrev"
-            class="gallery-arrow prev"
-          >
-            ‹
-          </button>
-
-          <button
-            id="galleryNext"
-            class="gallery-arrow next"
-          >
-            ›
-          </button>
-
-        </div>
+        <div class="product-thumbs" id="productThumbs"></div>
 
       </div>
 
+      <div class="modal-info">
 
-      <div class="product-details">
+        <p class="eyebrow" id="modalCategory"></p>
 
-        <div
-          id="productBadge"
-          class="product-badge"
-        >
-          TMSJEANS
-        </div>
-
-
-        <h2
-          id="productName"
-        ></h2>
-
-
-        <div
-          id="productCategory"
-          class="product-category"
-        ></div>
-
+        <h2 id="modalName"></h2>
 
         <div class="modal-price">
-
-          <strong
-            id="productPrice"
-          ></strong>
-
-          <del
-            id="productOldPrice"
-          ></del>
-
-          <span
-            id="productDiscount"
-          ></span>
-
+          <strong id="modalPrice"></strong>
+          <s id="modalOldPrice"></s>
         </div>
 
+        <p class="description" id="modalDescription"></p>
 
-        <p
-          id="productDescription"
-          class="product-description"
-        ></p>
+        <div class="options">
 
+          <div class="option-title">
+            SELECT SIZE
+          </div>
 
-        <div class="option-title">
-          Size
-        </div>
+          <div class="sizes" id="sizes">
 
+            <button class="size">28</button>
+            <button class="size">30</button>
+            <button class="size">32</button>
+            <button class="size">34</button>
+            <button class="size">36</button>
+            <button class="size">38</button>
 
-        <div
-          id="sizeOptions"
-          class="size-options"
-        >
-
-          <button
-            class="size-option"
-            data-size="28"
-          >
-            28
-          </button>
-
-          <button
-            class="size-option"
-            data-size="30"
-          >
-            30
-          </button>
-
-          <button
-            class="size-option active"
-            data-size="32"
-          >
-            32
-          </button>
-
-          <button
-            class="size-option"
-            data-size="34"
-          >
-            34
-          </button>
-
-          <button
-            class="size-option"
-            data-size="36"
-          >
-            36
-          </button>
-
-          <button
-            class="size-option"
-            data-size="38"
-          >
-            38
-          </button>
+          </div>
 
         </div>
-
-
-        <div class="option-title">
-          Quantity
-        </div>
-
 
         <div class="quantity">
 
-          <button id="qtyMinus">
-            −
-          </button>
-
-          <span id="qtyValue">
-            1
+          <span class="option-title">
+            QUANTITY
           </span>
 
-          <button id="qtyPlus">
-            +
+          <div class="qty-box">
+
+            <button id="minus">−</button>
+
+            <strong id="qty">1</strong>
+
+            <button id="plus">+</button>
+
+          </div>
+
+        </div>
+
+        <div class="modal-buttons">
+
+          <button class="btn btn-dark" id="addProduct">
+            ADD TO BAG
+          </button>
+
+          <button class="btn outline-btn" id="buyProduct">
+            BUY NOW
           </button>
 
         </div>
 
+        <div class="details">
 
-        <div class="product-actions">
-
-          <button
-            id="modalAdd"
-            class="primary-btn"
-          >
-            Add to Bag
-          </button>
-
-          <button
-            id="modalBuy"
-            class="secondary-btn"
-          >
-            Buy Now
-          </button>
-
-        </div>
-
-
-        <div class="benefits">
-
-          <div>
-            <strong>
-              🚚 Delivery
-            </strong>
-            Easy shipping support
+          <div class="detail-row">
+            <strong>FIT</strong>
+            <span id="modalFit"></span>
           </div>
 
-          <div>
-            <strong>
-              ↩️ Returns
-            </strong>
-            7-day return support
+          <div class="detail-row">
+            <strong>CARE</strong>
+            <span>Machine wash cold</span>
           </div>
 
-          <div>
-            <strong>
-              🔒 Account
-            </strong>
-            Secure customer login
+          <div class="detail-row">
+            <strong>DISPATCH</strong>
+            <span>24–48 hours</span>
           </div>
 
         </div>
@@ -872,237 +2068,116 @@
 
 </div>
 
+<!-- SEARCH -->
 
-<!-- =========================
-     ACCOUNT MODAL
-========================= -->
+<div class="overlay" id="searchOverlay">
 
-<div
-  id="accountModal"
-  class="modal"
->
+  <div class="modal search-modal">
 
-  <div class="account-box">
-
-    <button
-      id="accountClose"
-      class="modal-close"
-    >
+    <button class="close" id="closeSearch">
       ×
     </button>
 
+    <p class="eyebrow">
+      SEARCH TMSJEANS
+    </p>
 
-    <h2>
-      TMSJEANS Account
-    </h2>
-
-
-    <div
-      id="loginArea"
+    <input
+      class="search-input"
+      id="searchInput"
+      placeholder="Search jeans, jackets, tees..."
     >
 
-      <p class="muted">
-        Create an account or login to view your orders.
-      </p>
-
-
-      <input
-        id="emailInput"
-        type="email"
-        placeholder="Email address"
-      >
-
-
-      <input
-        id="passwordInput"
-        type="password"
-        placeholder="Password"
-      >
-
-
-      <button
-        id="loginBtn"
-        class="primary-btn full"
-      >
-        Login
-      </button>
-
-
-      <button
-        id="createBtn"
-        class="secondary-btn full"
-      >
-        Create Account
-      </button>
-
-
-      <button
-        id="forgotBtn"
-        class="text-btn full"
-      >
-        Forgot Password?
-      </button>
-
-
-      <div
-        id="accountMessage"
-        class="account-message"
-      ></div>
-
-    </div>
-
-
-    <div
-      id="loggedArea"
-      style="display:none"
-    >
-
-      <p
-        id="loggedEmail"
-        class="muted"
-      ></p>
-
-
-      <button
-        id="myOrdersBtn"
-        class="primary-btn full"
-      >
-        📦 My Orders
-      </button>
-
-
-      <div
-        id="myOrders"
-        class="my-orders"
-      ></div>
-
-
-      <button
-        id="logoutBtn"
-        class="secondary-btn full"
-      >
-        Logout
-      </button>
-
-    </div>
+    <div class="search-results" id="searchResults"></div>
 
   </div>
 
 </div>
 
+<!-- CHECKOUT -->
 
-<!-- =========================
-     CHECKOUT
-========================= -->
+<div class="overlay" id="checkoutOverlay">
 
-<div
-  id="checkoutModal"
-  class="modal"
->
+  <div class="modal checkout">
 
-  <div class="checkout-box">
-
-    <button
-      id="checkoutClose"
-      class="modal-close"
-    >
+    <button class="close" id="closeCheckout">
       ×
     </button>
 
+    <p class="eyebrow">
+      CHECKOUT
+    </p>
 
-    <h2>
-      Checkout
+    <h2 class="section-title">
+      Complete<br>
+      <em>your order.</em>
     </h2>
 
+    <form class="form" id="checkoutForm">
 
-    <div
-      id="checkoutSummary"
-      class="checkout-summary"
-    ></div>
+      <div class="two">
 
+        <input
+          id="name"
+          type="text"
+          placeholder="Full name"
+          required
+        >
 
-    <form
-      id="orderForm"
-    >
+        <input
+          id="phone"
+          type="tel"
+          placeholder="Mobile number"
+          required
+        >
+
+      </div>
 
       <input
-        name="name"
-        type="text"
-        placeholder="Full name"
+        id="email"
+        type="email"
+        placeholder="Email address"
         required
       >
-
-
-      <input
-        name="phone"
-        type="tel"
-        placeholder="Phone number"
-        required
-      >
-
 
       <textarea
-        name="address"
+        id="address"
+        rows="4"
         placeholder="Full delivery address"
         required
       ></textarea>
 
+      <div class="payment">
 
-      <input
-        name="city"
-        type="text"
-        placeholder="City"
-        required
-      >
-
-
-      <input
-        name="pin"
-        type="text"
-        placeholder="PIN code"
-        required
-      >
-
-
-      <select
-        name="payment"
-        required
-      >
-
-        <option value="">
-          Select payment method
-        </option>
-
-        <option value="COD">
+        <label>
+          <input type="radio" checked name="payment" value="COD">
           Cash on Delivery
-        </option>
+        </label>
 
-        <option value="UPI - Coming Soon">
-          UPI — Coming Soon
-        </option>
-
-      </select>
-
-
-      <div class="checkout-total">
-
-        <span>
-          Total
-        </span>
-
-        <strong id="checkoutTotal">
-          ₹0
-        </strong>
+        <label>
+          <input type="radio" name="payment" value="UPI">
+          UPI
+          <span style="color:#999">
+            (Coming soon)
+          </span>
+        </label>
 
       </div>
 
+      <div class="checkout-total">
+        <span>Total</span>
+        <strong id="checkoutTotal">
+          ₹0
+        </strong>
+      </div>
 
-      <button
-        class="primary-btn full"
-        type="submit"
-      >
-        Place Order
+      <button class="btn btn-dark" type="submit">
+        PLACE ORDER
       </button>
+
+      <p id="orderMessage"
+         style="font-size:11px;color:#777">
+      </p>
 
     </form>
 
@@ -1110,105 +2185,914 @@
 
 </div>
 
+<!-- CHAT -->
 
-<!-- =========================
-     SUPPORT CHAT
-========================= -->
+<button class="chat-fab" id="chatFab">
+  ✦
+</button>
 
-<div
-  id="chatbox"
-  class="chatbox"
->
+<div class="chat" id="chat">
 
   <div class="chat-head">
 
     <div>
-
-      <strong>
-        TMSJEANS Support
-      </strong>
-
-      <span>
-        Automated assistance
-      </span>
-
+      <strong>TMS Support</strong>
+      <small>Usually replies instantly</small>
     </div>
 
-
-    <button
-      id="closeChat"
-    >
+    <button id="closeChat">
       ×
     </button>
 
   </div>
 
+  <div class="messages" id="messages">
 
-  <div
-    id="chatMessages"
-    class="chat-messages"
-  >
-
-    <div class="chat-msg bot">
-
-      👋 Welcome to TMSJEANS Support.
-
-      <br><br>
-
-      Tell us your problem and we will guide you.
-
+    <div class="msg">
+      Hi! Welcome to TMSJEANS.
+      How can I help you?
     </div>
 
   </div>
 
+  <div class="quick">
 
-  <form
-    id="chatForm"
-    class="chat-form"
-  >
+    <button data-chat="I need size help">
+      Size help
+    </button>
+
+    <button data-chat="Where is my order?">
+      Order help
+    </button>
+
+    <button data-chat="How long is delivery?">
+      Delivery
+    </button>
+
+    <button data-chat="I need customer support">
+      Customer support
+    </button>
+
+  </div>
+
+  <div class="chat-input">
 
     <input
       id="chatInput"
-      type="text"
       placeholder="Type your message..."
-      autocomplete="off"
     >
 
-    <button
-      type="submit"
-    >
-      ➤
+    <button id="sendChat">
+      Send
     </button>
 
-  </form>
+  </div>
 
 </div>
 
+<script>
 
-<button
-  id="chatFab"
-  class="chat-fab"
->
-  💬
-</button>
+const products = [
 
+  {
+    id:1,
+    name:"Classic Black Denim",
+    category:"Jeans",
+    price:799,
+    old:1199,
+    fit:"Slim",
+    type:"jeans",
+    description:"Clean black denim with a versatile everyday silhouette."
+  },
 
-<!-- =========================
-     FIREBASE
-========================= -->
+  {
+    id:2,
+    name:"Dark Blue Slim Fit",
+    category:"Jeans",
+    price:999,
+    old:1499,
+    fit:"Slim",
+    type:"jeans",
+    description:"Deep indigo denim with a sharp slim profile."
+  },
 
-<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
+  {
+    id:3,
+    name:"Light Wash Baggy Jeans",
+    category:"Jeans",
+    price:899,
+    old:1399,
+    fit:"Baggy",
+    type:"jeans",
+    description:"Relaxed volume with a vintage washed finish."
+  },
 
-<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
+  {
+    id:4,
+    name:"Vintage Grey Straight",
+    category:"Jeans",
+    price:799,
+    old:1199,
+    fit:"Straight",
+    type:"jeans",
+    description:"Straight-leg grey denim built for everyday rotation."
+  },
 
-<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"></script>
+  {
+    id:5,
+    name:"Premium Indigo Denim",
+    category:"Jeans",
+    price:1199,
+    old:1799,
+    fit:"Regular",
+    type:"jeans",
+    description:"Rich indigo denim with a premium structured finish."
+  },
 
-<script
-  src="app.js"
-  defer
-></script>
+  {
+    id:6,
+    name:"Black Cargo Jeans",
+    category:"Jeans",
+    price:1199,
+    old:1699,
+    fit:"Relaxed",
+    type:"jeans",
+    description:"Utility-inspired cargo denim with a relaxed street fit."
+  },
 
+  {
+    id:7,
+    name:"Mid Blue Regular Jeans",
+    category:"Jeans",
+    price:899,
+    old:1399,
+    fit:"Regular",
+    type:"jeans",
+    description:"Balanced mid-blue denim for everyday styling."
+  },
+
+  {
+    id:8,
+    name:"Stone Wash Straight",
+    category:"Jeans",
+    price:999,
+    old:1499,
+    fit:"Straight",
+    type:"jeans",
+    description:"Stone-washed texture with a clean straight profile."
+  },
+
+  {
+    id:9,
+    name:"Jet Black Slim Jeans",
+    category:"Jeans",
+    price:799,
+    old:1199,
+    fit:"Slim",
+    type:"jeans",
+    description:"Deep jet black denim with a polished finish."
+  },
+
+  {
+    id:10,
+    name:"Loose Fit Blue Denim",
+    category:"Jeans",
+    price:899,
+    old:1399,
+    fit:"Loose",
+    type:"jeans",
+    description:"Loose fit denim designed for all-day comfort."
+  },
+
+  {
+    id:11,
+    name:"Classic Denim Jacket",
+    category:"Jackets",
+    price:999,
+    old:1499,
+    fit:"Regular",
+    type:"jacket",
+    description:"A timeless blue denim jacket with classic proportions."
+  },
+
+  {
+    id:12,
+    name:"Washed Blue Denim Jacket",
+    category:"Jackets",
+    price:1199,
+    old:1799,
+    fit:"Relaxed",
+    type:"jacket",
+    description:"Soft washed denim with a modern relaxed body."
+  },
+
+  {
+    id:13,
+    name:"Oversized Essential Tee",
+    category:"T-Shirts",
+    price:399,
+    old:599,
+    fit:"Oversized",
+    type:"tee",
+    description:"Heavy-feel jersey with a roomy everyday fit."
+  },
+
+  {
+    id:14,
+    name:"Premium White Tee",
+    category:"T-Shirts",
+    price:449,
+    old:649,
+    fit:"Regular",
+    type:"white",
+    description:"Clean white tee with a substantial soft hand-feel."
+  },
+
+  {
+    id:15,
+    name:"Relaxed Overshirt",
+    category:"Shirts",
+    price:799,
+    old:1199,
+    fit:"Relaxed",
+    type:"shirt",
+    description:"An easy overshirt made for effortless layering."
+  },
+
+  {
+    id:16,
+    name:"Utility Black Shirt",
+    category:"Shirts",
+    price:899,
+    old:1299,
+    fit:"Regular",
+    type:"shirt",
+    description:"Minimal utility details in a sharp black finish."
+  }
+
+];
+
+let currentFilter="All";
+let currentProduct=null;
+let currentQty=1;
+let currentSize="";
+let cart=JSON.parse(localStorage.getItem("tmsjeans_cart")||"[]");
+
+function money(value){
+  return "₹"+Number(value).toLocaleString("en-IN");
+}
+
+function art(type,extra=""){
+  return '<div class="art '+type+'-art '+extra+'"></div>';
+}
+
+function renderProducts(){
+
+  const box=document.getElementById("products");
+
+  let list=products.filter(p=>{
+    return currentFilter==="All" || p.category===currentFilter;
+  });
+
+  box.innerHTML=list.map(p=>{
+
+    const discount=Math.round((1-p.price/p.old)*100);
+
+    return `
+      <article class="product">
+
+        <div class="product-image"
+             onclick="openProduct(${p.id})">
+
+          <div class="product-badge">
+            SAVE ${discount}%
+          </div>
+
+          <button class="heart"
+                  onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'">
+            ♡
+          </button>
+
+          ${art(p.type)}
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ${p.name}
+          </div>
+
+          <div class="product-meta">
+            ${p.category} · ${p.fit} fit
+          </div>
+
+          <div class="price">
+            <strong>${money(p.price)}</strong>
+            <s>${money(p.old)}</s>
+          </div>
+
+        </div>
+
+      </article>
+    `;
+
+  }).join("");
+
+}
+
+function setFilter(filter){
+
+  currentFilter=filter;
+
+  document.querySelectorAll(".filter").forEach(btn=>{
+    btn.classList.remove("active");
+    if(btn.dataset.filter===filter){
+      btn.classList.add("active");
+    }
+  });
+
+  renderProducts();
+
+  document.getElementById("shop").scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+document.querySelectorAll(".filter").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+    setFilter(btn.dataset.filter);
+  });
+
+});
+
+document.querySelectorAll(".collection").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+    setFilter(btn.dataset.category);
+  });
+
+});
+
+function openProduct(id){
+
+  currentProduct=products.find(p=>p.id===id);
+
+  currentQty=1;
+  currentSize="";
+
+  document.getElementById("modalCategory").textContent=
+    currentProduct.category.toUpperCase();
+
+  document.getElementById("modalName").textContent=
+    currentProduct.name;
+
+  document.getElementById("modalPrice").textContent=
+    money(currentProduct.price);
+
+  document.getElementById("modalOldPrice").textContent=
+    money(currentProduct.old);
+
+  document.getElementById("modalDescription").textContent=
+    currentProduct.description;
+
+  document.getElementById("modalFit").textContent=
+    currentProduct.fit;
+
+  document.getElementById("qty").textContent="1";
+
+  document.querySelectorAll(".size").forEach(s=>{
+    s.classList.remove("selected");
+  });
+
+  document.getElementById("productMain").innerHTML=
+    '<div class="large-art '+currentProduct.type+'-art"></div>';
+
+  const thumbs=document.getElementById("productThumbs");
+
+  thumbs.innerHTML="";
+
+  for(let i=0;i<4;i++){
+
+    const b=document.createElement("button");
+
+    b.className="thumb"+(i===0?" active":"");
+
+    b.innerHTML=
+      '<div class="thumb-art">'+
+      '<div class="art '+currentProduct.type+'-art"></div>'+
+      '</div>';
+
+    b.onclick=()=>{
+
+      document.querySelectorAll(".thumb")
+      .forEach(x=>x.classList.remove("active"));
+
+      b.classList.add("active");
+
+      const main=document.querySelector(
+        "#productMain .large-art"
+      );
+
+      main.style.transform=
+        i===1 ? "rotateY(12deg)" :
+        i===2 ? "rotateY(-12deg)" :
+        i===3 ? "scale(.92) rotate(2deg)" :
+        "none";
+
+    };
+
+    thumbs.appendChild(b);
+
+  }
+
+  document.getElementById("productOverlay")
+    .classList.add("open");
+
+}
+
+document.getElementById("closeProduct")
+.addEventListener("click",()=>{
+
+  document.getElementById("productOverlay")
+    .classList.remove("open");
+
+});
+
+document.querySelectorAll(".size").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    document.querySelectorAll(".size")
+    .forEach(x=>x.classList.remove("selected"));
+
+    btn.classList.add("selected");
+
+    currentSize=btn.textContent;
+
+  });
+
+});
+
+document.getElementById("minus")
+.addEventListener("click",()=>{
+
+  currentQty=Math.max(1,currentQty-1);
+
+  document.getElementById("qty").textContent=currentQty;
+
+});
+
+document.getElementById("plus")
+.addEventListener("click",()=>{
+
+  currentQty++;
+
+  document.getElementById("qty").textContent=currentQty;
+
+});
+
+function addToCart(buyNow=false){
+
+  if(!currentProduct)return;
+
+  const found=cart.find(
+    x=>x.id===currentProduct.id &&
+    x.size===currentSize
+  );
+
+  if(found){
+
+    found.qty+=currentQty;
+
+  }else{
+
+    cart.push({
+      id:currentProduct.id,
+      name:currentProduct.name,
+      price:currentProduct.price,
+      size:currentSize,
+      qty:currentQty,
+      type:currentProduct.type
+    });
+
+  }
+
+  saveCart();
+
+  document.getElementById("productOverlay")
+    .classList.remove("open");
+
+  renderCart();
+
+  if(buyNow){
+    openCheckout();
+  }else{
+    openCart();
+  }
+
+}
+
+document.getElementById("addProduct")
+.addEventListener("click",()=>{
+  addToCart(false);
+});
+
+document.getElementById("buyProduct")
+.addEventListener("click",()=>{
+  addToCart(true);
+});
+
+function saveCart(){
+  localStorage.setItem(
+    "tmsjeans_cart",
+    JSON.stringify(cart)
+  );
+}
+
+function renderCart(){
+
+  document.getElementById("bagCount").textContent=
+    cart.reduce((a,b)=>a+b.qty,0);
+
+  document.getElementById("subtotal").textContent=
+    money(
+      cart.reduce((a,b)=>a+b.price*b.qty,0)
+    );
+
+  document.getElementById("checkoutTotal").textContent=
+    money(
+      cart.reduce((a,b)=>a+b.price*b.qty,0)
+    );
+
+  const box=document.getElementById("cartItems");
+
+  if(!cart.length){
+
+    box.innerHTML=`
+      <p style="font-size:12px;color:#888">
+        Your bag is empty.
+      </p>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML=cart.map((item,index)=>`
+
+    <div class="cart-item">
+
+      <div class="cart-visual">
+        ${art(item.type)}
+      </div>
+
+      <div>
+
+        <h4>${item.name}</h4>
+
+        <p>
+          ${item.size ? "Size "+item.size+" · ":""}
+          ${money(item.price)}
+        </p>
+
+        <div class="cart-controls">
+
+          <button onclick="cartMinus(${index})">
+            −
+          </button>
+
+          <span>${item.qty}</span>
+
+          <button onclick="cartPlus(${index})">
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+      <button class="remove"
+              onclick="removeCart(${index})">
+        ×
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function cartPlus(index){
+
+  cart[index].qty++;
+
+  saveCart();
+  renderCart();
+
+}
+
+function cartMinus(index){
+
+  cart[index].qty--;
+
+  if(cart[index].qty<=0){
+    cart.splice(index,1);
+  }
+
+  saveCart();
+  renderCart();
+
+}
+
+function removeCart(index){
+
+  cart.splice(index,1);
+
+  saveCart();
+  renderCart();
+
+}
+
+function openCart(){
+
+  document.getElementById("drawer")
+    .classList.add("open");
+
+  document.getElementById("backdrop")
+    .classList.add("show");
+
+}
+
+function closeCart(){
+
+  document.getElementById("drawer")
+    .classList.remove("open");
+
+  document.getElementById("backdrop")
+    .classList.remove("show");
+
+}
+
+document.getElementById("bagBtn")
+.addEventListener("click",openCart);
+
+document.getElementById("closeBag")
+.addEventListener("click",closeCart);
+
+document.getElementById("backdrop")
+.addEventListener("click",closeCart);
+
+function openCheckout(){
+
+  if(!cart.length)return;
+
+  closeCart();
+
+  document.getElementById("checkoutOverlay")
+    .classList.add("open");
+
+}
+
+document.getElementById("checkoutBtn")
+.addEventListener("click",openCheckout);
+
+document.getElementById("closeCheckout")
+.addEventListener("click",()=>{
+  document.getElementById("checkoutOverlay")
+  .classList.remove("open");
+});
+
+document.getElementById("checkoutForm")
+.addEventListener("submit",e=>{
+
+  e.preventDefault();
+
+  const orderId=
+    "TMS"+Date.now().toString().slice(-8);
+
+  const order={
+    id:orderId,
+    name:document.getElementById("name").value,
+    phone:document.getElementById("phone").value,
+    email:document.getElementById("email").value,
+    address:document.getElementById("address").value,
+    payment:document.querySelector(
+      'input[name="payment"]:checked'
+    ).value,
+    items:cart,
+    total:cart.reduce(
+      (a,b)=>a+b.price*b.qty,0
+    ),
+    date:new Date().toISOString()
+  };
+
+  const orders=
+    JSON.parse(
+      localStorage.getItem("tmsjeans_orders")||"[]"
+    );
+
+  orders.unshift(order);
+
+  localStorage.setItem(
+    "tmsjeans_orders",
+    JSON.stringify(orders)
+  );
+
+  cart=[];
+
+  saveCart();
+  renderCart();
+
+  document.getElementById("orderMessage").innerHTML=
+    "✓ Order placed successfully.<br>Order ID: <strong>"+
+    orderId+
+    "</strong>";
+
+  e.target.reset();
+
+});
+
+document.getElementById("searchBtn")
+.addEventListener("click",()=>{
+
+  document.getElementById("searchOverlay")
+    .classList.add("open");
+
+  setTimeout(()=>{
+    document.getElementById("searchInput").focus();
+  },100);
+
+});
+
+document.getElementById("closeSearch")
+.addEventListener("click",()=>{
+
+  document.getElementById("searchOverlay")
+    .classList.remove("open");
+
+});
+
+document.getElementById("searchInput")
+.addEventListener("input",e=>{
+
+  const q=e.target.value.toLowerCase();
+
+  const list=products.filter(p=>
+    p.name.toLowerCase().includes(q) ||
+    p.category.toLowerCase().includes(q)
+  );
+
+  document.getElementById("searchResults").innerHTML=
+    list.slice(0,8).map(p=>`
+
+      <div class="search-result"
+           onclick="openProduct(${p.id});document.getElementById('searchOverlay').classList.remove('open')">
+
+        <div class="search-result-image">
+          ${art(p.type)}
+        </div>
+
+        <div>
+
+          <strong>${p.name}</strong>
+
+          <div style="font-size:10px;color:#888;margin-top:4px">
+            ${p.category} · ${money(p.price)}
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+});
+
+document.getElementById("accountBtn")
+.addEventListener("click",()=>{
+
+  alert(
+    "Customer account system will be connected with Firebase in the next setup step."
+  );
+
+});
+
+/* CHAT */
+
+function openChat(){
+
+  document.getElementById("chat")
+    .classList.add("open");
+
+}
+
+document.getElementById("chatFab")
+.addEventListener("click",openChat);
+
+document.getElementById("supportBtn")
+.addEventListener("click",openChat);
+
+document.getElementById("closeChat")
+.addEventListener("click",()=>{
+
+  document.getElementById("chat")
+    .classList.remove("open");
+
+});
+
+function sendMessage(text){
+
+  if(!text.trim())return;
+
+  const messages=
+    document.getElementById("messages");
+
+  const user=document.createElement("div");
+
+  user.className="msg you";
+  user.textContent=text;
+
+  messages.appendChild(user);
+
+  let reply=
+    "Thanks! Please tell us a little more about your requirement.";
+
+  const t=text.toLowerCase();
+
+  if(t.includes("size")){
+    reply=
+      "For jeans, choose your usual waist size. For a relaxed fit, consider going one size up.";
+  }
+
+  if(t.includes("order")){
+    reply=
+      "For order support, keep your TMS order ID ready. Our support team can help with the order status.";
+  }
+
+  if(t.includes("delivery")||t.includes("ship")){
+    reply=
+      "Orders are generally dispatched within 24–48 hours. Delivery timing depends on your PIN code.";
+  }
+
+  if(t.includes("support")){
+    reply=
+      "Sure. Please type your issue and our support flow will guide you.";
+  }
+
+  setTimeout(()=>{
+
+    const bot=document.createElement("div");
+
+    bot.className="msg";
+    bot.textContent=reply;
+
+    messages.appendChild(bot);
+    messages.scrollTop=messages.scrollHeight;
+
+  },350);
+
+}
+
+document.getElementById("sendChat")
+.addEventListener("click",()=>{
+
+  const input=document.getElementById("chatInput");
+
+  sendMessage(input.value);
+
+  input.value="";
+
+});
+
+document.getElementById("chatInput")
+.addEventListener("keydown",e=>{
+
+  if(e.key==="Enter"){
+
+    document.getElementById("sendChat").click();
+
+  }
+
+});
+
+document.querySelectorAll("[data-chat]")
+.forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+    sendMessage(btn.dataset.chat);
+  });
+
+});
+
+/* START */
+
+renderProducts();
+renderCart();
+
+</script>
 
 </body>
-
 </html>
