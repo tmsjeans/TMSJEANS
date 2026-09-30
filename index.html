@@ -1541,31 +1541,39 @@ const TMS_FIREBASE_CONFIG = {
 };
 
 let tmsFirebaseReady = (async function(){
+  let auth = null;
+  let db = null;
+
   try{
+    if(!window.firebase){
+      throw new Error("Firebase SDK did not load.");
+    }
+
     if(!firebase.apps.length){
       firebase.initializeApp(TMS_FIREBASE_CONFIG);
     }
-    const auth = firebase.auth();
-    const db = firebase.database();
-    tmsAuth=auth;
-    tmsDb=db;
 
-    if(!auth.currentUser){
-      await auth.signInAnonymously();
-    }
+    auth = firebase.auth();
+    db = firebase.database();
 
+    tmsAuth = auth;
+    tmsDb = db;
+
+    // Do NOT make the whole Firebase connection fail just because
+    // an anonymous session cannot be created at startup.
+    // Anonymous sign-in is requested only when Orders/Support needs it.
     auth.onAuthStateChanged(user=>{
       if(document.getElementById("accountOverlay")) renderAccount();
       if(user && !user.isAnonymous){
-        const nm=user.displayName || user.email || "Customer";
-        localStorage.setItem("tms_support_name_v1",nm);
+        const nm = user.displayName || user.email || "Customer";
+        localStorage.setItem("tms_support_name_v1", nm);
       }
     });
 
-    return {auth, db};
+    return {auth, db, error:null};
   }catch(error){
     console.error("TMS Firebase startup failed:", error);
-    return {auth:null, db:null, error};
+    return {auth, db, error};
   }
 })();
 
@@ -1762,7 +1770,8 @@ async function saveUserProfile(user,name){
 
 async function createAccount(email,password,name){
   const fb=await tmsFirebaseReady;
-  if(!fb.auth)throw new Error("Firebase is not connected.");
+  if(!fb.auth) throw new Error(fb.error?.message || "Firebase is not connected.");
+
   const current=fb.auth.currentUser;
   let user=null;
   if(current && current.isAnonymous){
@@ -1848,10 +1857,15 @@ let supportUser = null;
 async function startLiveSupport(){
   const fb = await tmsFirebaseReady;
   if(!fb || !fb.auth || !fb.db){
-    throw new Error("Firebase is not connected.");
+    throw new Error(fb?.error?.message || "Firebase is not connected.");
   }
 
-  supportUser = fb.auth.currentUser || (await fb.auth.signInAnonymously()).user;
+  let user = fb.auth.currentUser;
+  if(!user){
+    const result = await fb.auth.signInAnonymously();
+    user = result.user;
+  }
+  supportUser = user;
   const uid = supportUser.uid;
 
   // Create/update a small customer profile for the admin conversation list.
@@ -1916,10 +1930,14 @@ async function sendChat(text){
   try{
     const fb = await tmsFirebaseReady;
     if(!fb || !fb.auth || !fb.db){
-      throw new Error("Firebase is not connected.");
+      throw new Error(fb?.error?.message || "Firebase is not connected.");
     }
 
-    const user = fb.auth.currentUser || (await fb.auth.signInAnonymously()).user;
+    let user = fb.auth.currentUser;
+    if(!user){
+      const result = await fb.auth.signInAnonymously();
+      user = result.user;
+    }
     const uid = user.uid;
     const savedName = localStorage.getItem("tms_support_name_v1") || "Website Customer";
 
@@ -2158,7 +2176,7 @@ $("#accountForm").onsubmit=async e=>{
   if(button){button.disabled=true;button.textContent=accountMode==="create"?"CREATING...":"LOGGING IN...";}
   try{
     const fb=await tmsFirebaseReady;
-    if(!fb.auth)throw new Error("Firebase is not connected.");
+    if(!fb.auth) throw new Error(fb.error?.message || "Firebase is not connected.");
     if(accountMode==="create"){
       await createAccount(email,password,name);
       $("#accountMessage").textContent="Account created successfully.";
@@ -2204,10 +2222,8 @@ $("#heroGarment").innerHTML=`<div style="width:100%;height:100%">${svgGarment(PR
 $("#editorialRender").innerHTML=svgGarment(PRODUCTS[10],"side");
 
 
-// Start anonymous Firebase session early. No SMS is used for customer checkout.
-
-// Start the live-support session quietly. Messages sync through Firebase in real time.
-tmsFirebaseReady.then(() => startLiveSupport().catch(() => {})).catch(() => {});
+// Firebase is initialized early. Anonymous sign-in is requested only when
+// Orders or Live Support actually needs a customer session.
 tmsFirebaseReady.catch(() => {});
 
 renderProducts();
