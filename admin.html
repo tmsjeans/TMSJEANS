@@ -5,39 +5,164 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMSJEANS — Admin</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#090909;color:#f5f5f5;font-family:Arial,Helvetica,sans-serif}.wrap{max-width:1200px;margin:auto;padding:28px 18px}.card{background:#121212;border:1px solid #292929;border-radius:18px;padding:26px}.login{max-width:460px;margin:12vh auto}.brand{font-size:22px;font-weight:800;letter-spacing:-.05em}.brand span{font-weight:400}h1{font-size:46px;line-height:.95;letter-spacing:-.06em;margin:14px 0}.muted{color:#8d8d8d;font-size:13px;line-height:1.5}button,input,select{font:inherit}.btn{border:1px solid #333;background:#171717;color:#fff;border-radius:10px;padding:11px 14px;cursor:pointer;font-weight:700}.btn.light{background:#fff;color:#111;border-color:#fff}.hidden{display:none!important}.header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}.header-actions{display:flex;gap:8px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}.stat{background:#121212;border:1px solid #292929;border-radius:14px;padding:15px}.stat strong{display:block;font-size:26px;margin-bottom:5px}.stat span{font-size:10px;color:#8d8d8d}.tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}.tools input,.tools select{background:#121212;color:#fff;border:1px solid #333;border-radius:10px;padding:11px 12px}.tools input{flex:1;min-width:230px}.orders{display:grid;gap:12px}.order{background:#121212;border:1px solid #292929;border-radius:16px;padding:17px}.order-top{display:flex;justify-content:space-between;gap:12px}.order-id{font-weight:800;font-size:15px}.status{font-size:10px;background:#282828;padding:6px 9px;border-radius:999px}.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-top:17px;color:#bbb;font-size:12px;line-height:1.6}.items{border-top:1px solid #282828;margin-top:15px;padding-top:10px}.item{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:11px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.actions button{flex:1;min-width:110px;border:1px solid #333;background:#0d0d0d;color:#fff;padding:9px;border-radius:9px;cursor:pointer}.message{margin-top:12px;min-height:20px}.error{color:#ff8f8f}@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.meta{grid-template-columns:1fr}.header{align-items:flex-start;flex-direction:column}.header-actions{width:100%}.header-actions .btn{flex:1}}
+*{box-sizing:border-box}body{margin:0;background:#090909;color:#f5f5f5;font-family:Arial,Helvetica,sans-serif}.wrap{max-width:1200px;margin:auto;padding:28px 18px}.card{background:#121212;border:1px solid #292929;border-radius:18px;padding:26px}.login{max-width:460px;margin:12vh auto}.brand{font-size:22px;font-weight:800;letter-spacing:-.05em}.brand span{font-weight:400}h1{font-size:46px;line-height:.95;letter-spacing:-.06em;margin:14px 0}.muted{color:#8d8d8d;font-size:13px;line-height:1.5}button,input,select{font:inherit}.btn{border:1px solid #333;background:#171717;color:#fff;border-radius:10px;padding:11px 14px;cursor:pointer;font-weight:700}.btn.light{background:#fff;color:#111;border-color:#fff}.hidden{display:none!important}.header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}.header-actions{display:flex;gap:8px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-bottom:18px}.stat{background:#121212;border:1px solid #292929;border-radius:14px;padding:15px}.stat strong{display:block;font-size:26px;margin-bottom:5px}.stat span{font-size:10px;color:#8d8d8d}.tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}.tools input,.tools select{background:#121212;color:#fff;border:1px solid #333;border-radius:10px;padding:11px 12px}.tools input{flex:1;min-width:230px}.orders{display:grid;gap:12px}.order{background:#121212;border:1px solid #292929;border-radius:16px;padding:17px}.order-top{display:flex;justify-content:space-between;gap:12px}.order-id{font-weight:800;font-size:15px}.status{font-size:10px;background:#282828;padding:6px 9px;border-radius:999px}.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-top:17px;color:#bbb;font-size:12px;line-height:1.6}.items{border-top:1px solid #282828;margin-top:15px;padding-top:10px}.item{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:11px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.support-layout{display:grid;grid-template-columns:320px 1fr;gap:12px}.chat-sessions{background:#121212;border:1px solid #292929;border-radius:16px;overflow:auto;max-height:620px}.chat-session{padding:14px;border-bottom:1px solid #292929;cursor:pointer}.chat-session.active{background:#1b1b1b}.chat-session strong{display:block;font-size:13px}.chat-session span{display:block;color:#8d8d8d;font-size:10px;margin-top:4px}.chat-window{background:#121212;border:1px solid #292929;border-radius:16px;min-height:620px;display:flex;flex-direction:column;overflow:hidden}.chat-window-head{padding:15px;border-bottom:1px solid #292929}.chat-window-head strong{display:block;font-size:14px}.chat-window-head span{font-size:10px;color:#8d8d8d}.chat-window-messages{flex:1;overflow:auto;padding:16px;background:#0d0d0d}.admin-msg{max-width:75%;padding:10px;border-radius:12px;background:#242424;margin:0 0 8px;font-size:11px}.admin-msg.customer{background:#1a1a1a}.admin-msg.you{margin-left:auto;background:#efefef;color:#111}.support-compose{display:flex;gap:8px;padding:10px;border-top:1px solid #292929}.support-compose input{flex:1;background:#0d0d0d;color:#fff;border:1px solid #333;border-radius:9px;padding:11px}.support-compose button{border:0;background:#fff;color:#111;border-radius:9px;padding:0 16px;font-weight:700}.actions button{flex:1;min-width:110px;border:1px solid #333;background:#0d0d0d;color:#fff;padding:9px;border-radius:9px;cursor:pointer}.message{margin-top:12px;min-height:20px}.error{color:#ff8f8f}@media(max-width:900px){.support-layout{grid-template-columns:1fr}.chat-sessions{max-height:220px}.chat-window{min-height:560px}.grid{grid-template-columns:repeat(2,1fr)}.meta{grid-template-columns:1fr}.header{align-items:flex-start;flex-direction:column}.header-actions{width:100%}.header-actions .btn{flex:1}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <section id="loginCard" class="card login">
-<div class="brand"><span>TMS</span>JEANS</div><h1>Admin.</h1>
-<p class="muted">Private order dashboard. Only the authorized Google account can access orders.</p>
-<button id="loginBtn" class="btn light" style="width:100%;margin-top:18px">Continue with Google</button>
-<div id="loginMessage" class="muted message">Loading secure login…</div>
+  <div class="brand"><span>TMS</span>JEANS</div>
+  <h1>Admin.</h1>
+  <p class="muted">Private dashboard for orders and return/exchange requests.</p>
+  <button id="loginBtn" class="btn light" style="width:100%;margin-top:18px">Continue with Google</button>
+  <div id="loginMessage" class="muted message">Loading secure login…</div>
 </section>
+
 <section id="dashboard" class="hidden">
-<div class="header"><div><div class="brand"><span>TMS</span>JEANS / ADMIN</div><div id="adminEmail" class="muted"></div></div><div class="header-actions"><button id="refreshBtn" class="btn">Refresh</button><button id="logoutBtn" class="btn">Sign out</button></div></div>
-<div class="grid"><div class="stat"><strong id="totalOrders">0</strong><span>TOTAL ORDERS</span></div><div class="stat"><strong id="newOrders">0</strong><span>NEW</span></div><div class="stat"><strong id="revenue">₹0</strong><span>ORDER VALUE</span></div><div class="stat"><strong id="customers">0</strong><span>CUSTOMERS</span></div></div>
-<div class="tools"><input id="search" placeholder="Search order ID, name, phone, email…"><select id="statusFilter"><option>All</option><option>New</option><option>Confirmed</option><option>Shipped</option><option>Delivered</option><option>Cancelled</option></select></div>
-<div id="orders" class="orders"><div class="muted">Loading orders…</div></div>
-</section></div>
+  <div class="header">
+    <div><div class="brand"><span>TMS</span>JEANS / ADMIN</div><div id="adminEmail" class="muted"></div></div>
+    <div class="header-actions"><button id="refreshBtn" class="btn">Refresh</button><button id="logoutBtn" class="btn">Sign out</button></div>
+  </div>
+
+  <div class="grid">
+    <div class="stat"><strong id="totalOrders">0</strong><span>TOTAL ORDERS</span></div>
+    <div class="stat"><strong id="newOrders">0</strong><span>NEW ORDERS</span></div>
+    <div class="stat"><strong id="revenue">₹0</strong><span>ORDER VALUE</span></div>
+    <div class="stat"><strong id="customers">0</strong><span>CUSTOMERS</span></div>
+    <div class="stat"><strong id="totalReturns">0</strong><span>RETURN REQUESTS</span></div>
+  </div>
+
+  <div class="tools">
+    <button id="ordersTab" class="btn light">Orders</button>
+    <button id="returnsTab" class="btn">Returns / Exchanges</button>
+    <button id="supportTab" class="btn">Live Support</button>
+    <input id="search" placeholder="Search order ID, name, phone, email…">
+    <select id="statusFilter">
+      <option>All</option><option>New</option><option>Confirmed</option><option>Shipped</option><option>Delivered</option><option>Cancelled</option>
+    </select>
+  </div>
+
+  <div id="orders" class="orders"><div class="muted">Loading orders…</div></div>
+  <div id="returns" class="orders hidden"><div class="muted">Loading return requests…</div></div>
+  <div id="support" class="support-layout hidden">
+    <div id="chatSessions" class="chat-sessions"><div class="muted" style="padding:14px">Loading conversations…</div></div>
+    <div class="chat-window">
+      <div id="chatWindowHead" class="chat-window-head"><strong>Select a conversation</strong><span>Customer messages will appear here in real time.</span></div>
+      <div id="chatMessages" class="chat-window-messages"><div class="muted">No conversation selected.</div></div>
+      <div class="support-compose">
+        <input id="supportInput" placeholder="Write a reply…" disabled>
+        <button id="supportSend" disabled>Reply</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"></script>
 <script>
 const FIREBASE_CONFIG={apiKey:"AIzaSyAxYqY7V2_h5FBCa4Cm9xX5pABu-oAUzg4",authDomain:"tmsjeans.firebaseapp.com",databaseURL:"https://tmsjeans-default-rtdb.firebaseio.com",projectId:"tmsjeans",storageBucket:"tmsjeans.firebasestorage.app",messagingSenderId:"155013489437",appId:"1:155013489437:web:d1f91792dd8ebba29cf7f4",measurementId:"G-BRVB6FX6H5"};
-const ADMIN_EMAIL="Pandeyji120ji@gmail.com",$=s=>document.querySelector(s),money=n=>"₹"+Number(n||0).toLocaleString("en-IN");let allOrders=[];
-function msg(t,c=""){const e=$("#loginMessage");e.textContent=t;e.className="muted message "+c}
+const ADMIN_EMAIL="Pandeyji120ji@gmail.com";
+const $=s=>document.querySelector(s), money=n=>"₹"+Number(n||0).toLocaleString("en-IN");
+let allOrders=[],allReturns=[],chatSessions=[],activeTab="orders",selectedChatUid=null,chatMessagesRef=null;
 function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+function setMsg(t,c=""){const e=$("#loginMessage");e.textContent=t;e.className="muted message "+c}
 try{
-if(!window.firebase)throw new Error("Firebase library did not load. Refresh the page once.");
-firebase.initializeApp(FIREBASE_CONFIG);const auth=firebase.auth(),db=firebase.database();
-$("#loginBtn").onclick=async()=>{msg("Opening Google sign-in…");try{await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){console.error(e);msg(e.message||"Google sign-in failed. Allow pop-ups and try again.","error")}};
-$("#logoutBtn").onclick=()=>auth.signOut();$("#refreshBtn").onclick=loadOrders;$("#search").oninput=renderOrders;$("#statusFilter").onchange=renderOrders;
-auth.onAuthStateChanged(async user=>{if(!user){$("#loginCard").classList.remove("hidden");$("#dashboard").classList.add("hidden");msg("Sign in with the authorized Google account.");return}if((user.email||"").toLowerCase()!==ADMIN_EMAIL.toLowerCase()){msg("This Google account is not authorized for TMSJEANS Admin.","error");await auth.signOut();return}$("#loginCard").classList.add("hidden");$("#dashboard").classList.remove("hidden");$("#adminEmail").textContent=user.email;await loadOrders()});
-async function loadOrders(){$("#orders").innerHTML='<div class="muted">Loading orders…</div>';try{const snap=await db.ref("orders").once("value"),root=snap.val()||{};allOrders=[];Object.entries(root).forEach(([uid,bucket])=>{if(!bucket||typeof bucket!=="object")return;Object.entries(bucket).forEach(([key,o])=>{if(o&&typeof o==="object")allOrders.push({...o,_uid:uid,_key:key})})});allOrders.sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));updateStats();renderOrders()}catch(e){console.error(e);$("#orders").innerHTML='<div class="muted error">Could not load orders. Check Firebase Rules and admin sign-in.</div>'}}
-function updateStats(){$("#totalOrders").textContent=allOrders.length;$("#newOrders").textContent=allOrders.filter(o=>(o.status||"New")==="New").length;$("#revenue").textContent=money(allOrders.reduce((s,o)=>s+Number(o.total||0),0));$("#customers").textContent=new Set(allOrders.map(o=>o.customer?.email||o.customer?.phone).filter(Boolean)).size}
-function renderOrders(){const q=($("#search").value||"").toLowerCase(),sf=$("#statusFilter").value,list=allOrders.filter(o=>(sf==="All"||(o.status||"New")===sf)&&JSON.stringify(o).toLowerCase().includes(q));$("#orders").innerHTML=list.map(o=>{const c=o.customer||{},st=o.status||"New";return `<article class="order"><div class="order-top"><div><div class="order-id">${esc(o.id||o._key)}</div><div class="muted">${o.createdAt?new Date(o.createdAt).toLocaleString():""}</div></div><span class="status">${esc(st)}</span></div><div class="meta"><div><strong>Customer</strong><br>${esc(c.name||"-")}<br>${esc(c.phone||"-")}<br>${esc(c.email||"-")}</div><div><strong>Address</strong><br>${esc(c.address||"-")}</div><div><strong>Order</strong><br>${money(o.total)}<br>${esc(o.payment||"COD")}</div></div><div class="items">${(o.items||[]).map(i=>`<div class="item"><span>${esc(i.name||"Item")} × ${Number(i.qty||0)}${i.size?` · Size ${esc(i.size)}`:""}</span><strong>${money(Number(i.price||0)*Number(i.qty||0))}</strong></div>`).join("")||'<div class="muted">No item details</div>'}</div><div class="actions">${["Confirmed","Shipped","Delivered","Cancelled"].map(s=>`<button data-status="${s}" data-uid="${o._uid}" data-key="${o._key}">${s}</button>`).join("")}</div></article>`}).join("")||'<div class="muted">No orders found.</div>';document.querySelectorAll("[data-status]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{await db.ref("orders/"+b.dataset.uid+"/"+b.dataset.key).update({status:b.dataset.status});await loadOrders()}catch(e){alert("Could not update order status. Check Firebase Rules.");b.disabled=false}})}
-}catch(e){console.error(e);msg(e.message||"Admin page could not start.","error")}
-</script></body></html>
+ if(!window.firebase) throw new Error("Firebase library did not load. Refresh the page once.");
+ firebase.initializeApp(FIREBASE_CONFIG);
+ const auth=firebase.auth(),db=firebase.database();
+ $("#loginBtn").onclick=async()=>{setMsg("Opening Google sign-in…");try{await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){console.error(e);setMsg(e.message||"Google sign-in failed. Allow pop-ups and try again.","error")}};
+ $("#logoutBtn").onclick=()=>auth.signOut();
+ $("#refreshBtn").onclick=refreshAll;
+ $("#supportTab").onclick=()=>{activeTab="support";$("#orders").classList.add("hidden");$("#returns").classList.add("hidden");$("#support").classList.remove("hidden");$("#ordersTab").classList.remove("light");$("#returnsTab").classList.remove("light");$("#supportTab").classList.add("light");loadSupportChats()};
+ $("#ordersTab").onclick=()=>{activeTab="orders";$("#orders").classList.remove("hidden");$("#returns").classList.add("hidden");$("#support").classList.add("hidden");$("#ordersTab").classList.add("light");$("#returnsTab").classList.remove("light");$("#supportTab").classList.remove("light");renderOrders()};
+ $("#returnsTab").onclick=()=>{activeTab="returns";$("#orders").classList.add("hidden");$("#returns").classList.remove("hidden");$("#returnsTab").classList.add("light");$("#ordersTab").classList.remove("light");renderReturns()};
+ $("#search").oninput=()=>{if(activeTab==="orders")renderOrders();else if(activeTab==="returns")renderReturns();};
+ $("#statusFilter").onchange=()=>{if(activeTab==="orders")renderOrders()};
+ auth.onAuthStateChanged(async user=>{
+   if(!user){$("#loginCard").classList.remove("hidden");$("#dashboard").classList.add("hidden");setMsg("Sign in with the authorized Google account.");return;}
+   if((user.email||"").toLowerCase()!==ADMIN_EMAIL.toLowerCase()){setMsg("This Google account is not authorized for TMSJEANS Admin.","error");await auth.signOut();return;}
+   $("#loginCard").classList.add("hidden");$("#dashboard").classList.remove("hidden");$("#adminEmail").textContent=user.email;await refreshAll();
+ });
+ async function refreshAll(){await loadOrders();await loadReturns();if(activeTab==="support")await loadSupportChats()}
+ async function loadOrders(){
+   $("#orders").innerHTML='<div class="muted">Loading orders…</div>';
+   try{const snap=await db.ref("orders").once("value"),root=snap.val()||{};allOrders=[];Object.entries(root).forEach(([uid,bucket])=>{if(!bucket||typeof bucket!=="object")return;Object.entries(bucket).forEach(([key,o])=>{if(o&&typeof o==="object")allOrders.push({...o,_uid:uid,_key:key})})});allOrders.sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));updateStats();renderOrders();}
+   catch(e){console.error(e);$("#orders").innerHTML='<div class="muted error">Could not load orders. Check Firebase Rules.</div>'}
+ }
+ async function loadReturns(){
+   try{const snap=await db.ref("returns").once("value"),root=snap.val()||{};allReturns=[];Object.entries(root).forEach(([uid,bucket])=>{if(!bucket||typeof bucket!=="object")return;Object.entries(bucket).forEach(([key,r])=>{if(r&&typeof r==="object")allReturns.push({...r,_uid:uid,_key:key})})});allReturns.sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));updateStats();renderReturns();}
+   catch(e){console.error(e);$("#returns").innerHTML='<div class="muted error">Could not load return requests. Check Firebase Rules.</div>'}
+ }
+ function updateStats(){
+   $("#totalOrders").textContent=allOrders.length;$("#newOrders").textContent=allOrders.filter(o=>(o.status||"New")==="New").length;$("#revenue").textContent=money(allOrders.reduce((s,o)=>s+Number(o.total||0),0));$("#customers").textContent=new Set(allOrders.map(o=>o.customer?.email||o.customer?.phone).filter(Boolean)).size;$("#totalReturns").textContent=allReturns.length;
+ }
+ function renderOrders(){
+   const q=($("#search").value||"").toLowerCase(),sf=$("#statusFilter").value,list=allOrders.filter(o=>(sf==="All"||(o.status||"New")===sf)&&JSON.stringify(o).toLowerCase().includes(q));
+   $("#orders").innerHTML=list.map(o=>{const c=o.customer||{},st=o.status||"New";return `<article class="order"><div class="order-top"><div><div class="order-id">${esc(o.id||o._key)}</div><div class="muted">${o.createdAt?new Date(o.createdAt).toLocaleString():""}</div></div><span class="status">${esc(st)}</span></div><div class="meta"><div><strong>Customer</strong><br>${esc(c.name||"-")}<br>${esc(c.phone||"-")}<br>${esc(c.email||"-")}</div><div><strong>Address</strong><br>${esc(c.address||"-")}</div><div><strong>Order</strong><br>${money(o.total)}<br>${esc(o.payment||"COD")}</div></div><div class="items">${(o.items||[]).map(i=>`<div class="item"><span>${esc(i.name||"Item")} × ${Number(i.qty||0)}${i.size?` · Size ${esc(i.size)}`:""}</span><strong>${money(Number(i.price||0)*Number(i.qty||0))}</strong></div>`).join("")||'<div class="muted">No item details</div>'}</div><div class="actions">${["Confirmed","Shipped","Delivered","Cancelled"].map(s=>`<button data-status="${s}" data-uid="${o._uid}" data-key="${o._key}">${s}</button>`).join("")}</div></article>`}).join("")||'<div class="muted">No orders found.</div>';
+   document.querySelectorAll("[data-status]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{await db.ref("orders/"+b.dataset.uid+"/"+b.dataset.key).update({status:b.dataset.status});await loadOrders()}catch(e){alert("Could not update order status. Check Firebase Rules.");b.disabled=false}});
+ }
+ function renderReturns(){
+   const q=($("#search").value||"").toLowerCase(),list=allReturns.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
+   $("#returns").innerHTML=list.map(r=>`<article class="order"><div class="order-top"><div><div class="order-id">${esc(r.id||r._key)}</div><div class="muted">${r.createdAt?new Date(r.createdAt).toLocaleString():""}</div></div><span class="status">${esc(r.status||"New")}</span></div><div class="meta"><div><strong>Customer</strong><br>${esc(r.customerName||"-")}<br>Order ID: ${esc(r.orderId||"-")}</div><div><strong>Request</strong><br>${esc(r.type||"-")}<br>Item: ${esc(r.item||"-")}<br>Resolution: ${esc(r.resolution||"-")}</div><div><strong>Reason</strong><br>${esc(r.reason||"-")}</div></div><div class="actions">${["Reviewing","Approved","Rejected","Completed"].map(st=>`<button data-return-status="${st}" data-uid="${r._uid}" data-key="${r._key}">${st}</button>`).join("")}</div></article>`).join("")||'<div class="muted">No return/exchange requests found.</div>';
+   document.querySelectorAll("[data-return-status]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{await db.ref("returns/"+b.dataset.uid+"/"+b.dataset.key).update({status:b.dataset.returnStatus});await loadReturns()}catch(e){alert("Could not update return request. Check Firebase Rules.");b.disabled=false}});
+ }
+ 
+ function loadSupportChats(){
+   return new Promise((resolve)=>{
+     const ref=db.ref("supportChats");
+     ref.once("value").then(snap=>{
+       const root=snap.val()||{};
+       chatSessions=Object.entries(root).map(([uid,v])=>({uid,meta:v?.meta||{},profile:v?.profile||{}})).sort((a,b)=>String(b.meta.updatedAt||"").localeCompare(String(a.meta.updatedAt||"")));
+       renderChatSessions();
+       resolve();
+     }).catch(e=>{console.error(e);$("#chatSessions").innerHTML='<div class="muted" style="padding:14px">Could not load support chats. Check Firebase Rules.</div>';resolve()});
+   });
+ }
+ function renderChatSessions(){
+   const q=( $("#search").value||"" ).toLowerCase();
+   const list=chatSessions.filter(c=>JSON.stringify(c).toLowerCase().includes(q));
+   $("#chatSessions").innerHTML=list.map(c=>{
+      const name=c.meta.name||c.profile.name||("Customer "+c.uid.slice(0,6));
+      const last=c.meta.lastMessage||"No messages yet";
+      const when=c.meta.updatedAt?new Date(c.meta.updatedAt).toLocaleString():"";
+      return `<div class="chat-session ${selectedChatUid===c.uid?"active":""}" data-chat-uid="${c.uid}"><strong>${esc(name)}</strong><span>${esc(last.slice(0,60))}</span><span>${esc(when)}</span></div>`;
+   }).join("")||'<div class="muted" style="padding:14px">No customer conversations yet.</div>';
+   document.querySelectorAll("[data-chat-uid]").forEach(el=>el.onclick=()=>openAdminChat(el.dataset.chatUid));
+ }
+ function openAdminChat(uid){
+   selectedChatUid=uid;
+   const s=chatSessions.find(x=>x.uid===uid)||{meta:{},profile:{}};
+   const name=s.meta.name||s.profile.name||("Customer "+uid.slice(0,6));
+   $("#chatWindowHead").innerHTML=`<strong>${esc(name)}</strong><span>Live conversation · ${esc(uid)}</span>`;
+   $("#supportInput").disabled=false;$("#supportSend").disabled=false;renderChatSessions();
+   if(chatMessagesRef) chatMessagesRef.off();
+   chatMessagesRef=db.ref("supportChats/"+uid+"/messages");
+   chatMessagesRef.on("value",snap=>{
+     const data=snap.val()||{};
+     const msgs=Object.values(data).sort((a,b)=>String(a.createdAt||"").localeCompare(String(b.createdAt||"")));
+     $("#chatMessages").innerHTML=msgs.map(m=>`<div class="admin-msg ${m.sender==="customer"?"customer":"you"}"><div>${esc(m.text||"")}</div><div style="font-size:8px;opacity:.55;margin-top:4px">${m.sender==="customer"?esc(name):"You"} · ${m.createdAt?new Date(m.createdAt).toLocaleString():""}</div></div>`).join("")||'<div class="muted">No messages yet.</div>';
+     const box=$("#chatMessages");box.scrollTop=box.scrollHeight;
+   });
+ }
+ async function sendAdminChat(){
+   const text=$("#supportInput").value.trim(); if(!text||!selectedChatUid)return;
+   $("#supportSend").disabled=true;
+   try{
+     const ref=db.ref("supportChats/"+selectedChatUid+"/messages").push();
+     await ref.set({text,sender:"admin",name:ADMIN_EMAIL,createdAt:new Date().toISOString()});
+     await db.ref("supportChats/"+selectedChatUid+"/meta").update({lastMessage:text,lastSender:"admin",updatedAt:new Date().toISOString(),status:"open"});
+     $("#supportInput").value="";
+     await loadSupportChats();
+     openAdminChat(selectedChatUid);
+   }catch(e){console.error(e);alert("Reply could not be sent. Check Firebase Rules.")}
+   $("#supportSend").disabled=false;
+ }
+ $("#supportSend").onclick=sendAdminChat;
+ $("#supportInput").onkeydown=e=>{if(e.key==="Enter")sendAdminChat()};
+
+}catch(e){console.error(e);setMsg(e.message||"Admin page could not start.","error")}
+</script>
+</body>
+</html>
