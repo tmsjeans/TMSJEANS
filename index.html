@@ -1050,6 +1050,83 @@ footer{
   .two{grid-template-columns:1fr}
   .search-modal{padding:36px 22px}
 }
+
+/* RETURN / REPLACEMENT */
+.returns-section{
+  padding:110px 6vw;
+  background:var(--paper2);
+}
+.returns-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:5vw;
+  align-items:start;
+}
+.return-cards{
+  display:grid;
+  gap:12px;
+}
+.return-card{
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+}
+.return-card strong{display:block;font-size:13px;margin-bottom:7px}
+.return-card span{display:block;color:#6f6a62;font-size:12px;line-height:1.65}
+.return-panel{
+  background:#111;
+  color:#fff;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 25px 60px rgba(0,0,0,.12);
+}
+.return-panel .eyebrow{color:#aaa}
+.return-panel h3{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  font-size:42px;
+  font-weight:500;
+  line-height:1;
+}
+.return-panel p{
+  color:#bdbdbd;
+  font-size:13px;
+  line-height:1.65;
+}
+.return-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+.return-form{
+  margin-top:20px;
+  display:grid;
+  gap:10px;
+}
+.return-form input,
+.return-form select,
+.return-form textarea{
+  width:100%;
+  border:1px solid #333;
+  background:#181818;
+  color:#fff;
+  border-radius:11px;
+  padding:12px 13px;
+  outline:none;
+}
+.return-form input:focus,
+.return-form select:focus,
+.return-form textarea:focus{border-color:#777}
+.return-form textarea{min-height:110px;resize:vertical}
+.return-message{min-height:20px;font-size:12px;color:#aaa}
+@media(max-width:800px){
+  .returns-section{padding:80px 5vw}
+  .returns-grid{grid-template-columns:1fr}
+  .return-panel h3{font-size:36px}
+}
+
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
@@ -1069,6 +1146,7 @@ footer{
     <a href="#shop">Shop</a>
     <a href="#collections">Collections</a>
     <a href="#story">About</a>
+    <a href="#returns">Returns</a>
     <a href="#support">Support</a>
   </nav>
 
@@ -1215,6 +1293,62 @@ footer{
         <div class="stat"><strong>₹399+</strong><span>EVERYDAY ESSENTIALS</span></div>
         <div class="stat"><strong>COD</strong><span>AVAILABLE</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="returns-section" id="returns">
+  <div class="returns-grid">
+    <div>
+      <p class="eyebrow">RETURN &amp; REPLACEMENT</p>
+      <h2 class="title">Need a<br><em>change?</em></h2>
+      <p class="lead" style="max-width:560px">
+        Received the wrong item, found a problem, or need a size replacement?
+        Submit your request here and keep your TMS order ID ready.
+      </p>
+
+      <div class="return-cards" style="margin-top:28px">
+        <div class="return-card">
+          <strong>SIZE REPLACEMENT</strong>
+          <span>Request a replacement when the delivered size does not work for you, subject to the applicable TMSJEANS policy.</span>
+        </div>
+        <div class="return-card">
+          <strong>WRONG / DAMAGED ITEM</strong>
+          <span>Tell us what went wrong and submit the order ID so the support team can review the request.</span>
+        </div>
+        <div class="return-card">
+          <strong>RETURN / REFUND</strong>
+          <span>Choose return/refund when you no longer need the item, subject to the applicable return policy.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="return-panel">
+      <p class="eyebrow">REQUEST SUPPORT</p>
+      <h3>Return or<br>replacement.</h3>
+      <p>Fill in the details below. Your request will be saved with your TMSJEANS customer session.</p>
+
+      <form class="return-form" id="returnForm">
+        <input id="returnOrderId" required placeholder="Order ID (e.g. TMS-96006355)">
+        <input id="returnName" required placeholder="Full name">
+        <select id="returnType" required>
+          <option value="">Select request type</option>
+          <option>Size Replacement</option>
+          <option>Return</option>
+          <option>Wrong Item</option>
+          <option>Damaged / Defective</option>
+        </select>
+        <input id="returnItem" required placeholder="Product name">
+        <select id="returnResolution" required>
+          <option value="">Preferred resolution</option>
+          <option>Replacement</option>
+          <option>Return / Refund</option>
+        </select>
+        <textarea id="returnReason" required placeholder="Tell us what happened"></textarea>
+        <button class="btn btn-light" type="submit">SUBMIT REQUEST</button>
+        <div class="return-message" id="returnMessage"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -1414,11 +1548,11 @@ footer{
 
 <section class="chat" id="chat">
   <div class="chat-head">
-    <div><strong>TMS Support</strong><span>Usually replies instantly</span></div>
+    <div><strong>TMS Support</strong><span>Live support · Real-time replies</span></div>
     <button id="chatClose">×</button>
   </div>
   <div class="messages" id="messages">
-    <div class="msg">Hi! Welcome to TMSJEANS. How can I help you?</div>
+    <div class="msg">Hi! Welcome to TMSJEANS. Send us your message and our support team will reply here.</div>
   </div>
   <div class="quick">
     <button data-quick="I need size help">Size help</button>
@@ -1680,27 +1814,140 @@ async function renderOrders(){
     : '<p class="muted">No orders yet.</p>';
 }
 
-function openChat(){$("#chat").classList.add("open")}
+let liveSupportMessagesRef=null;
+let liveSupportStarted=false;
+
+async function startLiveSupport(){
+  if(liveSupportStarted) return;
+  liveSupportStarted=true;
+
+  try{
+    const fb=await tmsFirebaseReady;
+    if(!fb.auth || !fb.db) throw new Error("Firebase is not connected.");
+
+    const user=fb.auth.currentUser || await fb.auth.signInAnonymously().then(r=>r.user);
+    const chatRef=fb.db.ref("supportChats/"+user.uid);
+    const messagesRef=chatRef.child("messages");
+    liveSupportMessagesRef=messagesRef;
+
+    await chatRef.child("meta").update({
+      updatedAt:new Date().toISOString(),
+      status:"open"
+    });
+
+    messagesRef.on("value",snap=>{
+      const data=snap.val()||{};
+      const messages=Object.entries(data).map(([key,value])=>({key,...value}));
+      messages.sort((a,b)=>String(a.createdAt||"").localeCompare(String(b.createdAt||"")));
+
+      const box=$("#messages");
+      if(!messages.length){
+        box.innerHTML='<div class="msg">Hi! Welcome to TMSJEANS. Send us your message and our support team will reply here.</div>';
+        return;
+      }
+
+      box.innerHTML=messages.map(m=>{
+        const cls=m.sender==="customer"?"msg you":"msg";
+        const safe=document.createElement("div");
+        safe.textContent=m.text||"";
+        return `<div class="${cls}">${safe.innerHTML}</div>`;
+      }).join("");
+      box.scrollTop=box.scrollHeight;
+    },err=>{
+      console.error("Live support listener failed:",err);
+      $("#messages").insertAdjacentHTML("beforeend",'<div class="msg">Live support is temporarily unavailable. Please try again in a moment.</div>');
+    });
+  }catch(error){
+    console.error("Live support startup failed:",error);
+    $("#messages").insertAdjacentHTML("beforeend",'<div class="msg">Live support is temporarily unavailable. Please try again in a moment.</div>');
+  }
+}
+
+function openChat(){
+  $("#chat").classList.add("open");
+  startLiveSupport();
+}
+
 function closeChat(){$("#chat").classList.remove("open")}
-function chatReply(t){
-  t=t.toLowerCase();
-  if(t.includes("size"))return"Sure. Choose your usual waist size. For a looser jeans fit, go one size up.";
-  if(t.includes("order"))return"Keep your TMS order ID ready for order-status support. Your saved orders are also visible under My Account.";
-  if(t.includes("delivery")||t.includes("ship"))return"Orders are generally prepared for dispatch within 24–48 hours. Delivery time depends on your PIN code.";
-  if(t.includes("support"))return"Sure. Type your issue here and the support flow will guide you.";
-  return"Got it. Tell me whether you need help with size, order, delivery or support.";
+
+async function sendChat(text){
+  text=(text||"").trim();
+  if(!text)return;
+
+  try{
+    const fb=await tmsFirebaseReady;
+    if(!fb.auth || !fb.db) throw new Error("Firebase is not connected.");
+    const user=fb.auth.currentUser || await fb.auth.signInAnonymously().then(r=>r.user);
+    const base=fb.db.ref("supportChats/"+user.uid);
+    const messagesRef=base.child("messages");
+
+    await messagesRef.push({
+      text,
+      sender:"customer",
+      createdAt:new Date().toISOString()
+    });
+
+    await base.child("meta").update({
+      lastMessage:text,
+      lastSender:"customer",
+      updatedAt:new Date().toISOString(),
+      status:"open"
+    });
+
+    $("#chatInput").value="";
+  }catch(error){
+    console.error("Live support send failed:",error);
+    $("#messages").insertAdjacentHTML("beforeend",'<div class="msg">Message could not be sent. Please try again.</div>');
+  }
 }
-function sendChat(text){
-  text=(text||"").trim(); if(!text)return;
-  const m=$("#messages");
-  m.insertAdjacentHTML("beforeend",`<div class="msg you"></div>`);
-  m.lastElementChild.textContent=text;
-  setTimeout(()=>{
-    m.insertAdjacentHTML("beforeend",`<div class="msg"></div>`);
-    m.lastElementChild.textContent=chatReply(text);
-    m.scrollTop=m.scrollHeight;
-  },300);
+
+
+/* Return / replacement requests */
+async function submitReturnRequest(e){
+  e.preventDefault();
+
+  const msg=$("#returnMessage");
+  msg.textContent="Submitting request…";
+
+  const requestId="TMS-RET-" + Date.now().toString().slice(-8);
+
+  const request={
+    id:requestId,
+    orderId:$("#returnOrderId").value.trim(),
+    customerName:$("#returnName").value.trim(),
+    type:$("#returnType").value,
+    item:$("#returnItem").value.trim(),
+    resolution:$("#returnResolution").value,
+    reason:$("#returnReason").value.trim(),
+    status:"New",
+    createdAt:new Date().toISOString()
+  };
+
+  try{
+    const fb=await tmsFirebaseReady;
+    if(!fb.auth || !fb.db){
+      throw new Error("Firebase is not connected.");
+    }
+
+    const user=fb.auth.currentUser || await fb.auth.signInAnonymously().then(r=>r.user);
+
+    /* Saved under the authenticated customer's own user node so
+       the existing Firebase user rules can accept the request. */
+    await fb.db.ref("users/"+user.uid+"/returnRequests/"+requestId).set(request);
+
+    const local=JSON.parse(localStorage.getItem("tms_return_requests_v1")||"[]");
+    local.unshift(request);
+    localStorage.setItem("tms_return_requests_v1",JSON.stringify(local));
+
+    msg.innerHTML="✓ Request submitted.<br>Request ID: <strong>"+requestId+"</strong>";
+    e.target.reset();
+  }catch(error){
+    console.error("Return request failed:",error);
+    msg.textContent="Could not submit the request. Please check the Firebase connection.";
+  }
 }
+
+$("#returnForm").addEventListener("submit",submitReturnRequest);
 
 /* Events */
 document.addEventListener("click",e=>{
