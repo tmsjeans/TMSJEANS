@@ -1050,83 +1050,6 @@ footer{
   .two{grid-template-columns:1fr}
   .search-modal{padding:36px 22px}
 }
-
-/* RETURN / REPLACEMENT */
-.returns-section{
-  padding:110px 6vw;
-  background:var(--paper2);
-}
-.returns-grid{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:5vw;
-  align-items:start;
-}
-.return-cards{
-  display:grid;
-  gap:12px;
-}
-.return-card{
-  background:rgba(255,255,255,.55);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:20px;
-}
-.return-card strong{display:block;font-size:13px;margin-bottom:7px}
-.return-card span{display:block;color:#6f6a62;font-size:12px;line-height:1.65}
-.return-panel{
-  background:#111;
-  color:#fff;
-  border-radius:24px;
-  padding:28px;
-  box-shadow:0 25px 60px rgba(0,0,0,.12);
-}
-.return-panel .eyebrow{color:#aaa}
-.return-panel h3{
-  margin:0;
-  font-family:"Playfair Display",serif;
-  font-size:42px;
-  font-weight:500;
-  line-height:1;
-}
-.return-panel p{
-  color:#bdbdbd;
-  font-size:13px;
-  line-height:1.65;
-}
-.return-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:22px;
-}
-.return-form{
-  margin-top:20px;
-  display:grid;
-  gap:10px;
-}
-.return-form input,
-.return-form select,
-.return-form textarea{
-  width:100%;
-  border:1px solid #333;
-  background:#181818;
-  color:#fff;
-  border-radius:11px;
-  padding:12px 13px;
-  outline:none;
-}
-.return-form input:focus,
-.return-form select:focus,
-.return-form textarea:focus{border-color:#777}
-.return-form textarea{min-height:110px;resize:vertical}
-.return-message{min-height:20px;font-size:12px;color:#aaa}
-@media(max-width:800px){
-  .returns-section{padding:80px 5vw}
-  .returns-grid{grid-template-columns:1fr}
-  .return-panel h3{font-size:36px}
-}
-
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
@@ -1298,58 +1221,14 @@ footer{
 </section>
 
 
-<section class="returns-section" id="returns">
-  <div class="returns-grid">
+<section class="section" id="returns">
+  <div class="contact">
     <div>
-      <p class="eyebrow">RETURN &amp; REPLACEMENT</p>
-      <h2 class="title">Need a<br><em>change?</em></h2>
-      <p class="lead" style="max-width:560px">
-        Received the wrong item, found a problem, or need a size replacement?
-        Submit your request here and keep your TMS order ID ready.
-      </p>
-
-      <div class="return-cards" style="margin-top:28px">
-        <div class="return-card">
-          <strong>SIZE REPLACEMENT</strong>
-          <span>Request a replacement when the delivered size does not work for you, subject to the applicable TMSJEANS policy.</span>
-        </div>
-        <div class="return-card">
-          <strong>WRONG / DAMAGED ITEM</strong>
-          <span>Tell us what went wrong and submit the order ID so the support team can review the request.</span>
-        </div>
-        <div class="return-card">
-          <strong>RETURN / REFUND</strong>
-          <span>Choose return/refund when you no longer need the item, subject to the applicable return policy.</span>
-        </div>
-      </div>
+      <p class="eyebrow">RETURNS / REPLACEMENT</p>
+      <h2>Need a return<br><em>or exchange?</em></h2>
+      <p>Submit your request with your order details and our team can review it.</p>
     </div>
-
-    <div class="return-panel">
-      <p class="eyebrow">REQUEST SUPPORT</p>
-      <h3>Return or<br>replacement.</h3>
-      <p>Fill in the details below. Your request will be saved with your TMSJEANS customer session.</p>
-
-      <form class="return-form" id="returnForm">
-        <input id="returnOrderId" required placeholder="Order ID (e.g. TMS-96006355)">
-        <input id="returnName" required placeholder="Full name">
-        <select id="returnType" required>
-          <option value="">Select request type</option>
-          <option>Size Replacement</option>
-          <option>Return</option>
-          <option>Wrong Item</option>
-          <option>Damaged / Defective</option>
-        </select>
-        <input id="returnItem" required placeholder="Product name">
-        <select id="returnResolution" required>
-          <option value="">Preferred resolution</option>
-          <option>Replacement</option>
-          <option>Return / Refund</option>
-        </select>
-        <textarea id="returnReason" required placeholder="Tell us what happened"></textarea>
-        <button class="btn btn-light" type="submit">SUBMIT REQUEST</button>
-        <div class="return-message" id="returnMessage"></div>
-      </form>
-    </div>
+    <button class="btn btn-dark" id="returnOpen">REQUEST RETURN / EXCHANGE</button>
   </div>
 </section>
 
@@ -1428,6 +1307,7 @@ footer{
   <div class="footer-links">
     <a href="#shop">Shop</a>
     <a href="#story">About</a>
+    <a href="#returns">Returns</a>
     <a href="#support">Support</a><a href="#reviews">Reviews</a><a href="admin.html">Admin</a>
   </div>
   <div class="footer-copy">© 2026 TMSJEANS</div>
@@ -1544,15 +1424,44 @@ footer{
   </div>
 </div>
 
+
+<div class="overlay" id="returnOverlay">
+  <div class="modal small-modal">
+    <button class="close" id="returnClose">×</button>
+    <p class="eyebrow">RETURN / EXCHANGE REQUEST</p>
+    <h2 class="title">Need a<br><em>change?</em></h2>
+    <form class="form" id="returnForm">
+      <input id="returnOrderId" required placeholder="Order ID (e.g. TMS-96006355)">
+      <input id="returnName" required placeholder="Full name">
+      <select id="returnType" required style="width:100%;padding:13px;border:1px solid #d1ccc2;background:#fff;border-radius:10px;font-size:12px;outline:0">
+        <option value="">Select request type</option>
+        <option>Size Exchange</option>
+        <option>Return</option>
+        <option>Wrong Item</option>
+        <option>Damaged / Defective</option>
+      </select>
+      <input id="returnItem" required placeholder="Product name">
+      <select id="returnResolution" required style="width:100%;padding:13px;border:1px solid #d1ccc2;background:#fff;border-radius:10px;font-size:12px;outline:0">
+        <option value="">Preferred resolution</option>
+        <option>Exchange</option>
+        <option>Return / Refund</option>
+      </select>
+      <textarea id="returnReason" required placeholder="Tell us what happened"></textarea>
+      <button class="btn btn-dark" type="submit">SUBMIT REQUEST</button>
+      <p class="muted" id="returnMessage"></p>
+    </form>
+  </div>
+</div>
+
 <button class="chat-fab" id="chatFab">✦</button>
 
 <section class="chat" id="chat">
   <div class="chat-head">
-    <div><strong>TMS Support</strong><span>Live support · Real-time replies</span></div>
+    <div><strong>TMS Support</strong><span>Live support · real-time replies</span></div>
     <button id="chatClose">×</button>
   </div>
   <div class="messages" id="messages">
-    <div class="msg">Hi! Welcome to TMSJEANS. Send us your message and our support team will reply here.</div>
+    <div class="msg">Hi! Welcome to TMSJEANS. How can I help you?</div>
   </div>
   <div class="quick">
     <button data-quick="I need size help">Size help</button>
@@ -1814,140 +1723,157 @@ async function renderOrders(){
     : '<p class="muted">No orders yet.</p>';
 }
 
-let liveSupportMessagesRef=null;
-let liveSupportStarted=false;
+let supportMessagesRef = null;
+let supportUser = null;
 
 async function startLiveSupport(){
-  if(liveSupportStarted) return;
-  liveSupportStarted=true;
-
-  try{
-    const fb=await tmsFirebaseReady;
-    if(!fb.auth || !fb.db) throw new Error("Firebase is not connected.");
-
-    const user=fb.auth.currentUser || await fb.auth.signInAnonymously().then(r=>r.user);
-    const chatRef=fb.db.ref("supportChats/"+user.uid);
-    const messagesRef=chatRef.child("messages");
-    liveSupportMessagesRef=messagesRef;
-
-    await chatRef.child("meta").update({
-      updatedAt:new Date().toISOString(),
-      status:"open"
-    });
-
-    messagesRef.on("value",snap=>{
-      const data=snap.val()||{};
-      const messages=Object.entries(data).map(([key,value])=>({key,...value}));
-      messages.sort((a,b)=>String(a.createdAt||"").localeCompare(String(b.createdAt||"")));
-
-      const box=$("#messages");
-      if(!messages.length){
-        box.innerHTML='<div class="msg">Hi! Welcome to TMSJEANS. Send us your message and our support team will reply here.</div>';
-        return;
-      }
-
-      box.innerHTML=messages.map(m=>{
-        const cls=m.sender==="customer"?"msg you":"msg";
-        const safe=document.createElement("div");
-        safe.textContent=m.text||"";
-        return `<div class="${cls}">${safe.innerHTML}</div>`;
-      }).join("");
-      box.scrollTop=box.scrollHeight;
-    },err=>{
-      console.error("Live support listener failed:",err);
-      $("#messages").insertAdjacentHTML("beforeend",'<div class="msg">Live support is temporarily unavailable. Please try again in a moment.</div>');
-    });
-  }catch(error){
-    console.error("Live support startup failed:",error);
-    $("#messages").insertAdjacentHTML("beforeend",'<div class="msg">Live support is temporarily unavailable. Please try again in a moment.</div>');
+  const fb = await tmsFirebaseReady;
+  if(!fb || !fb.auth || !fb.db){
+    throw new Error("Firebase is not connected.");
   }
+
+  supportUser = fb.auth.currentUser || (await fb.auth.signInAnonymously()).user;
+  const uid = supportUser.uid;
+
+  // Create/update a small customer profile for the admin conversation list.
+  const savedName = localStorage.getItem("tms_support_name_v1") || "Website Customer";
+  await fb.db.ref("supportChats/" + uid + "/profile").update({
+    name: savedName,
+    updatedAt: new Date().toISOString()
+  });
+  await fb.db.ref("supportChats/" + uid + "/meta").update({
+    name: savedName,
+    status: "open",
+    updatedAt: new Date().toISOString()
+  });
+
+  if(supportMessagesRef) supportMessagesRef.off();
+  supportMessagesRef = fb.db.ref("supportChats/" + uid + "/messages");
+
+  supportMessagesRef.on("value", snap => {
+    const data = snap.val() || {};
+    const msgs = Object.values(data).sort((a,b) =>
+      String(a.createdAt || "").localeCompare(String(b.createdAt || ""))
+    );
+
+    const m = $("#messages");
+    m.innerHTML = msgs.map(msg => {
+      const cls = msg.sender === "customer" ? "msg you" : "msg";
+      return `<div class="${cls}"></div>`;
+    }).join("");
+
+    msgs.forEach((msg, i) => {
+      m.children[i].textContent = msg.text || "";
+    });
+
+    if(!msgs.length){
+      m.innerHTML = '<div class="msg">Hi! Welcome to TMSJEANS. Send us your message and our support team will reply here.</div>';
+    }
+    m.scrollTop = m.scrollHeight;
+  });
+
+  await fb.db.ref("supportChats/" + uid + "/meta").update({
+    status: "open",
+    updatedAt: new Date().toISOString()
+  });
 }
 
 function openChat(){
   $("#chat").classList.add("open");
-  startLiveSupport();
+  startLiveSupport().catch(error => {
+    console.error("Live support connection failed:", error);
+    $("#messages").innerHTML = '<div class="msg">Live support is temporarily unavailable. Please try again in a moment.</div>';
+  });
 }
 
-function closeChat(){$("#chat").classList.remove("open")}
+function closeChat(){
+  $("#chat").classList.remove("open");
+}
 
 async function sendChat(text){
-  text=(text||"").trim();
-  if(!text)return;
+  text = (text || "").trim();
+  if(!text) return;
 
   try{
-    const fb=await tmsFirebaseReady;
-    if(!fb.auth || !fb.db) throw new Error("Firebase is not connected.");
-    const user=fb.auth.currentUser || await fb.auth.signInAnonymously().then(r=>r.user);
-    const base=fb.db.ref("supportChats/"+user.uid);
-    const messagesRef=base.child("messages");
-
-    await messagesRef.push({
-      text,
-      sender:"customer",
-      createdAt:new Date().toISOString()
-    });
-
-    await base.child("meta").update({
-      lastMessage:text,
-      lastSender:"customer",
-      updatedAt:new Date().toISOString(),
-      status:"open"
-    });
-
-    $("#chatInput").value="";
-  }catch(error){
-    console.error("Live support send failed:",error);
-    $("#messages").insertAdjacentHTML("beforeend",'<div class="msg">Message could not be sent. Please try again.</div>');
-  }
-}
-
-
-/* Return / replacement requests */
-async function submitReturnRequest(e){
-  e.preventDefault();
-
-  const msg=$("#returnMessage");
-  msg.textContent="Submitting request…";
-
-  const requestId="TMS-RET-" + Date.now().toString().slice(-8);
-
-  const request={
-    id:requestId,
-    orderId:$("#returnOrderId").value.trim(),
-    customerName:$("#returnName").value.trim(),
-    type:$("#returnType").value,
-    item:$("#returnItem").value.trim(),
-    resolution:$("#returnResolution").value,
-    reason:$("#returnReason").value.trim(),
-    status:"New",
-    createdAt:new Date().toISOString()
-  };
-
-  try{
-    const fb=await tmsFirebaseReady;
-    if(!fb.auth || !fb.db){
+    const fb = await tmsFirebaseReady;
+    if(!fb || !fb.auth || !fb.db){
       throw new Error("Firebase is not connected.");
     }
 
-    const user=fb.auth.currentUser || await fb.auth.signInAnonymously().then(r=>r.user);
+    const user = fb.auth.currentUser || (await fb.auth.signInAnonymously()).user;
+    const uid = user.uid;
+    const savedName = localStorage.getItem("tms_support_name_v1") || "Website Customer";
 
-    /* Saved under the authenticated customer's own user node so
-       the existing Firebase user rules can accept the request. */
-    await fb.db.ref("users/"+user.uid+"/returnRequests/"+requestId).set(request);
+    const ref = fb.db.ref("supportChats/" + uid + "/messages").push();
+    await ref.set({
+      text,
+      sender: "customer",
+      name: savedName,
+      createdAt: new Date().toISOString()
+    });
 
-    const local=JSON.parse(localStorage.getItem("tms_return_requests_v1")||"[]");
-    local.unshift(request);
-    localStorage.setItem("tms_return_requests_v1",JSON.stringify(local));
+    await fb.db.ref("supportChats/" + uid + "/meta").update({
+      name: savedName,
+      lastMessage: text,
+      lastSender: "customer",
+      status: "open",
+      updatedAt: new Date().toISOString()
+    });
 
-    msg.innerHTML="✓ Request submitted.<br>Request ID: <strong>"+requestId+"</strong>";
-    e.target.reset();
+    $("#chatInput").value = "";
   }catch(error){
-    console.error("Return request failed:",error);
-    msg.textContent="Could not submit the request. Please check the Firebase connection.";
+    console.error("Live support send failed:", error);
+    $("#messages").insertAdjacentHTML("beforeend", '<div class="msg">Message could not be sent. Please try again.</div>');
   }
 }
 
-$("#returnForm").addEventListener("submit",submitReturnRequest);
+// Return / exchange request
+$("#returnOpen").onclick = () => $("#returnOverlay").classList.add("open");
+$("#returnClose").onclick = () => $("#returnOverlay").classList.remove("open");
+
+$("#returnForm").onsubmit = async e => {
+  e.preventDefault();
+  const button = e.target.querySelector('button[type="submit"]');
+  if(button){button.disabled=true;button.textContent="SUBMITTING..."}
+
+  try{
+    const fb = await tmsFirebaseReady;
+    if(!fb || !fb.auth || !fb.db){
+      throw new Error("Firebase is not connected.");
+    }
+
+    const user = fb.auth.currentUser || (await fb.auth.signInAnonymously()).user;
+    const uid = user.uid;
+    const requestId = "RET-" + Date.now().toString().slice(-8);
+
+    const request = {
+      id: requestId,
+      uid,
+      orderId: $("#returnOrderId").value.trim(),
+      customerName: $("#returnName").value.trim(),
+      type: $("#returnType").value,
+      item: $("#returnItem").value.trim(),
+      resolution: $("#returnResolution").value,
+      reason: $("#returnReason").value.trim(),
+      status: "New",
+      createdAt: new Date().toISOString()
+    };
+
+    await fb.db.ref("returns/" + uid + "/" + requestId).set(request);
+    $("#returnMessage").textContent = "✓ Request submitted: " + requestId;
+    e.target.reset();
+
+    setTimeout(() => {
+      $("#returnOverlay").classList.remove("open");
+      $("#returnMessage").textContent = "";
+    }, 1700);
+  }catch(error){
+    console.error("Return request failed:", error);
+    $("#returnMessage").textContent = "Request could not be submitted. Please try again.";
+  }finally{
+    if(button){button.disabled=false;button.textContent="SUBMIT REQUEST"}
+  }
+};
 
 /* Events */
 document.addEventListener("click",e=>{
@@ -2107,6 +2033,9 @@ $("#editorialRender").innerHTML=svgGarment(PRODUCTS[10],"side");
 
 
 // Start anonymous Firebase session early. No SMS is used for customer checkout.
+
+// Start the live-support session quietly. Messages sync through Firebase in real time.
+tmsFirebaseReady.then(() => startLiveSupport().catch(() => {})).catch(() => {});
 tmsFirebaseReady.catch(() => {});
 
 renderProducts();
