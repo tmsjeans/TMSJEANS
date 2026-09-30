@@ -827,6 +827,37 @@ footer{
 
 /* ACCOUNT + CHECKOUT */
 .small-modal{width:min(570px,100%)}
+.account-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:18px;
+  padding:4px;
+  background:#e8e3da;
+  border-radius:12px;
+}
+.account-switch button{
+  border:0;
+  background:transparent;
+  color:#77736b;
+  border-radius:9px;
+  padding:10px 12px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.05em;
+}
+.account-switch button.active{background:#111;color:#fff}
+.account-status{
+  padding:14px;
+  border:1px solid #d9d3c8;
+  background:#fff;
+  border-radius:12px;
+  margin-top:18px;
+  font-size:11px;
+}
+.account-status strong{display:block;font-size:12px;margin-bottom:4px}
+.account-links{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}
+.account-link{border:0;background:transparent;padding:0;color:#5f5a52;font-size:10px;text-decoration:underline}
 .form{
   display:grid;
   gap:9px;
@@ -1411,16 +1442,34 @@ footer{
     <p class="eyebrow">MY ACCOUNT</p>
     <h2 class="title">Your<br><em>account.</em></h2>
 
-    <form class="form" id="accountForm">
-      <input id="accountEmail" type="email" required placeholder="Email address">
-      <input id="accountPassword" type="password" required placeholder="Password">
-      <button class="btn btn-dark" type="submit">SIGN IN</button>
-      <p class="muted" id="accountMessage"></p>
-    </form>
+    <div id="accountLoggedOut">
+      <div class="account-switch">
+        <button type="button" id="loginModeBtn" class="active">LOGIN</button>
+        <button type="button" id="createModeBtn">CREATE ACCOUNT</button>
+      </div>
 
-    <button id="ordersBtn" class="btn btn-outline" style="margin-top:10px;width:100%">MY ORDERS</button>
-    <button id="signOutBtn" class="text-link" style="border:0;background:transparent;margin-top:15px;display:none">Sign out</button>
-    <div id="ordersList" style="margin-top:16px"></div>
+      <form class="form" id="accountForm">
+        <input id="accountName" type="text" placeholder="Full name" style="display:none">
+        <input id="accountEmail" type="email" required placeholder="Email address">
+        <input id="accountPassword" type="password" required minlength="6" placeholder="Password (minimum 6 characters)">
+        <button class="btn btn-dark" id="accountSubmit" type="submit">LOGIN</button>
+        <div class="account-links">
+          <button type="button" class="account-link" id="forgotPasswordBtn">Forgot password?</button>
+          <button type="button" class="account-link" id="switchAccountModeBtn">Create account</button>
+        </div>
+        <p class="muted" id="accountMessage"></p>
+      </form>
+    </div>
+
+    <div id="accountLoggedIn" style="display:none">
+      <div class="account-status">
+        <strong id="accountWelcome">Signed in</strong>
+        <span id="accountEmailDisplay" class="muted"></span>
+      </div>
+      <button id="ordersBtn" class="btn btn-outline" style="margin-top:10px;width:100%">MY ORDERS</button>
+      <button id="signOutBtn" class="text-link" style="border:0;background:transparent;margin-top:15px">Sign out</button>
+      <div id="ordersList" style="margin-top:16px"></div>
+    </div>
   </div>
 </div>
 
@@ -1498,10 +1547,20 @@ let tmsFirebaseReady = (async function(){
     }
     const auth = firebase.auth();
     const db = firebase.database();
+    tmsAuth=auth;
+    tmsDb=db;
 
     if(!auth.currentUser){
       await auth.signInAnonymously();
     }
+
+    auth.onAuthStateChanged(user=>{
+      if(document.getElementById("accountOverlay")) renderAccount();
+      if(user && !user.isAnonymous){
+        const nm=user.displayName || user.email || "Customer";
+        localStorage.setItem("tms_support_name_v1",nm);
+      }
+    });
 
     return {auth, db};
   }catch(error){
@@ -1539,6 +1598,9 @@ let account=JSON.parse(localStorage.getItem("tms_account_v4")||"null");
 const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
 const money=n=>"₹"+Number(n).toLocaleString("en-IN");
+let tmsAuth=null;
+let tmsDb=null;
+let accountMode="login";
 
 /* Distinct built-in product renders.
    These are vector product visuals so the site stays self-contained and
@@ -1674,20 +1736,77 @@ function openBag(){$("#drawer").classList.add("open");$("#backdrop").classList.a
 function closeBag(){$("#drawer").classList.remove("open");$("#backdrop").classList.remove("show")}
 function openCheckout(){if(!cart.length)return;closeBag();$("#checkoutOverlay").classList.add("open")}
 
-function createAccount(email){
-  account={email};localStorage.setItem("tms_account_v4",JSON.stringify(account));renderAccount();
+function setAccountMode(mode){
+  accountMode=mode;
+  const isCreate=mode==="create";
+  $("#loginModeBtn").classList.toggle("active",!isCreate);
+  $("#createModeBtn").classList.toggle("active",isCreate);
+  $("#accountName").style.display=isCreate?"block":"none";
+  $("#accountName").required=isCreate;
+  $("#accountSubmit").textContent=isCreate?"CREATE ACCOUNT":"LOGIN";
+  $("#switchAccountModeBtn").textContent=isCreate?"Back to login":"Create account";
+  $("#forgotPasswordBtn").style.display=isCreate?"none":"inline";
+  $("#accountMessage").textContent="";
 }
-function renderAccount(){
-  if(account){
-    $("#accountMessage").textContent="Signed in as "+account.email;
-    $("#accountEmail").value=account.email;
-    $("#accountPassword").style.display="none";
-    $("#ordersBtn").style.display="block";
-    $("#signOutBtn").style.display="inline-block";
+
+async function saveUserProfile(user,name){
+  try{
+    const fb=await tmsFirebaseReady;
+    if(!fb.db||!user)return;
+    const profile={email:user.email||"",name:(name||user.displayName||user.email||"Customer").trim(),updatedAt:new Date().toISOString()};
+    await fb.db.ref("users/"+user.uid).update(profile);
+  }catch(error){
+    console.warn("Could not save user profile:",error);
+  }
+}
+
+async function createAccount(email,password,name){
+  const fb=await tmsFirebaseReady;
+  if(!fb.auth)throw new Error("Firebase is not connected.");
+  const current=fb.auth.currentUser;
+  let user=null;
+  if(current && current.isAnonymous){
+    const credential=firebase.auth.EmailAuthProvider.credential(email,password);
+    try{
+      const result=await current.linkWithCredential(credential);
+      user=result.user;
+    }catch(error){
+      if(error.code==="auth/credential-already-in-use" || error.code==="auth/email-already-in-use"){
+        throw new Error("This email already has an account. Please use LOGIN instead.");
+      }
+      throw error;
+    }
   }else{
-    $("#accountPassword").style.display="block";
-    $("#ordersBtn").style.display="block";
-    $("#signOutBtn").style.display="none";
+    const result=await fb.auth.createUserWithEmailAndPassword(email,password);
+    user=result.user;
+  }
+  if(user && name){
+    try{await user.updateProfile({displayName:name});}catch(e){}
+  }
+  if(user){
+    localStorage.setItem("tms_support_name_v1",name||user.displayName||user.email||"Customer");
+    await saveUserProfile(user,name);
+  }
+  localStorage.setItem("tms_account_v4",JSON.stringify({email:user.email,name:name||user.displayName||""}));
+  setAccountMode("login");
+  renderAccount();
+}
+
+function renderAccount(){
+  const user=tmsAuth && tmsAuth.currentUser;
+  const loggedIn=!!(user && !user.isAnonymous);
+  $("#accountLoggedOut").style.display=loggedIn?"none":"block";
+  $("#accountLoggedIn").style.display=loggedIn?"block":"none";
+  if(loggedIn){
+    $("#accountEmailDisplay").textContent=user.email||"";
+    $("#accountWelcome").textContent="Welcome, "+(user.displayName||"TMSJEANS customer");
+    $("#accountEmail").value=user.email||"";
+    account={email:user.email,name:user.displayName||""};
+    localStorage.setItem("tms_account_v4",JSON.stringify(account));
+  }else{
+    const saved=JSON.parse(localStorage.getItem("tms_account_v4")||"null");
+    if(saved && saved.email)$("#accountEmail").value=saved.email;
+    setAccountMode(accountMode);
   }
 }
 async function renderOrders(){
@@ -2015,12 +2134,65 @@ $("#checkoutForm").onsubmit = async e => {
 
 $("#accountOpen").onclick=()=>{$("#accountOverlay").classList.add("open");renderAccount()};
 $("#accountClose").onclick=()=>$("#accountOverlay").classList.remove("open");
-$("#accountForm").onsubmit=e=>{
+$("#loginModeBtn").onclick=()=>setAccountMode("login");
+$("#createModeBtn").onclick=()=>setAccountMode("create");
+$("#switchAccountModeBtn").onclick=()=>setAccountMode(accountMode==="login"?"create":"login");
+$("#forgotPasswordBtn").onclick=async()=>{
+  const email=$("#accountEmail").value.trim();
+  if(!email){$("#accountMessage").textContent="Enter your email first.";return;}
+  try{
+    const fb=await tmsFirebaseReady;
+    await fb.auth.sendPasswordResetEmail(email);
+    $("#accountMessage").textContent="Password reset email sent. Check your inbox.";
+  }catch(error){
+    console.error(error);
+    $("#accountMessage").textContent=error.message||"Could not send reset email.";
+  }
+};
+$("#accountForm").onsubmit=async e=>{
   e.preventDefault();
-  createAccount($("#accountEmail").value.trim());
+  const email=$("#accountEmail").value.trim();
+  const password=$("#accountPassword").value;
+  const name=$("#accountName").value.trim();
+  const button=$("#accountSubmit");
+  if(button){button.disabled=true;button.textContent=accountMode==="create"?"CREATING...":"LOGGING IN...";}
+  try{
+    const fb=await tmsFirebaseReady;
+    if(!fb.auth)throw new Error("Firebase is not connected.");
+    if(accountMode==="create"){
+      await createAccount(email,password,name);
+      $("#accountMessage").textContent="Account created successfully.";
+    }else{
+      const result=await fb.auth.signInWithEmailAndPassword(email,password);
+      await saveUserProfile(result.user,result.user.displayName||"");
+      localStorage.setItem("tms_account_v4",JSON.stringify({email:result.user.email,name:result.user.displayName||""}));
+      renderAccount();
+    }
+  }catch(error){
+    console.error("Account action failed:",error);
+    let msg=error.message||"Something went wrong.";
+    if(error.code==="auth/operation-not-allowed")msg="Email/Password login is not enabled in Firebase Authentication.";
+    if(error.code==="auth/invalid-credential"||error.code==="auth/wrong-password"||error.code==="auth/user-not-found")msg="Email or password is incorrect.";
+    if(error.code==="auth/weak-password")msg="Password must be at least 6 characters.";
+    $("#accountMessage").textContent=msg;
+  }finally{
+    if(button){button.disabled=false;button.textContent=accountMode==="create"?"CREATE ACCOUNT":"LOGIN";}
+  }
 };
 $("#ordersBtn").onclick=renderOrders;
-$("#signOutBtn").onclick=()=>{account=null;localStorage.removeItem("tms_account_v4");renderAccount();$("#ordersList").innerHTML=""};
+$("#signOutBtn").onclick=async()=>{
+  try{
+    const fb=await tmsFirebaseReady;
+    await fb.auth.signOut();
+    account=null;
+    localStorage.removeItem("tms_account_v4");
+    $("#ordersList").innerHTML="";
+    renderAccount();
+    if(!fb.auth.currentUser) await fb.auth.signInAnonymously();
+  }catch(error){
+    console.error("Sign out failed:",error);
+  }
+};
 
 $("#chatFab").onclick=openChat;
 $("#supportOpen").onclick=openChat;
