@@ -1081,6 +1081,38 @@ footer{
   .two{grid-template-columns:1fr}
   .search-modal{padding:36px 22px}
 }
+
+@media(max-width:1000px){
+  .quick-add{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@media(max-width:600px){
+  .quick-add{
+    bottom:12px;
+    left:10px;
+    right:10px;
+    min-height:42px;
+    padding:11px 12px;
+    touch-action:manipulation;
+  }
+  .modal-actions{
+    position:sticky;
+    bottom:0;
+    z-index:5;
+    padding:10px 0 4px;
+    margin-top:18px;
+    background:rgba(247,244,238,.96);
+    backdrop-filter:blur(7px);
+  }
+  .modal-actions .btn{
+    min-height:46px;
+    touch-action:manipulation;
+  }
+}
+
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
@@ -1387,8 +1419,8 @@ footer{
         </div>
 
         <div class="modal-actions">
-          <button class="btn btn-dark" id="addBtn">ADD TO BAG</button>
-          <button class="btn btn-outline" id="buyBtn">BUY NOW</button>
+          <button class="btn btn-dark" id="addBtn" type="button">ADD TO BAG</button>
+          <button class="btn btn-outline" id="buyBtn" type="button">BUY NOW</button>
         </div>
 
         <div class="details">
@@ -1426,7 +1458,6 @@ footer{
 
       <div class="payment">
         <label><input type="radio" name="payment" checked value="COD"> Cash on Delivery</label>
-        <label><input type="radio" name="payment" value="UPI"> UPI <span style="color:#999">(coming soon)</span></label>
       </div>
 
       <div class="checkout-total"><span>Total</span><strong id="checkoutTotal">₹0</strong></div>
@@ -1713,6 +1744,7 @@ function openProduct(id){
 
 function addSelected(buyNow=false){
   if(!selected)return;
+  if(!Number.isFinite(qty) || qty < 1) qty=1;
   const found=cart.find(x=>x.id===selected.id && x.size===selectedSize);
   if(found)found.qty+=qty;
   else cart.push({id:selected.id,name:selected.name,cat:selected.cat,price:selected.price,size:selectedSize,qty,type:selected.type,style:selected.style,color:selected.color,accent:selected.accent,fit:selected.fit});
@@ -2014,13 +2046,15 @@ $("#returnForm").onsubmit = async e => {
 
 /* Events */
 document.addEventListener("click",e=>{
-  const o=e.target.closest("[data-open]");
-  if(o){openProduct(Number(o.dataset.open));return}
   const qa=e.target.closest("[data-quick-add]");
   if(qa){
+    e.preventDefault();
+    e.stopPropagation();
     selected=PRODUCTS.find(p=>p.id===Number(qa.dataset.quickAdd));
     selectedSize="";qty=1;addSelected(false);return;
   }
+  const o=e.target.closest("[data-open]");
+  if(o){openProduct(Number(o.dataset.open));return}
   const f=e.target.closest("[data-filter]");
   if(f){filter=f.dataset.filter;$$(".filter").forEach(x=>x.classList.toggle("active",x.dataset.filter===filter));renderProducts();return}
   const cat=e.target.closest("[data-cat]");
